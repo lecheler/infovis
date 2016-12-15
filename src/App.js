@@ -13,7 +13,7 @@ const App = React.createClass({
     return (
       <Router history={browserHistory} >
         <Route path="/" component={NotFound} />
-        <Route path="/test/:page" component={Main} />
+        <Route path="/main" component={Main} />
       </Router>
     );
   }
