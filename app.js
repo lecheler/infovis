@@ -11,6 +11,8 @@ app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:htt
 // Serve static assets
 app.use(express.static(path.resolve(__dirname, 'build')));
 
+console.log(process.env.DATABASE_URL);
+
 app.get('/api/*', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify({ a: 1 }));
