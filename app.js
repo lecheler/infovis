@@ -2,6 +2,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
+require('dotenv').config()
 
 const app = express();
 
@@ -11,12 +12,31 @@ app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:htt
 // Serve static assets
 app.use(express.static(path.resolve(__dirname, 'build')));
 
-console.log(process.env.DATABASE_URL);
 
-app.get('/api/*', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify({ a: 1 }));
+// API Testing
+const pgp = require('pg-promise')();
+const cn = {
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    database: process.env.DB_NAME,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    ssl: true
+};
+const db = pgp(cn);
+
+app.get('/api/questions', (req, res) => {
+  db.any("select * from test_table", [true])
+    .then(function (data) {
+        // success;
+        res.json(data);
+    })
+    .catch(function (error) {
+        // error;
+        console.log(error);
+    });
 });
+
 
 // Always return the main index.html, so react-router render the route in the client
 app.get('*', (req, res) => {
