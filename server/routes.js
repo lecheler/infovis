@@ -11,6 +11,11 @@ module.exports = function(app){
 	};
 	const db = pgp(cn);
 
+	// https://github.com/vitaly-t/pg-promise/wiki/Learn-by-Example
+	app.get('/api/ping', (req, res) => {
+		res.send('pong!');
+	});
+
 	app.get('/api/testGet', (req, res) => {
 	  db.any("select * from test_table", [true])
 	    .then(function (data) {
@@ -24,9 +29,9 @@ module.exports = function(app){
 	app.get('/api/testPost', (req, res) => {
 	  const test = req.query.test;
 	  console.log(test);
-	  db.none("insert into test_table(stuff) values($1)", [test])
-	    .then(function () {
-	        // success;
+	  db.one("insert into test_table(stuff) values($1) returning id", [test])
+	    .then(function(data) {
+	    	res.send('ok');
 	    })
 	    .catch(function (error) {
 	        // error;

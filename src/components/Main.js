@@ -1,4 +1,5 @@
 import React from 'react';
+import Choices from './Choices.js';
 import logo from '../logo.svg';
 import '../App.css';
 
@@ -16,6 +17,7 @@ const App = React.createClass({
         <p className="App-intro">
           { this.state.page }
         </p>
+        <Choices />
       </div>
     );
   }
