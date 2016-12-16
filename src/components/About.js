@@ -10,7 +10,7 @@ const App = React.createClass({
     this.setState( { page: this.props.params.page });
   },
   goToMain() {
-    browserHistory.push('/main');
+    browserHistory.push('/');
   },
   render() {
     return (

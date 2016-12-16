@@ -2,6 +2,7 @@ import React from 'react';
 import {browserHistory} from 'react-router';
 import { Button, Jumbotron, FormGroup, FormControl } from 'react-bootstrap';
 import Choices from './Choices.js';
+import Table from './Table.js';
 import logo from '../logo.svg';
 import '../App.css';
 
@@ -25,6 +26,8 @@ const Main = React.createClass({
           {' '}
           <Button type="submit">Submit</Button>
         </Jumbotron>
+        <Table />
+        <Choices />
       </div>
     );
   }

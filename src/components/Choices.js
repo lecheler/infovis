@@ -2,7 +2,7 @@ import React from 'react';
 import { Jumbotron, Panel, Well, Button, ButtonGroup } from 'react-bootstrap';
 import '../App.css';
 
-const App = React.createClass({
+const Choices = React.createClass({
   render() {
     return (
       <div className="container">
@@ -21,4 +21,6 @@ const App = React.createClass({
   }
 });
 
-module.exports = App;
+module.exports = Choices;
+
+// Remember to track clicking an answer and then changing it!
