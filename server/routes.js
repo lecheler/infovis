@@ -11,13 +11,25 @@ module.exports = function(app){
 	};
 	const db = pgp(cn);
 
-	app.get('/api/questions', (req, res) => {
+	app.get('/api/testGet', (req, res) => {
 	  db.any("select * from test_table", [true])
 	    .then(function (data) {
 	      res.json(data);
 	    })
 	    .catch(function (error) {
 	      console.log(error);
+	    });
+	});
+
+	app.get('/api/testPost', (req, res) => {
+	  const test = req.query.test;
+	  console.log(test);
+	  db.none("insert into test_table(stuff) values($1)", [test])
+	    .then(function () {
+	        // success;
+	    })
+	    .catch(function (error) {
+	        // error;
 	    });
 	});
 
