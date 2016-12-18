@@ -1,12 +1,16 @@
 import React from 'react';
 import { Jumbotron, Panel, Well, Button, ButtonGroup } from 'react-bootstrap';
+import {browserHistory} from 'react-router';
 import '../App.css';
 
 const Choices = React.createClass({
+  nextQuestion() {
+    const next = parseInt(this.props.question) + 1;
+    browserHistory.push('/test/' + next);
+  },
   render() {
     return (
       <div className="container">
-        <Well>Which student is most likely to succeed?</Well>
         <ButtonGroup vertical block>
           <Button>Jane Smith</Button>
           <Button>Greg Johnson</Button>
@@ -14,7 +18,7 @@ const Choices = React.createClass({
           <Button>Beth Fry</Button>
         </ButtonGroup>
         <div className="container">
-          <Button bsStyle="primary">Continue</Button>
+          <Button bsStyle="primary" onClick={this.nextQuestion}>Next</Button>
         </div>
       </div>
     );

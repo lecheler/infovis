@@ -32,7 +32,7 @@ const Table = React.createClass({
       return (
         <BootstrapTable data={this.state.tableData} striped hover pagination>
           <TableHeaderColumn dataField='id' width='70' dataAlign='center' dataFormat={this.imageFormatter}></TableHeaderColumn>
-          <TableHeaderColumn dataField='last_name' width='175' isKey dataSort dataFormat={this.nameFormatter}>Student</TableHeaderColumn>
+          <TableHeaderColumn dataField='last_name' className='vertical-align' width='175' isKey dataSort dataFormat={this.nameFormatter}>Student</TableHeaderColumn>
           <TableHeaderColumn dataField='current_score' dataAlign='center' dataSort>Current</TableHeaderColumn>
           <TableHeaderColumn dataField='a1_score' dataAlign='center' dataSort >A1 (10)</TableHeaderColumn>
           <TableHeaderColumn dataField='a2_score' dataAlign='center' dataSort >A2 (10)</TableHeaderColumn>

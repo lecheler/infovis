@@ -5,6 +5,7 @@ import {
   browserHistory,
 } from 'react-router'; 
 import Main from './components/Main';
+import Question from './components/Question';
 import About from './components/About';
 import NotFound from './components/NotFound';
 import api from './api.js';
@@ -21,6 +22,7 @@ const App = React.createClass({
     return (
       <Router history={browserHistory} >
         <Route path="/about" component={About} />
+        <Route path="/test/:question" component={Question} />
         <Route path="/" component={Main} />
       </Router>
     );

@@ -10,8 +10,8 @@ const Main = React.createClass({
   componentWillMount() {
     this.setState( { page: this.props.params.page });
   },
-  goToAbout() {
-    browserHistory.push('/about');
+  goToTest() {
+    browserHistory.push('/test/1');
   },
   render() {
     return (
@@ -19,15 +19,12 @@ const Main = React.createClass({
         <Jumbotron>
           <h1>Main</h1>
           <p>What follows is a test of pedagogical reasoning skills.</p>
-          <p><Button bsStyle="primary" onClick={this.goToAbout}>About</Button></p>
           <FormGroup>
-            <FormControl type="text" placeholder="Search" />
+            <FormControl type="text" placeholder="Enter Email" />
           </FormGroup>
           {' '}
-          <Button type="submit">Submit</Button>
+          <Button type="submit" bsStyle="primary" onClick={this.goToTest}>START</Button>
         </Jumbotron>
-        <Table />
-        <Choices />
       </div>
     );
   }
