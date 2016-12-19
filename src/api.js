@@ -16,6 +16,10 @@ function addUser(email) {
   return api.get('users/add?email=' + email);
 }
 
+function logActivity(userID, type) {
+  return api.get('users/logActivity?userID=' + userID + '&type=' + type);
+}
+
 const Api = {
 	ping() {
 		return ping().then(response =>
@@ -35,6 +39,14 @@ const Api = {
 
   addUser(email) {
     return addUser(email).then(response =>
+      response.data
+    ).catch((err) => {
+      console.log(err);
+    });
+  },
+
+  logActivity(userID, type) {
+    return logActivity(userID, type).then(response =>
       response.data
     ).catch((err) => {
       console.log(err);

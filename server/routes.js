@@ -30,12 +30,22 @@ module.exports = function(app){
 	});
 
 	app.get('/api/users/add', (req, res) => {
-		console.log(users.add);
 		const email = req.query.email;
 		db.one(users.add, [email])
 	    .then(function (data) {
-	    //	console.log(data);
-	      res.json(data);
+	      res.json(data.id);
+	    })
+	    .catch(function (error) {
+	       console.log(error);
+	    });
+	});
+
+	app.get('/api/users/logActivity', (req, res) => {
+		const user_id = req.query.userID;
+		const type = req.query.type;
+		db.one(users.logActivity, [user_id, type])
+	    .then(function (data) {
+	      res.json(data.id);
 	    })
 	    .catch(function (error) {
 	       console.log(error);

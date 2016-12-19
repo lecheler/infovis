@@ -3,15 +3,18 @@ import {browserHistory} from 'react-router';
 import { Button, ButtonGroup, ProgressBar, Well } from 'react-bootstrap';
 import Choices from './Choices.js';
 import Table from './Table.js';
+import api from '../api.js';
 import '../App.css';
 
 const Question = React.createClass({
   getInitialState() {
     return {
-      question: 1
+      question: 1,
+      userID: null,
     }
   },
   nextQuestion() {
+    api.logActivity(1, 2);
     const next = parseInt(this.state.question)+1
     if (next > 18) {
       return;
