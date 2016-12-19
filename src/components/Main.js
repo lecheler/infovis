@@ -1,29 +1,38 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
 import { Button, Jumbotron, FormGroup, FormControl } from 'react-bootstrap';
-import Choices from './Choices.js';
-import Table from './Table.js';
-import logo from '../logo.svg';
+import api from '../api.js';
 import '../App.css';
 
 const Main = React.createClass({
   componentWillMount() {
     this.setState( { page: this.props.params.page });
   },
+  getInitialState() {
+    return {
+      email: ''
+    }
+  },
+  handleChange(event) {
+     this.setState({email: event.target.value});
+  },
   goToTest() {
-    browserHistory.push('/test/1');
+    api.addUser(this.state.email).then((result) => {
+      browserHistory.push('/test/1'); // maybe this? https://github.com/insin/react-router-form
+    });
   },
   render() {
     return (
       <div className="App container">
         <Jumbotron>
-          <h1>Main</h1>
+          <h1>Welcome</h1>
           <p>What follows is a test of pedagogical reasoning skills.</p>
-          <FormGroup>
-            <FormControl type="text" placeholder="Enter Email" />
-          </FormGroup>
-          {' '}
-          <Button type="submit" bsStyle="primary" onClick={this.goToTest}>START</Button>
+          <form onSubmit={this.goToTest}>
+            <FormGroup role="form">
+              <FormControl value={this.state.email} onChange={this.handleChange} type="text" className="form-control"/>
+              <Button className="btn btn-primary btn-large centerButton" type="submit">Send</Button>
+            </FormGroup>
+          </form>
         </Jumbotron>
       </div>
     );

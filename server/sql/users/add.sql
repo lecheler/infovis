@@ -1,0 +1,1 @@
+insert into participants(created_at, email) values(now(), $1) returning id

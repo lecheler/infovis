@@ -17,6 +17,7 @@ module.exports = function(app){
 	});
 
 	const students = require('./sql').students;
+	const users = require('./sql').users;
 
 	app.get('/api/students', (req, res) => {
 	  db.any(students.gradebook, [true])
@@ -28,25 +29,16 @@ module.exports = function(app){
 	    });
 	});
 
-	// app.get('/api/testPost', (req, res) => {
-	//   const test = req.query.test;
-	//   console.log(test);
-	//   db.one("insert into test_table(stuff, created_at) values($1, now()) returning id, created_at", [test])
-	//     .then(function(data) {
-	//     	console.log(data);
-	//     	res.json(data);
-	//     })
-	//     .catch(function (error) {
-	//        console.log(error);
-	//     });
-	// });
-
-  //other routes..
+	app.get('/api/users/add', (req, res) => {
+		console.log(users.add);
+		const email = req.query.email;
+		db.one(users.add, [email])
+	    .then(function (data) {
+	    //	console.log(data);
+	      res.json(data);
+	    })
+	    .catch(function (error) {
+	       console.log(error);
+	    });
+	});
 }
-
-/*
-
-with tasks as (select * from grades left join assignments on assignments.id = grades.assignment_id)
-  select first_name, last_name, tasks.name, score/total*100 as score from students left join tasks on tasks.student_id = students.id;
-
-*/

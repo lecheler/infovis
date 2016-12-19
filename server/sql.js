@@ -11,5 +11,8 @@ module.exports = {
   // external queries for Users:
   students: {
     gradebook: sql('sql/students/gradebook.sql'),
+  },
+  users: {
+  	add: sql('sql/users/add.sql'),
   }
 };

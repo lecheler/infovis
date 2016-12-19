@@ -12,6 +12,10 @@ function students() {
   return api.get('students/');
 }
 
+function addUser(email) {
+  return api.get('users/add?email=' + email);
+}
+
 const Api = {
 	ping() {
 		return ping().then(response =>
@@ -23,6 +27,14 @@ const Api = {
   
   students() {
     return students().then(response =>
+      response.data
+    ).catch((err) => {
+      console.log(err);
+    });
+  },
+
+  addUser(email) {
+    return addUser(email).then(response =>
       response.data
     ).catch((err) => {
       console.log(err);
