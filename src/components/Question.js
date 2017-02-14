@@ -1,10 +1,14 @@
 import React from 'react';
+import d3 from 'd3';
+
 import {browserHistory} from 'react-router';
 import { Button, ButtonGroup, ProgressBar, Well } from 'react-bootstrap';
 // import Choices from './Choices.js';
 import Table from './Table.js';
 import Chart from './Chart.js';
 import ClassDrag from './ClassDrag.js';
+import Alphabet from './d3/Alphabet';
+import Demo from './Demo';
 
 import api from '../api.js';
 import '../App.css';
@@ -103,6 +107,7 @@ const Question = React.createClass({
         <ProgressBar bsStyle="success" now={(this.state.question-1)/12*100} />
         <Well>What is the best way for Elena to get an 95% or above?</Well>
         { iv }
+        <Demo />
         <ButtonGroup vertical block>
           <Button>Jane Smith</Button>
           <Button>Greg Johnson</Button>

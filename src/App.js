@@ -7,16 +7,15 @@ import {
 import Main from './components/Main';
 import Question from './components/Question';
 import About from './components/About';
-// import NotFound from './components/NotFound';
-import api from './api.js';
+// import api from './api.js';
 import './App.css';
 
 const App = React.createClass({
   componentWillMount() {
-    console.log('pinging api...');
-    api.ping().then((result) => {
-      console.log('...' + result);
-    });
+    // console.log('pinging api...');
+    // api.ping().then((result) => {
+    //   console.log('...' + result);
+    // });
   },
   render() {
     return (

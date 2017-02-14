@@ -1,8 +1,5 @@
-var React = require('react')
-var d3 = require('d3')
-var FrequencyChart = require('./Components/FrequencyChartOne')
-var FrequencyChartTwo = require('./Components/FrequencyChartTwo')
-var FrequencyChartThree = require('./Components/FrequencyChartThree')
+import React from 'react';
+import Particles from './d3/Particles';
 
 const Container = React.createClass({
   getInitialState: function () {
@@ -43,11 +40,7 @@ const Container = React.createClass({
   render () {
     return (
         <div>
-          <FrequencyChart
-            width={this.state.width}
-            height={this.state.height}
-            data={this.state.data}
-          />
+          <Particles />
         </div>
     )
   }
