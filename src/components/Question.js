@@ -1,9 +1,10 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
 import { Button, ButtonGroup, ProgressBar, Well } from 'react-bootstrap';
-import Choices from './Choices.js';
+// import Choices from './Choices.js';
 import Table from './Table.js';
 import Chart from './Chart.js';
+import ClassDrag from './ClassDrag.js';
 
 import api from '../api.js';
 import '../App.css';
@@ -21,7 +22,7 @@ const Question = React.createClass({
   },
   nextQuestion() {
     api.logActivity(1, 2);
-    const next = parseInt(this.state.question)+1
+    const next = parseInt(this.state.question, 10)+1
     let type = Math.round(Math.random());
     let type0Count = this.state.type0Count;
     let type1Count = this.state.type1Count;
@@ -31,7 +32,7 @@ const Question = React.createClass({
     } else {
       type1Count++;
     }
-    if (next > 18) {
+    if (next > 12) {
       return;
     }
     if (type0Count > 9) {
@@ -56,18 +57,20 @@ const Question = React.createClass({
   },
   render() {
     let iv = (
-      <Table />
+      <Chart />
     );
 
-    if (this.state.type == 1) {
+    if (this.state.type === 1) {
       iv = (
-        <Chart />
+        <div>
+          <ClassDrag />
+        </div>
       );
     }
     return (
       <div className="App container">
-        <h1>Question {this.state.question} of 18</h1>
-        <ProgressBar bsStyle="success" now={(this.state.question-1)/18*100} />
+        <h1>Question {this.state.question} of 12</h1>
+        <ProgressBar bsStyle="success" now={(this.state.question-1)/12*100} />
         <Well>What is the best way for Elena to get an 95% or above?</Well>
         { iv }
         <ButtonGroup vertical block>

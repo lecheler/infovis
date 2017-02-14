@@ -16,7 +16,7 @@ const Table = React.createClass({
     };
   },
   imageFormatter(cell, row){
-    const gender = row.gender == 'm' ? 'men' : 'women';
+    const gender = row.gender === 'm' ? 'men' : 'women';
     const imgUrl = 'https://randomuser.me/api/portraits/thumb/' + gender + '/' + row.id + '.jpg';
     return "<img src='"+imgUrl+"'/>" ;
   },

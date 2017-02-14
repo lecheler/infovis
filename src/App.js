@@ -7,7 +7,7 @@ import {
 import Main from './components/Main';
 import Question from './components/Question';
 import About from './components/About';
-import NotFound from './components/NotFound';
+// import NotFound from './components/NotFound';
 import api from './api.js';
 import './App.css';
 

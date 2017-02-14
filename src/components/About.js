@@ -1,9 +1,6 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
 import { Button, Jumbotron } from 'react-bootstrap';
-import Choices from './Choices.js';
-import logo from '../logo.svg';
-import '../App.css';
 
 const App = React.createClass({
   componentWillMount() {
