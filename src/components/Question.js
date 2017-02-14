@@ -11,60 +11,90 @@ import '../App.css';
 
 const Question = React.createClass({
   getInitialState() {
-    const type = Math.round(Math.random());
+  //  const type = this.getRandomType();
     return {
       question: 1,
       userID: null,
-      type: type,
-      type0Count: 0,
       type1Count: 0,
+      type2Count: 0,
+      type3Count: 0,
+      type: this.getRandomType(),
     }
   },
   nextQuestion() {
     api.logActivity(1, 2);
     const next = parseInt(this.state.question, 10)+1
-    let type = Math.round(Math.random());
-    let type0Count = this.state.type0Count;
-    let type1Count = this.state.type1Count;
 
-    if (type === 0) {
-      type0Count++;
-    } else {
+    // let type = Math.round(Math.random());
+    let type = this.getRandomType();
+
+    console.log('typeAgain::'+type);
+
+    let type1Count = this.state.type1Count;
+    let type2Count = this.state.type2Count;
+    let type3Count = this.state.type3Count;
+
+    if (type === 1) {
       type1Count++;
+    } else if (type === 2){
+      type2Count++;
+    } else {
+      type3Count++;
     }
+
     if (next > 12) {
       return;
-    }
-    if (type0Count > 9) {
-      type = 1;
-    }
-    if (type1Count > 9) {
-      type = 0;
     }
 
     this.setState( 
     { 
       question: next, 
       type: type,
-      type0Count: type0Count,
-      type1Count: type1Count, 
+      type1Count: type1Count,
+      type2Count: type2Count,
+      type3Count: type3Count, 
     });
 
     browserHistory.push('/test/' + next);
   },
+  getRandomType() {
+    const type = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
+    console.log(type);
+
+    let type1Count = this.state ? this.state.type1Count : 0;
+    let type2Count = this.state ? this.state.type2Count : 0;
+    let type3Count = this.state ? this.state.type3Count : 0;
+
+    if (type1Count > 3 && type === 1) {
+      return this.getRandomType();
+    } else if (type2Count > 3 && type === 2) {
+      return this.getRandomType();
+    } else if (type3Count > 3 && type === 3) {
+      return this.getRandomType();
+    } else {
+      return type;
+    } 
+  },
+
   componentWillMount() {
     this.setState( { question: this.props.params.question });
   },
   render() {
     let iv = (
-      <Chart />
+      <div>Something went wrong...</div>
     );
 
     if (this.state.type === 1) {
       iv = (
-        <div>
-          <ClassDrag />
-        </div>
+        <Table />
+      );
+    } else if (this.state.type === 2) {
+      iv = (
+        <ClassDrag />
+      );
+    } else if (this.state.type === 3) {
+      iv = (
+        <Chart />
       );
     }
     return (
