@@ -16,117 +16,28 @@ const allColors = [
 const [count, width, height] = [11, 70, 90];
 
 const students = [
-  {
-    name:'A',
-    score: 0.8,
-    position: {
-      x: 10, 
-      y: 10
-    }
-  },
-  {
-    name:'B',
-    score: 0.6,
-    position: {
-      x: 100, 
-      y: 100
-    }
-  },
-  {
-    name:'C',
-    score: 0.95,
-    position: {
-      x: 10, 
-      y: 100
-    }
-  },
-  {
-    name:'D',
-    score: 0.86,
-    position: {
-      x: 200, 
-      y: 100
-    }
-  },
-  {
-    name:'E',
-    score: 0.6,
-    position: {
-      x: 100, 
-      y: 100
-    }
-  },
-  {
-    name:'F',
-    score: 0.6,
-    position: {
-      x: 100, 
-      y: 100
-    }
-  },{
-    name:'G',
-    score: 0.8,
-    position: {
-      x: 10, 
-      y: 10
-    }
-  },
-  {
-    name:'H',
-    score: 0.6,
-    position: {
-      x: 100, 
-      y: 100
-    }
-  },
-  {
-    name:'I',
-    score: 0.6,
-    position: {
-      x: 100, 
-      y: 100
-    }
-  },
-  {
-    name:'J',
-    score: 0.6,
-    position: {
-      x: 100, 
-      y: 100
-    }
-  },
-  {
-    name:'K',
-    score: 0.6,
-    position: {
-      x: 100, 
-      y: 100
-    }
-  },
-  {
-    name:'L',
-    score: 0.6,
-    position: {
-      x: 100, 
-      y: 100
-    }
-  },
-  {
-    name:'M',
-    score: 0.6,
-    position: {
-      x: 100, 
-      y: 100
-    }
-  },
-  {
-    name:'N',
-    score: 0.6,
-    position: {
-      x: 100, 
-      y: 100
-    }
-  }
+  { name:'a', score: Math.round(Math.random()*100)}, // note: name treated as unique below...
+  { name:'b', score: Math.round(Math.random()*100)},
+  { name:'c', score: Math.round(Math.random()*100)},
+  { name:'d', score: Math.round(Math.random()*100)},
+  { name:'e', score: Math.round(Math.random()*100)},
+  { name:'f', score: Math.round(Math.random()*100)},
+  { name:'g', score: Math.round(Math.random()*100)},
+  { name:'h', score: Math.round(Math.random()*100)},
+  { name:'i', score: Math.round(Math.random()*100)},
+  { name:'j', score: Math.round(Math.random()*100)},
+  { name:'k', score: Math.round(Math.random()*100)},
+  { name:'l', score: Math.round(Math.random()*100)},
+  { name:'m', score: Math.round(Math.random()*100)},
+  { name:'n', score: Math.round(Math.random()*100)},
+  { name:'o', score: Math.round(Math.random()*100)},
+  { name:'p', score: Math.round(Math.random()*100)},
+  { name:'q', score: Math.round(Math.random()*100)},
+  { name:'r', score: Math.round(Math.random()*100)},
+  { name:'s', score: Math.round(Math.random()*100)},
+  { name:'t', score: Math.round(Math.random()*100)},
+  { name:'u', score: Math.round(Math.random()*100)},
+  { name:'v', score: Math.round(Math.random()*100)},
 ]
 
 const Demo = React.createClass({
@@ -192,13 +103,38 @@ const Demo = React.createClass({
         <div className="demo2-main" />
   
           {students.map((student, key) => {
+            let radius =  300;
+            let col = '#C80054'; //student.score > 0.6 ? '#AAD219' : '#20A8CC';
+            // let p1 = students.filter(function(x){return x.score <= 30}).length;
+            // let p2 = students.filter(function(x){return x.score > 30 && x.score <= 60}).length;
+            // let p3 = students.filter(function(x){return x.score > 60}).length;
+
+            let s = students.filter(function(x){return x.score <= 30});
+            let k = key;
+
+            if (student.score > 60) {
+              radius = 100;
+              col = '#AAD219';
+              s = students.filter(function(x){return x.score > 60});
+            } else if (student.score > 30) {
+              radius = 200;
+              col = '#20A8CC';
+              s = students.filter(function(x){return x.score > 30 && x.score <= 60});
+            }
 
             // http://stackoverflow.com/questions/24273990/calculating-evenly-spaced-points-on-the-perimeter-of-a-circle
             // http://stackoverflow.com/questions/12742802/algorithm-to-spread-dots-evenly-on-a-circle-shell-model-chemistry
-            const radius =  200// student.score > 0.7 ? 100 : 250;
-            const col = student.score > 0.6 ? '#AAD219' : '#20A8CC';
-            const testX  = radius * Math.cos(key * 2 * Math.PI / students.length) + 950/2 - 20;
-            const testY  = radius * Math.sin(key * 2 * Math.PI / students.length) - 20;
+
+            let testX  = radius * Math.cos(s.findIndex(x => x.name==student.name) * 2 * Math.PI / s.length) + 950/2 - 20;
+            let testY  = radius * Math.sin(s.findIndex(x => x.name==student.name) * 2 * Math.PI / s.length) - 20;
+
+          //  console.log(mouse);
+            //[x, y] = mouse;
+            if (key === lastPress && isPressed) {
+              testX = mouse[0];
+              testY = mouse[1];
+            }
+
             return (
               <div 
                 onMouseDown={this.handleMouseDown.bind(null, key, [testX, testY])}
@@ -212,7 +148,7 @@ const Demo = React.createClass({
                     transform: `translate3d(${testX}px, ${testY}px, 0) scale(1)`,
                   }}>
 
-                {student.name}
+                {student.score}
 
               </div>
             );

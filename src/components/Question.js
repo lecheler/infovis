@@ -103,10 +103,11 @@ const Question = React.createClass({
     }
     return (
       <div className="App container">
-        <ClassDrag />
+
         <h1>Question {this.state.question} of 12</h1>
         <ProgressBar bsStyle="success" now={(this.state.question-1)/12*100} />
         <Well>What is the best way for Elena to get an 95% or above?</Well>
+        <ClassDrag />
         { iv }
         <ButtonGroup vertical block>
           <Button>Jane Smith</Button>
