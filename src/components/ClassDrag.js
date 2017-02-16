@@ -40,8 +40,6 @@ const students = [
   { name:'v', score: Math.round(Math.random()*100)},
 ];
 
-console.log(students);
-
 const Demo = React.createClass({
   getInitialState() {
     return {
@@ -50,6 +48,8 @@ const Demo = React.createClass({
       lastPress: null, // key of the last pressed component
       isPressed: false,
       order: range(count), // index: visual position. value: component key/id
+      students: students,
+      ready: false,
     };
   },
 
@@ -58,6 +58,8 @@ const Demo = React.createClass({
     window.addEventListener('touchend', this.handleMouseUp);
     window.addEventListener('mousemove', this.handleMouseMove);
     window.addEventListener('mouseup', this.handleMouseUp);
+
+    this.setInitialLayout();
   },
 
   handleTouchStart(key, pressLocation, e) {
@@ -97,101 +99,70 @@ const Demo = React.createClass({
     this.setState({isPressed: false});
   },
 
-  render() {
-    const {order, lastPress, isPressed, mouse} = this.state;
+  setInitialLayout() {
+    {students.forEach((student, key) => {
+     let radius =  300;
+     let col = '#C80054';
+     let s = students.filter(function(x){return x.score <= 30});
+     let k = key;
 
+     if (student.score > 60) {
+       radius = 100;
+       col = '#AAD219';
+       s = students.filter(function(x){return x.score > 60});
+     } else if (student.score > 30) {
+       radius = 200;
+       col = '#20A8CC';
+       s = students.filter(function(x){return x.score > 30 && x.score <= 60});
+     }
+
+     let testX  = radius * Math.cos(s.findIndex(x => x.name==student.name) * 2 * Math.PI / s.length) + 950/2 - 20;
+     let testY  = radius * Math.sin(s.findIndex(x => x.name==student.name) * 2 * Math.PI / s.length) - 20;
+
+     student.position = {x: testX, y: testY};
+     student.color = col;
+    })}
+
+    this.setState({ready: true});
+  },
+  render() {
+    console.log(this.state.ready);
+    const {order, lastPress, isPressed, mouse} = this.state;
+    if (!this.state.ready) {
+      return(
+        <div>not ready</div>
+      );
+    }
     return (
       <div className="demo2">
         <div className="demo2-main" />
   
-          {students.map((student, key) => {
-            let radius =  300;
-            let col = '#C80054'; //student.score > 0.6 ? '#AAD219' : '#20A8CC';
-            let s = students.filter(function(x){return x.score <= 30});
-            let k = key;
-
-            if (student.score > 60) {
-              radius = 100;
-              col = '#AAD219';
-              s = students.filter(function(x){return x.score > 60});
-            } else if (student.score > 30) {
-              radius = 200;
-              col = '#20A8CC';
-              s = students.filter(function(x){return x.score > 30 && x.score <= 60});
-            }
-
-         //   radius = (student.score/100) * 300;
-            // http://stackoverflow.com/questions/24273990/calculating-evenly-spaced-points-on-the-perimeter-of-a-circle
-            // http://stackoverflow.com/questions/12742802/algorithm-to-spread-dots-evenly-on-a-circle-shell-model-chemistry
-
-            let testX  = radius * Math.cos(s.findIndex(x => x.name==student.name) * 2 * Math.PI / s.length) + 950/2 - 20;
-            let testY  = radius * Math.sin(s.findIndex(x => x.name==student.name) * 2 * Math.PI / s.length) - 20;
-
-          //  console.log(mouse);
-            //[x, y] = mouse;
-            if (key === lastPress) {
-              testX = mouse[0];
-              testY = mouse[1];
-            }
-
-            return (
-              <div 
-                onMouseDown={this.handleMouseDown.bind(null, key, [testX, testY])}
-                onTouchStart={this.handleTouchStart.bind(null, key, [testX, testY])}
-                key={key}
-                className="student-ball"
-                style={
-                  {
-                    backgroundColor: col,
-                    WebkitTransform: `translate3d(${testX}px, ${testY}px, 0) scale(1)`,
-                    transform: `translate3d(${testX}px, ${testY}px, 0) scale(1)`,
-                  }}>
-
-                {student.score}
-
-              </div>
-            );
-          })}
-
-        {/*order.map((_, key) => {
-          let style;
-          let x;
-          let y;
-          const visualPosition = order.indexOf(key);
-          [x, y] = mouse;
-
-          if (key === lastPress && isPressed) {
-            style = {
-              translateX: x,
-              translateY: y,
-              scale: spring(1.1, springSetting1),
-            };
-          } else {
-            
-            style = {
-              // translateX: x,
-              // translateY: y,
-              scale: spring(1, springSetting1),   
-            };
-          }
-          return (
-            <Motion key={key} style={style}>
-              {({translateX, translateY, scale}) =>
-                <div
-                  onMouseDown={this.handleMouseDown.bind(null, key, [x, y])}
-                  onTouchStart={this.handleTouchStart.bind(null, key, [x, y])}
-                  className="demo2-ball"
-                  style={{
-                    backgroundColor: allColors[key],
-                    WebkitTransform: `translate3d(${translateX}px, ${translateY}px, 0) scale(${scale})`,
-                    transform: `translate3d(${translateX}px, ${translateY}px, 0) scale(${scale})`,
-                    zIndex: key === lastPress ? 99 : visualPosition,
-                  }}
-                />
+          {
+            this.state.students.map((student, key) => {
+              if (key === lastPress) {
+                student.position.x = mouse[0];
+                student.position.y = mouse[1];
               }
-            </Motion>
-          );
-        }) */}
+
+              return (
+                <div 
+                  onMouseDown={this.handleMouseDown.bind(null, key, [student.position.x, student.position.y])}
+                  onTouchStart={this.handleTouchStart.bind(null, key, [student.position.x, student.position.y])}
+                  key={key}
+                  className="student-ball"
+                  style={
+                    {
+                      backgroundColor: student.color,
+                      WebkitTransform: `translate3d(${student.position.x}px, ${student.position.y}px, 0) scale(1)`,
+                      transform: `translate3d(${student.position.x}px, ${student.position.y}px, 0) scale(1)`,
+                    }}>
+
+                  {student.score}
+
+                </div>
+              );
+            })
+          }
       </div>
     );
   },
