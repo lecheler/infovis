@@ -103,12 +103,10 @@
 }
 
 .student-score-circle-avg {
-  border-color: #00000;
+  border-color: #ffffff;
   border-width: 2px;  
   border-style: dashed;
   border-radius: 75px;
-  width: 75px;
-  height: 75px;
   margin: 0 auto;
   position: relative;
 } 
@@ -116,12 +114,15 @@
 .student-score-circle {
   background-color: #AAD219;
   border-radius: 95px;
-  border-width: 0px;
-  width: 75px;
-  height: 75px;
+  border-color: #000000;
+  border-width: 2px;
+  width: 79px;
+  height: 79px;
   z-index: -1;
   margin: 0 auto;
   position: relative;
-  transform: translate3d(0px, 0px, 0px) scale(1);
+  transform: 
+    translate3d(0px, 0px, 0px)
+    scale(1.5);
 }
 
