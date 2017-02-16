@@ -1,5 +1,5 @@
 import React from 'react';
-import d3 from 'd3';
+// import d3 from 'd3';
 
 import {browserHistory} from 'react-router';
 import { Button, ButtonGroup, ProgressBar, Well } from 'react-bootstrap';
@@ -7,8 +7,8 @@ import { Button, ButtonGroup, ProgressBar, Well } from 'react-bootstrap';
 import Table from './Table.js';
 import Chart from './Chart.js';
 import ClassDrag from './ClassDrag.js';
-import Alphabet from './d3/Alphabet';
-import Demo from './Demo';
+// import Alphabet from './d3/Alphabet';
+// import Demo from './Demo';
 
 import api from '../api.js';
 import '../App.css';

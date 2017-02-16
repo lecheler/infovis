@@ -1,19 +1,4 @@
 import React from 'react';
-import {Motion, spring} from 'react-motion';
-import range from 'lodash.range';
-
-const springSetting1 = {stiffness: 180, damping: 10};
-const springSetting2 = {stiffness: 120, damping: 17};
-
-// function clamp(n, min, max) {
-//   return Math.max(Math.min(n, max), min);
-// }
-
-const allColors = [
-  '#AAD219', '#20A8CC', '#C80054', '#AAD219', '#20A8CC', '#C80054', '#AAD219',
-  '#20A8CC', '#C80054', '#20A8CC', '#AAD219',
-];
-const [count, width, height] = [11, 70, 90];
 
 const students = [
   { name:'a', score: Math.round(Math.random()*100)}, // note: name treated as unique below...
@@ -47,7 +32,6 @@ const Demo = React.createClass({
       delta: [0, 0], // difference between mouse and circle pos, for dragging
       lastPress: null, // key of the last pressed component
       isPressed: false,
-      order: range(count), // index: visual position. value: component key/id
       students: students,
       ready: false,
     };
@@ -72,7 +56,7 @@ const Demo = React.createClass({
   },
 
   handleMouseMove({pageX, pageY}) {
-    const {order, lastPress, isPressed, delta: [dx, dy]} = this.state;
+    const {isPressed, delta: [dx, dy]} = this.state;
     if (isPressed) {
       const mouse = [pageX - dx, pageY - dy];
       this.setState({mouse: mouse});
@@ -95,11 +79,10 @@ const Demo = React.createClass({
   },
 
   setInitialLayout() {
-    {students.forEach((student, key) => {
+    students.forEach((student, key) => {
      let radius =  300;
      let col = '#C80054';
      let s = students.filter(function(x){return x.score <= 30});
-     let k = key;
 
      if (student.score > 60) {
        radius = 100;
@@ -111,18 +94,18 @@ const Demo = React.createClass({
        s = students.filter(function(x){return x.score > 30 && x.score <= 60});
      }
 
-     let testX  = radius * Math.cos(s.findIndex(x => x.name==student.name) * 2 * Math.PI / s.length) + 950/2 - 20;
-     let testY  = radius * Math.sin(s.findIndex(x => x.name==student.name) * 2 * Math.PI / s.length) + 200/2 - 20;
+     let testX  = radius * Math.cos(s.findIndex(x => x.name===student.name) * 2 * Math.PI / s.length) + 950/2 - 20;
+     let testY  = radius * Math.sin(s.findIndex(x => x.name===student.name) * 2 * Math.PI / s.length) + 200/2 - 20;
 
      student.position = {x: testX, y: testY};
      student.color = col;
-    })}
+    });
 
     this.setState({ready: true});
   },
   render() {
     console.log(this.state.ready);
-    const {order, lastPress, isPressed, mouse} = this.state;
+    const {lastPress, isPressed, mouse} = this.state;
     if (!this.state.ready) {
       return(
         <div>not ready</div>
@@ -134,9 +117,21 @@ const Demo = React.createClass({
   
           {
             this.state.students.map((student, key) => {
-              if (key === lastPress) {
+              if (key === lastPress && isPressed) {
                 student.position.x = mouse[0];
                 student.position.y = mouse[1];
+             
+                const a = mouse[0] - 450; // why is (450, 80) the center?
+                const b = mouse[1] - 80;
+                const distance = Math.sqrt( a*a + b*b );
+
+                if (distance >= 250) {
+                  student.color = '#C80054';
+                } else if (distance >= 150) {
+                  student.color = '#20A8CC';
+                } else {
+                  student.color = '#AAD219';
+                }
               }
 
               return (
