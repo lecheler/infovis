@@ -78,17 +78,18 @@ const Demo = React.createClass({
 
   setInitialLayout() {
     let total = 0;
+
     students.forEach((student, key) => {
       total += student.score;
 
-     let col = '#C80054';
-     if (student.score > 60) {
-       col = '#AAD219';
-     } else if (student.score > 30) {
-       col = '#20A8CC';
-     }
+     // let col = '#C80054';
+     // if (student.score > 60) {
+     //   col = '#AAD219';
+     // } else if (student.score > 30) {
+     //   col = '#20A8CC';
+     // }
 
-     student.color = col;
+     // student.color = col;
     });
 
     console.log(total/15);
@@ -110,7 +111,13 @@ const Demo = React.createClass({
             this.state.students.map((student, key) => {
               
               let scale = (student.score/this.state.avg);
-              const col = scale < 1 ? '#AAD219' : '#ffffff';
+              const dashColor = scale < 1 ? '#AAD219' : '#ffffff';
+              let col = '#AAD219';
+              if (scale < 0.75) {
+                col = '#C80054';
+              } else if (scale < 1.0) {
+                col = '#20A8CC';
+              }
 
               return (
                 <Col key={key} xs={3} md={3}>
@@ -118,12 +125,12 @@ const Demo = React.createClass({
                     <div className='student-score-circle-avg' 
                       style={
                         {
-                          borderColor: col
+                          borderColor: dashColor
                         }}>
                       <div className='student-score-circle' 
                       style={
                         {
-                          backgroundColor: student.color,
+                          backgroundColor: col,
                           WebkitTransform: `scale(${scale})`,
                           transform: `scale(${scale})`,
                         }}
@@ -131,6 +138,7 @@ const Demo = React.createClass({
                       </div>
                     </div>
                   </div>
+                  Luke Lecheler ({student.score}%)
                 </Col>
               );
             })
