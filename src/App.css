@@ -81,7 +81,8 @@
 
 
 .demo2-main {
-  transform: translateY(50%);
+  top: 25%;
+  transform: translateY(100%);
   margin: 0 auto;
   border-color: #a8a8a8;
   border-width:5px;  
@@ -89,26 +90,4 @@
   border-radius: 200px;
   width: 200px;
   height: 200px;
-}
-
-.demo2-main-2 {
-  margin: 0 auto;
-  border-color: #a8a8a8;
-  border-width:5px;  
-  border-style:dashed;
-  border-radius: 200px;
-  width: 350px;
-  height: 350px;
-}
-
-.demo2-main-3 {
-  top: 50%;
-  transform: translateY(50%);
-  margin: 0 auto;
-  border-color: #a8a8a8;
-  border-width:5px;  
-  border-style:dashed;
-  border-radius: 200px;
-  width: 450px;
-  height: 450px;
 }

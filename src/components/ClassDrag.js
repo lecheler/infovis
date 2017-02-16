@@ -73,13 +73,8 @@ const Demo = React.createClass({
 
   handleMouseMove({pageX, pageY}) {
     const {order, lastPress, isPressed, delta: [dx, dy]} = this.state;
-  //  console.log('moving::(' + pageX + ', ' + pageY + ')');
     if (isPressed) {
       const mouse = [pageX - dx, pageY - dy];
-      // const col = clamp(Math.floor(mouse[0] / width), 0, 2);
-      // const row = clamp(Math.floor(mouse[1] / height), 0, Math.floor(count / 3));
-      // const index = row * 3 + col;
-      // const newOrder = reinsert(order, order.indexOf(lastPress), index);
       this.setState({mouse: mouse});
     }
   },
@@ -117,7 +112,7 @@ const Demo = React.createClass({
      }
 
      let testX  = radius * Math.cos(s.findIndex(x => x.name==student.name) * 2 * Math.PI / s.length) + 950/2 - 20;
-     let testY  = radius * Math.sin(s.findIndex(x => x.name==student.name) * 2 * Math.PI / s.length) - 20;
+     let testY  = radius * Math.sin(s.findIndex(x => x.name==student.name) * 2 * Math.PI / s.length) + 200/2 - 20;
 
      student.position = {x: testX, y: testY};
      student.color = col;
