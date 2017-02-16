@@ -38,7 +38,9 @@ const students = [
   { name:'t', score: Math.round(Math.random()*100)},
   { name:'u', score: Math.round(Math.random()*100)},
   { name:'v', score: Math.round(Math.random()*100)},
-]
+];
+
+console.log(students);
 
 const Demo = React.createClass({
   getInitialState() {
@@ -105,10 +107,6 @@ const Demo = React.createClass({
           {students.map((student, key) => {
             let radius =  300;
             let col = '#C80054'; //student.score > 0.6 ? '#AAD219' : '#20A8CC';
-            // let p1 = students.filter(function(x){return x.score <= 30}).length;
-            // let p2 = students.filter(function(x){return x.score > 30 && x.score <= 60}).length;
-            // let p3 = students.filter(function(x){return x.score > 60}).length;
-
             let s = students.filter(function(x){return x.score <= 30});
             let k = key;
 
@@ -122,6 +120,7 @@ const Demo = React.createClass({
               s = students.filter(function(x){return x.score > 30 && x.score <= 60});
             }
 
+         //   radius = (student.score/100) * 300;
             // http://stackoverflow.com/questions/24273990/calculating-evenly-spaced-points-on-the-perimeter-of-a-circle
             // http://stackoverflow.com/questions/12742802/algorithm-to-spread-dots-evenly-on-a-circle-shell-model-chemistry
 
@@ -130,7 +129,7 @@ const Demo = React.createClass({
 
           //  console.log(mouse);
             //[x, y] = mouse;
-            if (key === lastPress && isPressed) {
+            if (key === lastPress) {
               testX = mouse[0];
               testY = mouse[1];
             }
