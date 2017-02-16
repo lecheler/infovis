@@ -23,7 +23,7 @@ const students = [
   { name:'o', score: Math.round(Math.random()*100)},
 ];
 
-const avg = 81;
+const avg = 80;
 
 const Demo = React.createClass({
   getInitialState() {
@@ -80,24 +80,14 @@ const Demo = React.createClass({
 
   setInitialLayout() {
     students.forEach((student, key) => {
-     let radius =  300;
+      
      let col = '#C80054';
-     let s = students.filter(function(x){return x.score <= 30});
-
      if (student.score > 60) {
-       radius = 100;
        col = '#AAD219';
-       s = students.filter(function(x){return x.score > 60});
      } else if (student.score > 30) {
-       radius = 200;
        col = '#20A8CC';
-       s = students.filter(function(x){return x.score > 30 && x.score <= 60});
      }
 
-     let testX  = radius * Math.cos(s.findIndex(x => x.name===student.name) * 2 * Math.PI / s.length) + 950/2 - 20;
-     let testY  = radius * Math.sin(s.findIndex(x => x.name===student.name) * 2 * Math.PI / s.length) + 200/2 - 20;
-
-     student.radius = radius;
      student.color = col;
     });
 
@@ -117,38 +107,28 @@ const Demo = React.createClass({
   
           {
             this.state.students.map((student, key) => {
-              let scale = 1;
-              let style = {
-                scale: spring(1, springSetting1),
-              };
-
-              if (key === lastPress && isPressed) {
-                scale = 1.2;
-                student.position.x = mouse[0];
-                student.position.y = mouse[1];
-             
-                const a = mouse[0] - 450; // why is (450, 80) the center?
-                const b = mouse[1] - 80;
-                const distance = Math.sqrt( a*a + b*b );
-
-                if (distance >= 250) {
-                  student.color = '#C80054';
-                } else if (distance >= 150) {
-                  student.color = '#20A8CC';
-                } else {
-                  student.color = '#AAD219';
-                }
-
-                style = {
-                  scale: spring(1.3, springSetting1),
-                };
-              }
+              
+              let scale = (student.score/avg);
+              const col = scale < 1 ? '#AAD219' : '#ffffff';
 
               return (
-                <Col xs={3} md={4}>
+                <Col key={key} xs={3} md={4}>
                   <div className='student-score-wrapper'>
-                    <div key={key} className='student-score-circle-avg'>
-                      <div className='student-score-circle' />
+                    <div className='student-score-circle-avg' 
+                      style={
+                        {
+                          borderColor: col
+                        }}>
+                      <div className='student-score-circle' 
+                      style={
+                        {
+                          backgroundColor: student.color,
+                          WebkitTransform: `scale(${scale})`,
+                          transform: `scale(${scale})`,
+                        }}
+                      >
+                      {student.score}
+                      </div>
                     </div>
                   </div>
                 </Col>
