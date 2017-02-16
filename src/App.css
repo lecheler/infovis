@@ -92,6 +92,10 @@
   height: 200px;
 }
 
+.class-view-grid {
+  padding: 20px;
+}
+
 .student-score-wrapper {
   display: flex;
   align-items: center;

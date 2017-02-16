@@ -6,21 +6,21 @@ import { Grid, Row, Col } from 'react-bootstrap';
 const springSetting1 = {stiffness: 180, damping: 20};
 
 const students = [
-  { name:'a', score: Math.round(Math.random()*100)}, // note: name treated as unique below...
-  { name:'b', score: Math.round(Math.random()*100)},
-  { name:'c', score: Math.round(Math.random()*100)},
-  { name:'d', score: Math.round(Math.random()*100)},
-  { name:'e', score: Math.round(Math.random()*100)},
-  { name:'f', score: Math.round(Math.random()*100)},
-  { name:'g', score: Math.round(Math.random()*100)},
-  { name:'h', score: Math.round(Math.random()*100)},
-  { name:'i', score: Math.round(Math.random()*100)},
-  { name:'j', score: Math.round(Math.random()*100)},
-  { name:'k', score: Math.round(Math.random()*100)},
-  { name:'l', score: Math.round(Math.random()*100)},
-  { name:'m', score: Math.round(Math.random()*100)},
-  { name:'n', score: Math.round(Math.random()*100)},
-  { name:'o', score: Math.round(Math.random()*100)},
+  { name:'Damaris', score: Math.round(Math.random()*100)}, // note: name treated as unique below...
+  { name:'Shayla', score: Math.round(Math.random()*100)},
+  { name:'Sang', score: Math.round(Math.random()*100)},
+  { name:'Annete', score: Math.round(Math.random()*100)},
+  { name:'Leota', score: Math.round(Math.random()*100)},
+  { name:'Joseph', score: Math.round(Math.random()*100)},
+  { name:'Sheila', score: Math.round(Math.random()*100)},
+  { name:'Arlinda', score: Math.round(Math.random()*100)},
+  { name:'Allegra', score: Math.round(Math.random()*100)},
+  { name:'Melissa', score: Math.round(Math.random()*100)},
+  { name:'Cordie', score: Math.round(Math.random()*100)},
+  { name:'Shakira', score: Math.round(Math.random()*100)},
+  { name:'Tina', score: Math.round(Math.random()*100)},
+  { name:'Stephanie', score: Math.round(Math.random()*100)},
+  { name:'Anisa', score: Math.round(Math.random()*100)},
 ];
 
 const Demo = React.createClass({
@@ -105,7 +105,7 @@ const Demo = React.createClass({
     }
     return (
       <Grid>
-        <Row className="show-grid">
+        <Row className="class-view-grid">
   
           {
             this.state.students.map((student, key) => {
@@ -138,7 +138,7 @@ const Demo = React.createClass({
                       </div>
                     </div>
                   </div>
-                  Luke Lecheler ({student.score}%)
+                  {student.name} ({student.score}%)
                 </Col>
               );
             })
