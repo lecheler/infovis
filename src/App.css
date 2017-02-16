@@ -94,7 +94,7 @@
 
 .student-score-wrapper {
   display: flex;
-    align-items: center;
+  align-items: center;
   width: 150px; /*can be in percentage also.*/
  /* height: auto;*/
   margin: 0 auto;
@@ -115,7 +115,7 @@
   background-color: #AAD219;
   border-radius: 95px;
   border-color: #000000;
-  border-width: 2px;
+  border-width: 1px;
   width: 79px;
   height: 79px;
   z-index: -1;

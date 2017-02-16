@@ -23,8 +23,6 @@ const students = [
   { name:'o', score: Math.round(Math.random()*100)},
 ];
 
-const avg = 80;
-
 const Demo = React.createClass({
   getInitialState() {
     return {
@@ -32,7 +30,7 @@ const Demo = React.createClass({
       delta: [0, 0], // difference between mouse and circle pos, for dragging
       lastPress: null, // key of the last pressed component
       isPressed: false,
-      students: students,
+      students: students.sort((a, b) => b.score - a.score),
       ready: false,
     };
   },
@@ -79,8 +77,10 @@ const Demo = React.createClass({
   },
 
   setInitialLayout() {
+    let total = 0;
     students.forEach((student, key) => {
-      
+      total += student.score;
+
      let col = '#C80054';
      if (student.score > 60) {
        col = '#AAD219';
@@ -91,7 +91,8 @@ const Demo = React.createClass({
      student.color = col;
     });
 
-    this.setState({ready: true});
+    console.log(total/15);
+    this.setState({ready: true, avg: total/15});
   },
   render() {
     console.log(this.state.ready);
@@ -108,11 +109,11 @@ const Demo = React.createClass({
           {
             this.state.students.map((student, key) => {
               
-              let scale = (student.score/avg);
+              let scale = (student.score/this.state.avg);
               const col = scale < 1 ? '#AAD219' : '#ffffff';
 
               return (
-                <Col key={key} xs={3} md={4}>
+                <Col key={key} xs={3} md={3}>
                   <div className='student-score-wrapper'>
                     <div className='student-score-circle-avg' 
                       style={
@@ -127,7 +128,6 @@ const Demo = React.createClass({
                           transform: `scale(${scale})`,
                         }}
                       >
-                      {student.score}
                       </div>
                     </div>
                   </div>
