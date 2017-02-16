@@ -52,8 +52,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
+
 .demo2 {
   background-color: #f6f6f6;
   width: 950px;
@@ -70,7 +70,7 @@
 }
 
 .student-ball {
-  position: absolute;;
+  position: absolute;
   color: #ffffff;
   border-radius: 99px;
   border-width: 0px;
@@ -91,3 +91,36 @@
   width: 200px;
   height: 200px;
 }
+
+.student-score-wrapper {
+  display: flex;
+    align-items: center;
+  width: 150px; /*can be in percentage also.*/
+ /* height: auto;*/
+  margin: 0 auto;
+  position: relative;
+  height: 150px;
+}
+
+.student-score-circle-avg {
+  border-color: #ffffff;
+  border-width: 2px;  
+  border-style: dashed;
+  border-radius: 75px;
+  width: 75px;
+  height: 75px;
+  margin: 0 auto;
+  position: relative;
+} 
+
+.student-score-circle {
+  background-color: #AAD219;
+  border-radius: 95px;
+  border-width: 0px;
+  width: 95px;
+  height: 95px;
+  z-index: -1;
+  margin: 0 auto;
+  position: relative;
+}
+

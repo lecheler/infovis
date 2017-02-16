@@ -29,7 +29,7 @@ const students = [
   { name:'v', score: Math.round(Math.random()*100)},
 ];
 
-const Demo = React.createClass({
+const ClassDrag = React.createClass({
   getInitialState() {
     return {
       mouse: [0, 0],
@@ -173,4 +173,4 @@ const Demo = React.createClass({
   },
 });
 
-export default Demo;
+export default ClassDrag;

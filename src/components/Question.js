@@ -4,9 +4,11 @@ import React from 'react';
 import {browserHistory} from 'react-router';
 import { Button, ButtonGroup, ProgressBar, Well } from 'react-bootstrap';
 // import Choices from './Choices.js';
-import Table from './Table.js';
-import Chart from './Chart.js';
-import ClassDrag from './ClassDrag.js';
+import Table from './Table';
+import Chart from './Chart';
+// import ClassDrag from './iv/ClassDrag';
+import ClassView from './iv/ClassView';
+
 // import Alphabet from './d3/Alphabet';
 // import Demo from './Demo';
 
@@ -94,16 +96,17 @@ const Question = React.createClass({
       );
     } else if (this.state.type === 2) {
       iv = (
-        <ClassDrag />
+        <ClassView />
       );
     } else if (this.state.type === 3) {
       iv = (
         <Chart />
       );
     }
+
+    iv = (<ClassView />);
     return (
       <div className="App container">
-
         <h1>Question {this.state.question} of 12</h1>
         <ProgressBar bsStyle="success" now={(this.state.question-1)/12*100} />
         <Well>What is the best way for Elena to get an 95% or above?</Well>
