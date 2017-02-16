@@ -1,4 +1,8 @@
 import React from 'react';
+import {Motion, spring} from 'react-motion';
+
+// http://chenglou.github.io/react-motion/demos/demo5-spring-parameters-chooser/
+const springSetting1 = {stiffness: 180, damping: 20};
 
 const students = [
   { name:'a', score: Math.round(Math.random()*100)}, // note: name treated as unique below...
@@ -117,7 +121,13 @@ const Demo = React.createClass({
   
           {
             this.state.students.map((student, key) => {
+              let scale = 1;
+              let style = {
+                scale: spring(1, springSetting1),
+              };
+
               if (key === lastPress && isPressed) {
+                scale = 1.2;
                 student.position.x = mouse[0];
                 student.position.y = mouse[1];
              
@@ -132,24 +142,29 @@ const Demo = React.createClass({
                 } else {
                   student.color = '#AAD219';
                 }
+
+                style = {
+                  scale: spring(1.3, springSetting1),
+                };
               }
 
               return (
-                <div 
-                  onMouseDown={this.handleMouseDown.bind(null, key, [student.position.x, student.position.y])}
-                  onTouchStart={this.handleTouchStart.bind(null, key, [student.position.x, student.position.y])}
-                  key={key}
-                  className="student-ball"
-                  style={
-                    {
-                      backgroundColor: student.color,
-                      WebkitTransform: `translate3d(${student.position.x}px, ${student.position.y}px, 0) scale(1)`,
-                      transform: `translate3d(${student.position.x}px, ${student.position.y}px, 0) scale(1)`,
-                    }}>
-
-                  {student.score}
-
-                </div>
+                <Motion key={key} style={style}>
+                  {({scale}) =>
+                    <div 
+                      onMouseDown={this.handleMouseDown.bind(null, key, [student.position.x, student.position.y])}
+                      onTouchStart={this.handleTouchStart.bind(null, key, [student.position.x, student.position.y])}
+                      key={key}
+                      className="student-ball"
+                      style={
+                        {
+                          backgroundColor: student.color,
+                          WebkitTransform: `translate3d(${student.position.x}px, ${student.position.y}px, 0) scale(${scale})`,
+                          transform: `translate3d(${student.position.x}px, ${student.position.y}px, 0) scale(${scale})`,
+                        }}>
+                    </div>
+                  }
+                </Motion>
               );
             })
           }
