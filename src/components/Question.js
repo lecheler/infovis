@@ -7,7 +7,8 @@ import { Button, ButtonGroup, ProgressBar, Well } from 'react-bootstrap';
 import Table from './Table';
 import Chart from './Chart';
 // import ClassDrag from './iv/ClassDrag';
-import ClassView from './iv/ClassView';
+// import ClassView from './iv/ClassView';
+import StudentHypothetical from './iv/StudentHypothetical';
 
 // import Alphabet from './d3/Alphabet';
 // import Demo from './Demo';
@@ -96,7 +97,7 @@ const Question = React.createClass({
       );
     } else if (this.state.type === 2) {
       iv = (
-        <ClassView />
+        <StudentHypothetical />
       );
     } else if (this.state.type === 3) {
       iv = (
@@ -104,7 +105,7 @@ const Question = React.createClass({
       );
     }
 
-    iv = (<ClassView />);
+    iv = (<StudentHypothetical />);
     return (
       <div className="App container">
         <h1>Question {this.state.question} of 12</h1>
