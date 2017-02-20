@@ -3,11 +3,12 @@ import {Motion, spring} from 'react-motion';
 
 const StudentHypothetical = React.createClass({
   getInitialState() {
-    return {open: false};
+    return {open: false, yPosition: 0};
   },
 
-  handleMouseDown() {
-    this.setState({open: !this.state.open});
+  handleMouseDown(e) {
+    console.log(e.nativeEvent)
+    this.setState({yPosition: e.nativeEvent.layerY});
   },
 
   handleTouchStart(e) {
@@ -18,24 +19,19 @@ const StudentHypothetical = React.createClass({
   render() {
     return (
       <div>
-        <button
-          onMouseDown={this.handleMouseDown}
-          onTouchStart={this.handleTouchStart}>
-          Toggle
-        </button>
-
-        <Motion style={{x: spring(this.state.open ? 400 : 0)}}>
-          {({x}) =>
+        <Motion style={{height: spring(450-this.state.yPosition), y: spring(this.state.yPosition)}}>
+          {({height, y}) =>
             // children is a callback which should accept the current value of
             // `style`
-            <div className="demo0">
+            <div className="demo0"
+              onMouseDown={this.handleMouseDown}
+              onTouchStart={this.handleTouchStart}>
               <div 
-                onMouseDown={this.handleMouseDown}
-                onTouchStart={this.handleTouchStart}
                 className="demo0-block" 
                 style={{
-                  WebkitTransform: `translate3d(${x}px, 0, 0)`,
-                  transform: `translate3d(${x}px, 0, 0)`,
+                  height: height,
+                  WebkitTransform: `translate3d(0, ${y}px, 0)`,
+                  transform: `translate3d(0, ${y}px, 0)`,
                 }} 
               />
             </div>
