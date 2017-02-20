@@ -9,6 +9,8 @@ import Chart from './Chart';
 // import ClassDrag from './iv/ClassDrag';
 // import ClassView from './iv/ClassView';
 import StudentHypothetical from './iv/StudentHypothetical';
+import ClassDiscussion from './iv/ClassDiscussion';
+
 
 // import Alphabet from './d3/Alphabet';
 // import Demo from './Demo';
@@ -105,7 +107,7 @@ const Question = React.createClass({
       );
     }
 
-    iv = (<StudentHypothetical />);
+    iv = (<ClassDiscussion />);
     return (
       <div className="App container">
         <h1>Question {this.state.question} of 12</h1>

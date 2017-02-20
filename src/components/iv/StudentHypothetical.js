@@ -17,6 +17,8 @@ const scores = [
   Math.round(Math.random()*100) 
 ];
 
+const avg = 60;
+
 const StudentHypothetical = React.createClass({
   getInitialState() {
     return {open: false, yPosition: 450};
@@ -56,7 +58,7 @@ const StudentHypothetical = React.createClass({
           style={{
             height: spring(450-this.state.yPosition, springSetting1), 
             y: spring(this.state.yPosition, springSetting1),
-            scale: spring(Math.random()+0.5, springSetting2)
+            scale: spring(((450-this.state.yPosition)/450), springSetting2)
           }}>
           {({height, y, scale}) =>
             <div>
