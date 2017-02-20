@@ -28,18 +28,22 @@
 }
 
 /* React Motion */
+
 .demo0 {
-    border-radius: 4px;
-    background-color: rgb(240, 240, 232);
-    position: relative;
-    margin: 5px 3px 10px;
-    width: 50px;
-    height: 450px;
+  border-radius: 4px;
+  background-color: rgb(240, 240, 232);
+  position: relative;
+  margin: 5px 3px 10px;
+  width: 30px;
+  height: 450px;
+  cursor: pointer;
+  float: left;
+  margin-right: 15px;
 }
 .demo0-block {
   position: absolute;
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 0px;
   border-radius: 4px;
   background-color: rgb(130, 181, 198);
 }
@@ -122,6 +126,41 @@
   border-width: 1px;
   width: 79px;
   height: 79px;
+  z-index: -1;
+  margin: 0 auto;
+  position: relative;
+  transform: 
+    translate3d(0px, 0px, 0px)
+    scale(1.5);
+}
+
+.student-score-wrapper-lg {
+  display: flex;
+  align-items: center;
+  width: 150px; /*can be in percentage also.*/
+ /* height: auto;*/
+  margin: 0 auto;
+  position: relative;
+  height: 450px;
+  width: 300px;
+}
+
+.student-score-circle-avg-lg {
+  border-color: #AAD219;
+  border-width: 2px;  
+  border-style: dashed;
+  border-radius: 400px;
+  margin: 0 auto;
+  position: relative;
+} 
+
+.student-score-circle-lg {
+  background-color: #AAD219;
+  border-radius: 200px;
+  border-color: #000000;
+  border-width: 1px;
+  width: 300px;
+  height: 300px;
   z-index: -1;
   margin: 0 auto;
   position: relative;
