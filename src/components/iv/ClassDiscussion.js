@@ -1,29 +1,39 @@
 import React from 'react';
 import Graph from 'react-graph-vis'
+// https://sites.dartmouth.edu/learninganalytics/category/datavisualization/
+// https://sites.dartmouth.edu/learninganalytics/2016/09/21/visualizing-discussion-interactions-in-a-network-graph/
 
 let graph = {
   nodes: [
-      {id: 1, label: 'Node 1', color: '#e04141'},
-      {id: 2, label: 'Node 2', color: '#e09c41'},
-      {id: 3, label: 'Node 3', color: '#e0df41'},
+      {id: 1, color: '#e04141', shape: 'circle', value: 200},
+      {id: 2, color: '#e09c41', size: 25},
+      {id: 3, label: 'Node 3', color: '#e0df41', shape: 'circle'},
       {id: 4, label: 'Node 4', color: '#7be041'},
       {id: 5, label: 'Node 5', color: '#41e0c9'}
     ],
   edges: [
-      {from: 1, to: 2},
-      {from: 1, to: 3},
-      {from: 2, to: 4},
-      {from: 2, to: 5}
+      {from: 1, to: 2, value: 5},
+      {from: 2, to: 1, value: 2},
+      {from: 1, to: 3, value: 1},
+      {from: 2, to: 4, value: 1},
+      {from: 1, to: 5, value: 1}
     ]
 };
 
 let options = {
-    layout: {
-        hierarchical: false
-    },
-    edges: {
-        color: "#000000"
+  layout: {
+      hierarchical: false
+  },
+  "edges": {
+    "smooth": {
+      "type": "continuous",
+      "forceDirection": "vertical",
+      "roundness": 0.45
     }
+  },
+  physics:{
+    enabled: false
+  }
 };
 
 let events = {
@@ -53,7 +63,7 @@ const ClassDiscussion = React.createClass({
   render() {
     return (
       <div>
-        <Graph graph={graph} />
+        <Graph graph={graph} options={options} />
       </div>
     );
   },
