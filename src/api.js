@@ -12,8 +12,9 @@ function students() {
   return api.get('students/');
 }
 
-function addUser(email) {
-  return api.get('users/add?email=' + email);
+function addUser(data) {
+  console.log(data);
+  return api.post('users/add', data);
 }
 
 function logActivity(userID, type) {
@@ -37,8 +38,8 @@ const Api = {
     });
   },
 
-  addUser(email) {
-    return addUser(email).then(response =>
+  addUser(data) {
+    return addUser(data).then(response =>
       response.data
     ).catch((err) => {
       console.log(err);

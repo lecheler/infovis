@@ -75,54 +75,122 @@ const demographic = {
     {
       name: "page1",
       questions: [
-      {
-        type: "text",
-        inputType: "email",
-        name: "question1",
-        title: "Email"
-      },
-      {
-        type: "text",
-        inputType: "number",
-        name: "question2",
-        title: "Age"
-      },
-      {
-        type: "dropdown",
-        isRequired: true,
-        choices: [
+
+        // 1. Email
         {
-         value: "1",
-         text: "High School"
+          name: "email",
+          type: "text",
+          inputType: "email",
+          title: "Email",
         },
+
+        // 2. Age
         {
-         value: "2",
-         text: "Some College"
+          name: "age",
+          type: "text",
+          inputType: "number",
+          title: "Age",
         },
+
+        // 3. Gender
         {
-         value: "3",
-         text: "Bachelor’s Degree"
+          name: "gender",
+          title: "Gender",
+          type: "dropdown",
+          isRequired: true,
+          choices: [
+            {
+             value: "male",
+             text: "Male"
+            },
+            {
+             value: "female",
+             text: "Female"
+            },
+          ],
         },
+
+        // 4. Education
         {
-         value: "4",
-         text: "Master's Degree"
+          name: "education",
+          title: "Education",
+          type: "dropdown",
+          isRequired: true,
+          choices: [
+            {
+             value: "1",
+             text: "High School"
+            },
+            {
+             value: "2",
+             text: "Some College"
+            },
+            {
+             value: "3",
+             text: "Bachelor’s Degree"
+            },
+            {
+             value: "4",
+             text: "Master's Degree"
+            },
+            {
+             value: "5",
+             text: "Professional Degree"
+            },
+            {
+             value: "6",
+             text: "Doctorate Degree"
+            },
+            {
+             value: "7",
+             text: "other"
+            }
+          ],
         },
+
+        // 5. Experience
         {
-         value: "5",
-         text: "Professional Degree"
+          name: "experience",
+          type: "matrix",
+          columns: [
+            {
+              value: "1",
+              text: "disagree"
+            },
+            {
+              value: "2",
+              text: "somewhat disagree"
+            },
+            {
+              value: "3",
+              text: "neutral"
+            },
+            {
+              value: "4",
+              text: "somewhat agree"
+            },
+            {
+              value: "6",
+              text: "agree"
+            }
+          ],
+          
+          rows: [
+            {
+              value: "stats",
+              text: "I have experience with statistics",
+            },
+            {
+              value: "charts",
+              text: "I have experience using charts or graphs to solve problems",
+            },
+            {
+              value: "cbm",
+              text: "I am familiar with progress monitoring and Curriculum Based Measures (CBM)",
+            },
+          ],
+          isRequired: true
         },
-        {
-         value: "6",
-         text: "Doctorate Degree"
-        },
-        {
-         value: "7",
-         text: "other"
-        }
-        ],
-        name: "question1",
-        title: "Education"
-        }
       ]
     }
   ],

@@ -13,7 +13,7 @@ module.exports = function(app){
 
 
 	app.get('/api/ping', (req, res) => {
-		res.send('pong!');
+		res.send('it is a pong!');
 	});
 
 	const students = require('./sql').students;
@@ -29,9 +29,9 @@ module.exports = function(app){
 	    });
 	});
 
-	app.get('/api/users/add', (req, res) => {
-		const email = req.query.email;
-		db.one(users.add, [email])
+	app.post('/api/users/add', (req, res) => {
+		const obj = req.body;
+		db.one(users.add, [obj.email, obj.age, obj.gender, obj.education, obj.experience.stats, obj.experience.charts, obj.experience.cbm])
 	    .then(function (data) {
 	      res.json(data.id);
 	    })
@@ -39,7 +39,7 @@ module.exports = function(app){
 	       console.log(error);
 	    });
 	});
-
+	
 	app.get('/api/users/logActivity', (req, res) => {
 		const user_id = req.query.userID;
 		const type = req.query.type;

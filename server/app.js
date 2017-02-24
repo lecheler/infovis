@@ -1,5 +1,6 @@
 // server/app.js
 const express = require('express');
+var bodyParser = require("body-parser");
 const morgan = require('morgan');
 const path = require('path');
 require('dotenv').config()
@@ -11,6 +12,10 @@ app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:htt
 
 // Serve static assets
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
+
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // API Routes
 require('./routes')(app);
@@ -25,3 +30,4 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Luke's awesome infovis-research app listening on port ${PORT}!`);
 });
+

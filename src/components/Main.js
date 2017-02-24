@@ -18,16 +18,7 @@ const Main = React.createClass({
   },
   goToDemographics() {
     if (this.state.checked) {
-      api.addUser(this.state.email).then((result) => {
-        browserHistory.push('/survey');
-      }).catch((err) => {
-        if (err.response.status !== 404) {
-          window.error(err.response.data.message);
-        }
-        else {
-          throw err;
-        }
-      });
+      browserHistory.push('/survey');
     }
   },
   toggleCheckbox() {
