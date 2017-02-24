@@ -1,5 +1,6 @@
 import React from 'react';
 import * as survey from "survey-react";
+import { browserHistory } from 'react-router';
 import constants from '../constants'
 import api from '../constants.js';
 
@@ -14,14 +15,20 @@ const Survey = React.createClass({
   },
   submitSurvey(survey) {
     console.log(survey.data);
+    browserHistory.push('/test/1');
   },
   componentWillMount() {
     this.setState( { model: new survey.Model(constants.SURVEY_DEMOGRAPHIC)});
   },
   render() {
     return (
-      <div>
-        <survey.Survey model={this.state.model} onComplete={this.submitSurvey} />
+      <div className="App container">
+        <h1>Participant Information</h1>
+        Please complete the following survey.
+        <survey.Survey
+          model={this.state.model} 
+          onComplete={this.submitSurvey}
+          css={{navigationButton: "btn btn-primary btn-large centerButton"}} />
       </div>
     );
   }

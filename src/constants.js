@@ -70,54 +70,63 @@ const exampleSurvey = {
 
 
 const demographic = {
- pages: [
-  {
-   name: "page1",
-   questions: [
+ pages: 
+  [
     {
-     type: "text",
-     inputType: "number",
-     name: "question2",
-     title: "Age"
-    },
-    {
-     type: "dropdown",
-     choices: [
+      name: "page1",
+      questions: [
       {
-       value: "1",
-       text: "High School"
+        type: "text",
+        inputType: "email",
+        name: "question1",
+        title: "Email"
       },
       {
-       value: "2",
-       text: "Some College"
+        type: "text",
+        inputType: "number",
+        name: "question2",
+        title: "Age"
       },
       {
-       value: "3",
-       text: "Bachelor’s Degree"
-      },
-      {
-       value: "4",
-       text: "Master's Degree"
-      },
-      {
-       value: "5",
-       text: "Professional Degree"
-      },
-      {
-       value: "6",
-       text: "Doctorate Degree"
-      },
-      {
-       value: "7",
-       text: "other"
-      }
-     ],
-     name: "question1",
-     title: "Education"
+        type: "dropdown",
+        isRequired: true,
+        choices: [
+        {
+         value: "1",
+         text: "High School"
+        },
+        {
+         value: "2",
+         text: "Some College"
+        },
+        {
+         value: "3",
+         text: "Bachelor’s Degree"
+        },
+        {
+         value: "4",
+         text: "Master's Degree"
+        },
+        {
+         value: "5",
+         text: "Professional Degree"
+        },
+        {
+         value: "6",
+         text: "Doctorate Degree"
+        },
+        {
+         value: "7",
+         text: "other"
+        }
+        ],
+        name: "question1",
+        title: "Education"
+        }
+      ]
     }
-   ]
-  }
- ]
+  ],
+  completedHtml: '<p>woo hoo</p>'
 }
 
 const constants = {
