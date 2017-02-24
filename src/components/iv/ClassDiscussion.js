@@ -5,7 +5,7 @@ import Graph from 'react-graph-vis'
 
 let graph = {
   nodes: [
-      {id: 1, color: '#e04141', shape: 'circle', value: 200},
+      {id: 1, color: '#e04141', shape: 'circle', value: 1},
       {id: 2, color: '#e09c41', size: 25},
       {id: 3, label: 'Node 3', color: '#e0df41', shape: 'circle'},
       {id: 4, label: 'Node 4', color: '#7be041'},

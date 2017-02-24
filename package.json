@@ -27,7 +27,8 @@
     "react-faux-dom": "^3.0.0",
     "react-graph-vis": "^0.1.0",
     "react-motion": "^0.4.7",
-    "react-router": "^3.0.0"
+    "react-router": "^3.0.0",
+    "survey-react": "^0.12.1"
   },
   "scripts": {
     "start": "react-scripts start",
