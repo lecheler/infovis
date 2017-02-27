@@ -197,9 +197,38 @@ const demographic = {
   completedHtml: '<p>woo hoo</p>'
 }
 
+const multipleChoice = {
+ pages: [
+  {
+   name: "q1",
+   questions: [
+    {
+     type: "radiogroup",
+     choices: [
+      {
+       value: "1",
+       text: "first item"
+      },
+      {
+       value: "2",
+       text: "second item"
+      },
+      {
+       value: "3",
+       text: "third item"
+      }
+     ],
+     name: "question2"
+    }
+   ]
+  }
+ ]
+};
+
 const constants = {
   SURVEY_DEMOGRAPHIC: demographic,
   SURVEY_EXAMPLE: exampleSurvey,
+  MULTIPLE_CHOICE: multipleChoice,
 };
 
 export default constants;

@@ -14,7 +14,7 @@ const App = React.createClass({
         <Route path="/" component={Main} />
         <Route path="/about" component={About} />
         <Route path="/survey" component={Survey} />
-        <Route path="/test/:question" component={Question} />
+        <Route path="/test/:userID/:question" component={Question} />
       </Router>
     );
   }

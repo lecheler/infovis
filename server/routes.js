@@ -13,7 +13,7 @@ module.exports = function(app){
 
 
 	app.get('/api/ping', (req, res) => {
-		res.send('it is a pong!');
+		res.send('pong!');
 	});
 
 	const students = require('./sql').students;

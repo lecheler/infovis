@@ -13,7 +13,6 @@ function students() {
 }
 
 function addUser(data) {
-  console.log(data);
   return api.post('users/add', data);
 }
 

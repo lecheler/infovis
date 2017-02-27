@@ -3,23 +3,17 @@ import React from 'react';
 
 import {browserHistory} from 'react-router';
 import { Button, ButtonGroup, ProgressBar, Well } from 'react-bootstrap';
-// import Choices from './Choices.js';
 import Table from './Table';
 import ClassDrag from './iv/ClassDrag';
 import ClassView from './iv/ClassView';
 import StudentHypothetical from './iv/StudentHypothetical';
-// import ClassDiscussion from './iv/ClassDiscussion';
-// import DiscussionForum from './iv/DiscussionForum';
 
-// import Alphabet from './d3/Alphabet';
-// import Demo from './Demo';
 
 import api from '../api.js';
 import '../App.css';
 
 const Question = React.createClass({
   getInitialState() {
-  //  const type = this.getRandomType();
     return {
       question: 1,
       userID: null,
@@ -30,7 +24,7 @@ const Question = React.createClass({
     }
   },
   nextQuestion() {
-    api.logActivity(1, 2);
+    api.logActivity(this.state.userID, 2);
     const next = parseInt(this.state.question, 10)+1
 
     let type = this.getRandomType();
@@ -59,7 +53,7 @@ const Question = React.createClass({
       type3Count: type3Count, 
     });
 
-    browserHistory.push('/test/' + next);
+    browserHistory.push('/test/' + this.state.userID + '/' + next);
   },
   getRandomType() {
     const type = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
@@ -81,7 +75,8 @@ const Question = React.createClass({
   },
 
   componentWillMount() {
-    this.setState( { question: this.props.params.question });
+    this.setState( { question: this.props.params.question, userID: this.props.params.userID });
+    console.log(this.state);
   },
   render() {
     let iv = (
@@ -108,15 +103,9 @@ const Question = React.createClass({
         <ProgressBar bsStyle="success" now={(this.state.question-1)/12*100} />
         <Well>What is the best way for Elena to get an 95% or above?</Well>
         { iv }
-        <ButtonGroup vertical block>
-          <Button>Jane Smith</Button>
-          <Button>Greg Johnson</Button>
-          <Button>Jeff Stevenson</Button>
-          <Button>Beth Fry</Button>
-        </ButtonGroup>
-        <div className="container">
-          <Button bsStyle="primary" onClick={this.nextQuestion}>Next</Button>
-        </div>
+       <div className="container">
+         <Button bsStyle="primary" onClick={this.nextQuestion}>Next</Button>
+       </div>
       </div>
     );
   }
