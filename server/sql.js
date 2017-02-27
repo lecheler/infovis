@@ -3,16 +3,16 @@ var path = require('path');
 
 // Helper for linking to external query files:
 function sql(file) {
-  var fullPath = path.join(__dirname, file); // generating full path;
+  var fullPath = path.join(__dirname, 'sql', file); // generating full path;
   return new QueryFile(fullPath, {minify: true});
 }
 
 module.exports = {
   students: {
-    gradebook: sql('sql/students/gradebook.sql'),
+    gradebook: sql('students/gradebook.sql'),
   },
   users: {
-  	add: sql('sql/users/add.sql'),
-    logActivity: sql('sql/users/logActivity.sql'),
+  	add: sql('users/add.sql'),
+    logActivity: sql('users/logActivity.sql'),
   }
 };
