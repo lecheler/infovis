@@ -49,20 +49,3 @@ const Table = React.createClass({
 });
 
 module.exports = Table;
-
-
-/*
-
-with 
-  a1_grades as (select student_id, score as a1_score from grades where grades.assignment_id = 1),
-  a2_grades as (select student_id, score as a2_score from grades where grades.assignment_id = 2)
-select students.id, first_name, last_name, 
-  coalesce(a1_score, 0) as a1_score,
-  coalesce(a2_score, 0) as a2_score
-from students
-  left join a1_grades on a1_grades.student_id = students.id  
-  left join a2_grades on a2_grades.student_id = students.id;
-
-*/
-
-// https://randomuser.me/api/portraits/thumb/men/57.jpg

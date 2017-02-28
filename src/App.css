@@ -169,3 +169,7 @@
     scale(1.5);
 }
 
+.chartContainer {
+  padding-bottom: 20px;
+}
+
