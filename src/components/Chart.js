@@ -12,7 +12,7 @@ var data = {
             backgroundColor: "rgba(75,192,192,0.4)",
             borderColor: "rgba(75,192,192,1)",
             borderCapStyle: 'butt',
-            borderDash: [5],
+            borderDash: [10],
             borderDashOffset: 0.0,
             borderJoinStyle: 'miter',
             pointBorderColor: "rgba(75,192,192,1)",
@@ -68,19 +68,11 @@ var data = {
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: [55, 57, 59, 62, 62, 66, 70, 81],
+            data: [55, 57, 59, 62, 62, 66, 70, 71, 72, 72, 81],
             spanGaps: false,
         }
     ]
 };
-
-const d = [[0, 55], [1, 57], [2, 59], [3, 62], [4, 62], [5, 66], [6, 70], [7, 73]]
-const result = regression('linear', d);
-const slope = result.equation[0];
-const yIntercept = result.equation[1];
-
-// y = 2.52x + 54.17
-// [54.17, ]
 
 const Chart = React.createClass({
     componentWillMount() {
@@ -91,14 +83,14 @@ const Chart = React.createClass({
         data: data,
       }
     },
-    getDataObject(label, data) {
+    getDataObject(label, data, color) {
         const obj =
         {
             label: label,
             fill: false,
             lineTension: 0.1,
-            backgroundColor: "#AAD219",
-            borderColor: "#AAD219",
+            backgroundColor: color,
+            borderColor: color,
             borderCapStyle: 'butt',
             borderDash: [],
             borderDashOffset: 0.0,
@@ -121,15 +113,17 @@ const Chart = React.createClass({
         const d = data.datasets[2].data.map((student, key) => {
             return([key, student]);
         });
+
         const result = regression('linear', d); 
-        const x = result.equation[0];
+        const m = result.equation[0];
         const y = result.equation[1];
 
+        console.log(result);
         let points = [];
         for (var index = 0; index < data.labels.length; index++) {
-          points.push(x*index + y);
+          points.push(m*index + y);
         }
-        data.datasets.push(this.getDataObject('Projected', points))
+        data.datasets.push(this.getDataObject('Projected', points, m > 0 ? '#AAD219' : '#C80054'))
     },
     render() {
         
