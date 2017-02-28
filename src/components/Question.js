@@ -1,12 +1,11 @@
 import React from 'react';
-// import d3 from 'd3';
-
-import {browserHistory} from 'react-router';
+import { browserHistory } from 'react-router';
 import { Button, ButtonGroup, ProgressBar, Well } from 'react-bootstrap';
 import Table from './Table';
 import ClassDrag from './iv/ClassDrag';
 import ClassView from './iv/ClassView';
 import StudentHypothetical from './iv/StudentHypothetical';
+import Chart from './Chart';
 
 
 import api from '../api.js';
@@ -96,6 +95,8 @@ const Question = React.createClass({
         <ClassView />
       );
     }
+
+    iv = <Chart />
 
     return (
       <div className="App container">
