@@ -1,38 +1,26 @@
 # Generate synthetic student data with noise
+file = "/Users/lucas/Desktop/FLIPGRID/infovis-master-2/test.json"
+write("", file)
 
-
-generateSythenticData(33)
-
+names = c('Elene', 'Reagan', 'Zackary', 'Justa', 'Corinne', 'Tegan', 'Damaris', 'Shayla', 'Sang', 'Anette', 'Leota', 'Joseph', 'Shiela', 'Arlinda', 'Allegra')
 generateSythenticData = function(id) {
   start = round(runif(1, 55, 80))
-  end = round(runif(1, 85, 150))
-  interval = (end - start)/10
+  end = round(runif(1, 95, 150))
+  interval = (end - start)/16
   y = seq(start, end, interval)
-  y = round(jitter(y, 10))
-  plot(y)
+  y = head(round(jitter(y, 10)), 10)
   values = paste(as.character(y), sep="' '", collapse=", ")
-  sql = paste('insert into wcpm ("student_id", "sept", "PM1", "PM2", "PM3", "oct", "PM4", "PM5", "jan", "PM7", "PM8") values (', id, ',', values,  ')')
-  return(values)
+  v = paste('\t\t{\n\t\t\tname: "',  names[i], '",\n\t\t\tdata: [', values, ']\n\t\t},', sep="")
+  write(v, file, append=TRUE)
 }
 
-# oops - no one should hit 150 11 (out of 15) tests in, right?
+start = '{
+  labels: ["Sept", "PM1", "PM2", "PM3", "Oct", "PM4", "PM5", "Jan", "PM7", "PM8", "PM9", "Mar", "PM10", "PM11", "PM12", "MAY"],
+  datasets:\n\t['
+write(start, file, append=TRUE)
+for(i in 1:15){
+  generateSythenticData(i)
+}
+end = '\t]\n}'
+write(end, file, append=TRUE)
 
-#
-# paste(as.character(data), sep="' '", collapse=", ")
-#
-# getDBConnection = function() {
-#   library(DBI)
-#   library(RPostgreSQL)
-#
-#   pg = Sys.getenv(c("IV_PG_NAME", "IV_PG_HOST", "IV_PG_PORT", "IV_PG_USER", "IV_PG_PASSWORD"))
-#   con = dbConnect(PostgreSQL(),dbname = pg['IV_PG_NAME'],
-#                   host = pg['IV_PG_HOST'],
-#                   port = pg['IV_PG_PORT'],
-#                   user = pg['IV_PG_USER'],
-#                   password = pg['IV_PG_PASSWORD'])
-#   return(con)
-# }
-#
-# # insert into wcpm (33, sept, PM1, PM2, PM3, oct, PM4, PM5, jan, PM7, PM8) values (60, 72, 77, 94, 99, 106, 112, 114, 117, 117)
-#
-# setwd('/Users/lucas/Desktop/FLIPGRID/infovis-master-2')
