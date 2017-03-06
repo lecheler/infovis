@@ -56,7 +56,6 @@ const Question = React.createClass({
   },
   getRandomType() {
     const type = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
-    console.log(type);
 
     let type1Count = this.state ? this.state.type1Count : 0;
     let type2Count = this.state ? this.state.type2Count : 0;
@@ -75,7 +74,6 @@ const Question = React.createClass({
 
   componentWillMount() {
     this.setState( { question: this.props.params.question, userID: this.props.params.userID });
-    console.log(this.state);
   },
   render() {
     let iv = (

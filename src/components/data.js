@@ -67,8 +67,14 @@ const studentCharts =
   ]
 };
 
-
-
+const questions = 
+[
+  {
+    id: 0,
+    type: 0,
+    text: 'Look at the visualization below and select all students that are on track to be within 10% of reaching their goals by the end of the term.',
+  }
+]
 
 const data = {
   STUDENT_CHARTS: studentCharts,

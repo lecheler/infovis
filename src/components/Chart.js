@@ -12,40 +12,6 @@ const endGoal = 115;
 const GREEN = '#AAD219';
 const BLUE = '#20A8CC';
 const RED = '#C80054';
-
-// const labels = ["Sept", "PM1", "PM2", "PM3", "Oct", "PM4", "PM5", "Jan", "PM7", "PM8", "PM9", "Mar", "PM10", "PM11", "PM12", "MAY"];
-// from db...
-// const scores = [75, 75, 76, 90, 86, 90, 106, 104, 115, 109, 113];
-// const scores = [57, 67, 67, 66, 76, 76, 74, 91, 84, 89, 102];
-
-var data2 = {
-  labels: ["Sept", "PM1", "PM2", "PM3", "Oct", "PM4", "PM5", "Jan", "PM7", "PM8", "PM9", "Mar", "PM10", "PM11", "PM12", "MAY"],
-  datasets: [
-    {
-      label: "Julia",
-      fill: false,
-      lineTension: 0.1,
-      backgroundColor: "rgba(75,192,192,1)",
-      borderColor: "rgba(75,192,192,1)",
-      borderCapStyle: 'butt',
-      borderDash: [],
-      borderDashOffset: 0.0,
-      borderJoinStyle: 'miter',
-      pointBorderColor: "rgba(75,192,192,1)",
-      pointBackgroundColor: "rgba(75,192,192,1)",
-      pointBorderWidth: 1,
-      pointHoverRadius: 10,
-      pointHoverBackgroundColor: "rgba(75,192,192,1)",
-      pointHoverBorderColor: "rgba(220,220,220,1)",
-      pointHoverBorderWidth: 2,
-      pointRadius: 3,
-      pointHitRadius: 10,
-      data: [1,2,3],
-      spanGaps: false,
-    },
-  ],
-};
-
 const options = 
   {
     // maintainAspectRatio: false,
@@ -118,7 +84,7 @@ const Chart = React.createClass({
     const y = result.equation[1];
 
     let val = [];
-    for (var index = 0; index < data2.labels.length; index++) {
+    for (var index = 0; index < data.STUDENT_CHARTS.labels.length; index++) {
       val.push(m*index + y);
     }
 
@@ -133,6 +99,7 @@ const Chart = React.createClass({
       <div className="chartContainer">
         <h2>Words Correct Per Minute (WCPM)</h2>
 
+        <Grid>
         {
           this.state.data.map((value, key) => {
             const aim = this.getAimLine(value.data);
@@ -148,23 +115,21 @@ const Chart = React.createClass({
             const d = {
               labels: data.STUDENT_CHARTS.labels, 
               datasets: [
-                this.getDataObject(value.name, value.data, '#8a8a8a', false, 5),
+                this.getDataObject(value.name, value.data, '#BDBDBD', false, 5),
                 this.getDataObject('Aim', aim, '#20A8CC', true, 0),
                 this.getDataObject('Projected', projected, diffColor, false, 0),
               ]
             }
 
             return (
-              <div key={key}>
+              <Col xs={6} md={4} key={key}>
                 <h3>{value.name}</h3>
-               <Line data={d} options={options} />
-              </div>
+                <Line data={d} options={options} />
+              </Col>
             );
           })
         }
 
-        <Grid>
-          
         </Grid>
       </div>
     );
