@@ -7,100 +7,82 @@ import ClassView from './iv/ClassView';
 import StudentHypothetical from './iv/StudentHypothetical';
 import Chart from './Chart';
 
-
+import data from './data';
 import api from '../api.js';
 import '../App.css';
+
+let availableTypes = [1, 2, 3];
 
 const Question = React.createClass({
   getInitialState() {
     return {
-      question: 1,
+      questions: data.QUESTIONS,
       userID: null,
-      type1Count: 0,
-      type2Count: 0,
-      type3Count: 0,
-      type: this.getRandomType(),
+      displayType: this.getRandomType(1)
     }
   },
   nextQuestion() {
-    api.logActivity(this.state.userID, 2);
-    const next = parseInt(this.state.question, 10)+1
+ //   api.logActivity(this.state.userID, 2);
+    const next = parseInt(this.props.params.question, 10)+1
 
-    let type = this.getRandomType();
-    let type1Count = this.state.type1Count;
-    let type2Count = this.state.type2Count;
-    let type3Count = this.state.type3Count;
-
-    if (type === 1) {
-      type1Count++;
-    } else if (type === 2){
-      type2Count++;
-    } else {
-      type3Count++;
-    }
-
-    if (next > 12) {
+    if (next > data.QUESTIONS.length) {
+      alert('done!');
       return;
     }
 
     this.setState( 
     { 
-      question: next, 
-      type: type,
-      type1Count: type1Count,
-      type2Count: type2Count,
-      type3Count: type3Count, 
+      displayType: this.getRandomType(next)
     });
 
-    browserHistory.push('/test/' + this.state.userID + '/' + next);
+    browserHistory.push('/test/' + this.props.params.userID + '/' + next);
   },
-  getRandomType() {
-    const type = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
+  getRandomType(num) {
+    const randomIndex = Math.floor(Math.random() * availableTypes.length);
+    const value = availableTypes[randomIndex];
 
-    let type1Count = this.state ? this.state.type1Count : 0;
-    let type2Count = this.state ? this.state.type2Count : 0;
-    let type3Count = this.state ? this.state.type3Count : 0;
+    console.log(value);
 
-    if (type1Count > 3 && type === 1) {
-      return this.getRandomType();
-    } else if (type2Count > 3 && type === 2) {
-      return this.getRandomType();
-    } else if (type3Count > 3 && type === 3) {
-      return this.getRandomType();
-    } else {
-      return type;
-    } 
+    availableTypes.splice(randomIndex, 1);
+
+    const m = num % 3;
+
+    if (m == 0) {
+      availableTypes = [1, 2, 3];
+    }
+    return value;
   },
 
   componentWillMount() {
-    this.setState( { question: this.props.params.question, userID: this.props.params.userID });
+  //  this.getRandomType(this.props.params.question);
+ //   console.log(this.state.displayType);
+ //   this.setState( { questionNumber: this.props.params.question, userID: this.props.params.userID }); // why even set these when we always have access through the route?
   },
   render() {
+    const question = this.state.questions[this.props.params.question-1];
+
     let iv = (
       <div>Something went wrong...</div>
     );
 
-    if (this.state.type === 1) {
-      iv = (
-        <StudentHypothetical />
-      );
-    } else if (this.state.type === 2) {
-      iv = (
-        <ClassDrag />
-      );
-    } else if (this.state.type === 3) {
-      iv = (
-        <ClassView />
-      );
+    if (this.state.displayType === 1) {
+      iv = (<Table />);
+    } else if (this.state.displayType === 2) {
+      iv = (<Chart />);
+    } else {
+      iv = (<ClassDrag />);
+      if (question.ivType === 1) {
+        iv = (<StudentHypothetical />);
+      } else if (question.ivType === 2) {
+        iv = (<ClassView />);
+      }
     }
-
-    iv = <Chart />
 
     return (
       <div className="App container">
-        <h1>Question {this.state.question} of 12</h1>
-        <ProgressBar bsStyle="success" now={(this.state.question-1)/12*100} />
-        <Well>What is the best way for Elena to get an 95% or above?</Well>
+        <h1>Question {this.props.params.question} of {data.QUESTIONS.length}</h1>
+        <ProgressBar bsStyle="success" now={(this.props.params.question-1)/data.QUESTIONS.length*100} />
+        <Well>{question.text} ({question.ivType})</Well>
         { iv }
        <div className="container">
          <Button bsStyle="primary" onClick={this.nextQuestion}>Next</Button>

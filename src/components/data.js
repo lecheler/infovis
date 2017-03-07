@@ -67,17 +67,127 @@ const studentCharts =
   ]
 };
 
+// iv_type = view, drag, hypothetical
+// question_level = sense(0), decision(0)
+// display_type = tabular, pm, custom
+// each iv_type (3) * each question_level (2) * controls (3) = 18
+// for each iv_type, show control (table), traditional (pm), or custom (iv) at each question_level
+
 const questions = 
 [
   {
     id: 0,
-    type: 0,
+    ivType: 0,
+    level: 0,
+    text: 'Is Elena meeting or exceeding her goal?',
+  },
+  {
+    id: 1,
+    ivType: 0,
+    level: 0,
+    text: 'Is Joseph meeting or exceeding his goal?',
+  },
+  {
+    id: 2,
+    ivType: 0,
+    level: 0,
+    text: 'Is Allegra meeting or exceeding her goal?',
+  },
+  {
+    id: 3,
+    ivType: 0,
+    level: 1,
+    text: "By how much would you adjust Elena's goal for the next task to make her end of term performance goal attainable?",
+  },
+  {
+    id: 4,
+    ivType: 0,
+    level: 1,
+    text: "By how much would you adjust Joseph's goal for the next task to make her end of term performance goal attainable?",
+  },
+  {
+    id: 5,
+    ivType: 0,
+    level: 1,
+    text: "By how much would you adjust Allegra's goal for the next task to make her end of term performance goal attainable?",
+  },
+  {
+    id: 6,
+    ivType: 1,
+    level: 0,
+    text: 'Look at the visualization below and select all students that are on track to be within 10% of reaching their goals by the end of the term.',
+  },
+  {
+    id: 7,
+    ivType: 1,
+    level: 0,
+    text: 'Look at the visualization below and select all students that are on track to be within 10% of reaching their goals by the end of the term.',
+  },
+  {
+    id: 8,
+    ivType: 1,
+    level: 0,
+    text: 'Look at the visualization below and select all students that are on track to be within 10% of reaching their goals by the end of the term.',
+  },
+  {
+    id: 9,
+    ivType: 1,
+    level: 1,
+    text: 'Look at the visualization below and select all students that are on track to be within 10% of reaching their goals by the end of the term.',
+  },
+  {
+    id: 10,
+    ivType: 1,
+    level: 1,
+    text: 'Look at the visualization below and select all students that are on track to be within 10% of reaching their goals by the end of the term.',
+  },
+  {
+    id: 11,
+    ivType: 1,
+    level: 1,
+    text: 'Look at the visualization below and select all students that are on track to be within 10% of reaching their goals by the end of the term.',
+  },
+  {
+    id: 12,
+    ivType: 2,
+    level: 0,
+    text: 'Look at the visualization below and select all students that are on track to be within 10% of reaching their goals by the end of the term.',
+  },
+  {
+    id: 13,
+    ivType: 2,
+    level: 0,
+    text: 'Look at the visualization below and select all students that are on track to be within 10% of reaching their goals by the end of the term.',
+  },
+  {
+    id: 14,
+    ivType: 2,
+    level: 0,
+    text: 'Look at the visualization below and select all students that are on track to be within 10% of reaching their goals by the end of the term.',
+  },
+  {
+    id: 15,
+    ivType: 2,
+    level: 1,
+    text: 'Look at the visualization below and select all students that are on track to be within 10% of reaching their goals by the end of the term.',
+  },
+  {
+    id: 16,
+    ivType: 2,
+    level: 1,
+    text: 'Look at the visualization below and select all students that are on track to be within 10% of reaching their goals by the end of the term.',
+  },
+  {
+    id: 17,
+    ivType: 2,
+    level: 1,
     text: 'Look at the visualization below and select all students that are on track to be within 10% of reaching their goals by the end of the term.',
   }
 ]
 
 const data = {
   STUDENT_CHARTS: studentCharts,
+  QUESTIONS: questions,
 };
 
 export default data;
