@@ -53,11 +53,6 @@ const Question = React.createClass({
     return value;
   },
 
-  componentWillMount() {
-  //  this.getRandomType(this.props.params.question);
- //   console.log(this.state.displayType);
- //   this.setState( { questionNumber: this.props.params.question, userID: this.props.params.userID }); // why even set these when we always have access through the route?
-  },
   render() {
     const question = this.state.questions[this.props.params.question-1];
 
