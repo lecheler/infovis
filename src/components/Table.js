@@ -15,9 +15,14 @@ const Table = React.createClass({
 
     const d = data.STUDENT_CHARTS.datasets.map((value, key) => {  
       const obj = {id: key, name: value.name};
-      value.data.forEach((value, key) => {
-        obj['score_' + key] = value;
-      });
+      let exp = ['aim'];
+
+      for (var index = 0; index < data.STUDENT_CHARTS.labels.length; index++) {
+        obj['score_' + index] = value.data[index];
+        exp.push(value.data[index]);
+      }
+      obj.expand = exp;
+    //  console.log(obj);
       return obj;
     });
     this.setState({ tableData: d });
@@ -35,6 +40,22 @@ const Table = React.createClass({
   nameFormatter(cell, row){
     return row.last_name + ', ' + row.first_name;
   },
+
+  scoreFormatter(cell, row) {
+    console.log(cell)
+    return cell ? cell : '---';
+  },
+
+  isExpandableRow(row) {
+    return true;
+  },
+
+  expandComponent(row) {
+    return (
+      <BSTable data={ row.expand } />
+    );
+  },
+
   render() {
     if (!this.state.tableData) {
       return (
@@ -42,24 +63,24 @@ const Table = React.createClass({
       )
     } else {
       return (
-        <BootstrapTable data={this.state.tableData} striped hover condensed>
+        <BootstrapTable data={this.state.tableData} expandableRow={this.isExpandableRow} expandComponent={ this.expandComponent } striped hover condensed>
           <TableHeaderColumn dataField='name' className='vertical-align' width='80' isKey dataSort>Student</TableHeaderColumn>
-          <TableHeaderColumn dataField='score_1' dataAlign='center' dataSort >Sept</TableHeaderColumn>
-          <TableHeaderColumn dataField='score_2' dataAlign='center' dataSort >PM1</TableHeaderColumn>
-          <TableHeaderColumn dataField='score_3' dataAlign='center' dataSort >PM2</TableHeaderColumn>
-          <TableHeaderColumn dataField='score_4' dataAlign='center' dataSort >PM3</TableHeaderColumn>
-          <TableHeaderColumn dataField='score_5' dataAlign='center' dataSort >Oct</TableHeaderColumn>
-          <TableHeaderColumn dataField='score_6' dataAlign='center' dataSort >PM4</TableHeaderColumn>
-          <TableHeaderColumn dataField='score_7' dataAlign='center' dataSort >PM5</TableHeaderColumn>
-          <TableHeaderColumn dataField='score_8' dataAlign='center' dataSort >Jan</TableHeaderColumn>
-          <TableHeaderColumn dataField='score_1' dataAlign='center' dataSort >PM7</TableHeaderColumn>
-          <TableHeaderColumn dataField='score_2' dataAlign='center' dataSort >PM8</TableHeaderColumn>
-          <TableHeaderColumn dataField='score_3' dataAlign='center' dataSort >PM9</TableHeaderColumn>
-          <TableHeaderColumn dataField='score_4' dataAlign='center' dataSort >Mar</TableHeaderColumn>
-          <TableHeaderColumn dataField='score_5' dataAlign='center' dataSort >PM10</TableHeaderColumn>
-          <TableHeaderColumn dataField='score_6' dataAlign='center' dataSort >PM11</TableHeaderColumn>
-          <TableHeaderColumn dataField='score_7' dataAlign='center' dataSort >PM12</TableHeaderColumn>
-          <TableHeaderColumn dataField='score_8' dataAlign='center' dataSort >May</TableHeaderColumn>
+          <TableHeaderColumn dataField='score_0' dataFormat={this.scoreFormatter} dataAlign='center' dataSort >Sept</TableHeaderColumn>
+          <TableHeaderColumn dataField='score_1' dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM1</TableHeaderColumn>
+          <TableHeaderColumn dataField='score_2' dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM2</TableHeaderColumn>
+          <TableHeaderColumn dataField='score_3' dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM3</TableHeaderColumn>
+          <TableHeaderColumn dataField='score_4' dataFormat={this.scoreFormatter} dataAlign='center' dataSort >Oct</TableHeaderColumn>
+          <TableHeaderColumn dataField='score_5' dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM4</TableHeaderColumn>
+          <TableHeaderColumn dataField='score_6' dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM5</TableHeaderColumn>
+          <TableHeaderColumn dataField='score_7' dataFormat={this.scoreFormatter} dataAlign='center' dataSort >Jan</TableHeaderColumn>
+          <TableHeaderColumn dataField='score_8' dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM7</TableHeaderColumn>
+          <TableHeaderColumn dataField='score_9' dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM8</TableHeaderColumn>
+          <TableHeaderColumn dataField='score_10' dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM9</TableHeaderColumn>
+          <TableHeaderColumn dataField='score_11' dataFormat={this.scoreFormatter} dataAlign='center' dataSort >Mar</TableHeaderColumn>
+          <TableHeaderColumn dataField='score_12' dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM10</TableHeaderColumn>
+          <TableHeaderColumn dataField='score_13' dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM11</TableHeaderColumn>
+          <TableHeaderColumn dataField='score_14' dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM12</TableHeaderColumn>
+          <TableHeaderColumn dataField='score_15' dataFormat={this.scoreFormatter} dataAlign='center' dataSort >May</TableHeaderColumn>
         </BootstrapTable>
       );
     }
@@ -67,6 +88,29 @@ const Table = React.createClass({
 });
 
 module.exports = Table;
+
+class BSTable extends React.Component {
+  render() {
+    if (this.props.data) {
+      return (
+        <table className="table table-striped table-bordered table-hover table-condensed">
+          <tbody>
+            <tr>
+              {
+                this.props.data.map((value, key) => {
+                  return(<td key={key}>{value}</td>)
+                })
+              }
+            </tr>
+          </tbody>
+        </table>
+      );
+    } else {
+      return (<p>?</p>);
+    }
+  }
+}
+
 /*
 {
   "id": 35,
