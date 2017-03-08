@@ -11,7 +11,15 @@ const RED = '#C80054';
 
 const Table = React.createClass({
   componentWillMount() {
-    const d = data.STUDENT_CHARTS.datasets.map((value, key) => {  
+    
+    let finalData = data.STUDENT_CHARTS.datasets;
+    if (this.props.student) {
+      const arr = [];
+      arr.push(data.STUDENT_CHARTS.datasets[this.props.student]);
+      finalData = arr;
+    }
+
+    const d = finalData.map((value, key) => {  
       const obj = {id: key, name: value.name};
       let exp = ['Aim'];
       const aim = this.getAimLine(value.data);
