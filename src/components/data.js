@@ -1,3 +1,6 @@
+import regression from 'regression';
+
+
 const studentCharts = 
 
 {
@@ -185,9 +188,41 @@ const questions =
   }
 ]
 
+const getRegressionLine = function(points) {
+  const d = points.map((student, key) => {
+    return([key, student]);
+  });
+
+  const result = regression('linear', d); 
+  const m = result.equation[0];
+  const y = result.equation[1];
+
+  let val = [];
+  for (var index = 0; index < data.STUDENT_CHARTS.labels.length; index++) {
+    val.push(m*index + y);
+  }
+
+  return val;
+}
+
+const getAimLine = function(points) {
+  const interval = (115 - points[0])/(data.STUDENT_CHARTS.labels.length-1);
+
+  let start = points[0];
+  let val = [start];
+
+  for (var index = 1; index < data.STUDENT_CHARTS.labels.length; index++) {
+    val.push(start+=interval);
+  }
+
+  return val;
+}
+
 const data = {
   STUDENT_CHARTS: studentCharts,
   QUESTIONS: questions,
+  getRegressionLine: getRegressionLine,
+  getAimLine: getAimLine
 };
 
 export default data;

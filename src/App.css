@@ -40,6 +40,19 @@
   float: left;
   margin-right: 15px;
 }
+
+.demo0-i {
+  border-radius: 4px;
+  background-color: rgb(240, 240, 232);
+  position: relative;
+  margin: 5px 3px 10px;
+  width: 30px;
+  height: 450px;
+  cursor: pointer;
+  float: left;
+  margin-right: 15px;
+}
+
 .demo0-block {
   position: absolute;
   width: 30px;

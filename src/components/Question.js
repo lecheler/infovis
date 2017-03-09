@@ -41,8 +41,6 @@ const Question = React.createClass({
     const randomIndex = Math.floor(Math.random() * availableTypes.length);
     const value = availableTypes[randomIndex];
 
-    console.log(value);
-
     availableTypes.splice(randomIndex, 1);
 
     const m = num % 3;
@@ -61,18 +59,19 @@ const Question = React.createClass({
     );
 
     if (this.state.displayType === 1) {
-      iv = (<Table />);
+      iv = (<Table student='10' />);
     } else if (this.state.displayType === 2) {
       iv = (<Chart />);
     } else {
-      iv = (<ClassDrag />);
+      iv = (<StudentHypothetical />);
       if (question.ivType === 1) {
-        iv = (<StudentHypothetical />);
-      } else if (question.ivType === 2) {
         iv = (<ClassView />);
+      } else if (question.ivType === 2) {
+        iv = (<ClassDrag />);
       }
     }
-
+  //  iv = (<StudentHypothetical />);
+    
     return (
       <div className="App container">
         <h1>Question {this.props.params.question} of {data.QUESTIONS.length}</h1>

@@ -1,21 +1,18 @@
 import React from 'react';
 import {Motion, spring} from 'react-motion';
-import regression from 'regression';
 
 import data from '../data';
 
 const springSetting1 = {stiffness: 180, damping: 20};
 const springSetting2 = {stiffness: 297, damping: 18};
-const studentIndex = 3;
+const studentIndex = 7;
 
-const StudentHypothetical = React.createClass({
-  //    const s = this.state.regression[this.state.regression.length-1]/115;
-  
+const StudentHypothetical = React.createClass({  
 
   componentWillMount() {
     const scores = data.STUDENT_CHARTS.datasets[studentIndex].data;
-    const aims = this.getAimLine(scores);
-    const regression = this.getRegressionLine(scores);
+    const aims = data.getAimLine(scores);
+    const regression = data.getRegressionLine(scores);
     const scale = regression[regression.length-1]/115;
     const color = this.getRGBForScale(scale);
 
@@ -25,32 +22,19 @@ const StudentHypothetical = React.createClass({
       scale: scale,
       red: color.red,
       green: color.green,
-      blue: color.blue
+      blue: color.blue,
+      yPosition: regression[scores.length]/150*450
     });
   },
 
   getRGBForScale(scale) {
-    console.log(scale)
     let color = {red: 200, green: 0, blue: 84};
-    if (scale > 1.10) {
+    if (scale > 1.00) {
       color = {red: 170, green: 210, blue: 25};
     } else if (scale > 0.90) {
       color = {red: 32, green: 168, blue: 204};
     }
     return color;
-  },
-
-  getAimLine(points) {
-    const interval = (115 - points[0])/(data.STUDENT_CHARTS.labels.length-1);
-
-    let start = points[0];
-    let val = [start];
-
-    for (var index = 1; index < data.STUDENT_CHARTS.labels.length; index++) {
-      val.push(start+=interval);
-    }
-
-    return val;
   },
 
   getInitialState() {
@@ -61,23 +45,6 @@ const StudentHypothetical = React.createClass({
     };
   },
 
-  getRegressionLine(points) {
-    const d = points.map((student, key) => {
-      return([key, student]);
-    });
-
-    const result = regression('linear', d); 
-    const m = result.equation[0];
-    const y = result.equation[1];
-
-    let val = [];
-    for (var index = 0; index < data.STUDENT_CHARTS.labels.length; index++) {
-      val.push(m*index + y);
-    }
-
-    return val;
-  },
-
   handleMouseDown(e) {
     const nextScore = (450-e.nativeEvent.layerY)/450 * 150;
     const arr = []; //data.STUDENT_CHARTS.datasets[1].data;
@@ -86,7 +53,7 @@ const StudentHypothetical = React.createClass({
     }
     arr.push(nextScore);
 
-    const newRegression = this.getRegressionLine(arr);
+    const newRegression = data.getRegressionLine(arr);
     const scale = newRegression[newRegression.length-1]/115;
     const color = this.getRGBForScale(scale);
     this.setState({
@@ -142,7 +109,7 @@ const StudentHypothetical = React.createClass({
           }}>
           {({height, y, scale, red, green, blue}) =>
             <div>
-              <div className="demo0"
+              <div className="demo0-i"
                 onMouseDown={this.handleMouseDown}
                 onTouchStart={this.handleTouchStart}>
                 <div 
