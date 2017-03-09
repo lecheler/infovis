@@ -31,8 +31,14 @@ const Chart = React.createClass({
     // this.getAimLine();
   },
   getInitialState() {
+    let finalData = data.STUDENT_CHARTS.datasets;
+    if (this.props.student) {
+      const arr = [];
+      arr.push(data.STUDENT_CHARTS.datasets[this.props.student]);
+      finalData = arr;
+    }
     return {
-      data: data.STUDENT_CHARTS.datasets,
+      data: finalData,
     }
   },
   getDataObject(label, data, color, dashed, pointRadius) {
@@ -122,7 +128,7 @@ const Chart = React.createClass({
             }
 
             return (
-              <Col xs={6} md={4} key={key}>
+              <Col xs={this.props.student ? 12 : 6} md={this.props.student ? 15 : 4} key={key}>
                 <h3>{value.name}</h3>
                 <Line data={d} options={options} />
               </Col>
