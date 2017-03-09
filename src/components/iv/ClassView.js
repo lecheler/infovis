@@ -2,35 +2,28 @@ import React from 'react';
 import {Motion, spring} from 'react-motion';
 import { Grid, Row, Col } from 'react-bootstrap';
 
+import data from '../data';
+
 // http://chenglou.github.io/react-motion/demos/demo5-spring-parameters-chooser/
 const springSetting1 = {stiffness: 180, damping: 20};
 
-const students = [
-  { name:'Damaris', score: Math.round(Math.random()*100)}, // note: name treated as unique below...
-  { name:'Shayla', score: Math.round(Math.random()*100)},
-  { name:'Sang', score: Math.round(Math.random()*100)},
-  { name:'Annete', score: Math.round(Math.random()*100)},
-  { name:'Leota', score: Math.round(Math.random()*100)},
-  { name:'Joseph', score: Math.round(Math.random()*100)},
-  { name:'Sheila', score: Math.round(Math.random()*100)},
-  { name:'Arlinda', score: Math.round(Math.random()*100)},
-  { name:'Allegra', score: Math.round(Math.random()*100)},
-  { name:'Melissa', score: Math.round(Math.random()*100)},
-  { name:'Cordie', score: Math.round(Math.random()*100)},
-  { name:'Shakira', score: Math.round(Math.random()*100)},
-  { name:'Tina', score: Math.round(Math.random()*100)},
-  { name:'Stephanie', score: Math.round(Math.random()*100)},
-  { name:'Anisa', score: Math.round(Math.random()*100)},
-];
-
-const Demo = React.createClass({
+const ClassView = React.createClass({
   getInitialState() {
+
+    const d = data.STUDENT_CHARTS.datasets.map((student, key) => {
+      const r = data.getRegressionLine(student.data);
+      const a = data.getAimLine(student.data);
+      const scale = a[a.length-1]/r[r.length-1];
+      
+      return { name: student.name, scale: scale }
+    });
+
     return {
       mouse: [0, 0],
       delta: [0, 0], // difference between mouse and circle pos, for dragging
       lastPress: null, // key of the last pressed component
       isPressed: false,
-      students: students.sort((a, b) => b.score - a.score),
+      students: d.sort((a, b) => b.scale - a.scale),
       ready: false,
     };
   },
@@ -77,26 +70,9 @@ const Demo = React.createClass({
   },
 
   setInitialLayout() {
-    let total = 0;
-
-    students.forEach((student, key) => {
-      total += student.score;
-
-     // let col = '#C80054';
-     // if (student.score > 60) {
-     //   col = '#AAD219';
-     // } else if (student.score > 30) {
-     //   col = '#20A8CC';
-     // }
-
-     // student.color = col;
-    });
-
-    console.log(total/15);
-    this.setState({ready: true, avg: total/15});
+    this.setState({ready: true});
   },
   render() {
-    console.log(this.state.ready);
     const {lastPress, isPressed, mouse} = this.state;
     if (!this.state.ready) {
       return(
@@ -109,13 +85,12 @@ const Demo = React.createClass({
   
           {
             this.state.students.map((student, key) => {
-              
-              let scale = (student.score/this.state.avg);
-              const dashColor = scale < 1 ? '#AAD219' : '#ffffff';
+
+              const dashColor = student.scale < 1 ? '#AAD219' : '#ffffff';
               let col = '#AAD219';
-              if (scale < 0.75) {
+              if (student.scale < 0.90) {
                 col = '#C80054';
-              } else if (scale < 1.0) {
+              } else if (student.scale < 1.0) {
                 col = '#20A8CC';
               }
 
@@ -131,14 +106,14 @@ const Demo = React.createClass({
                       style={
                         {
                           backgroundColor: col,
-                          WebkitTransform: `scale(${scale})`,
-                          transform: `scale(${scale})`,
+                          WebkitTransform: `scale(${student.scale})`,
+                          transform: `scale(${student.scale})`,
                         }}
                       >
                       </div>
                     </div>
                   </div>
-                  {student.name} ({student.score}%)
+                  {student.name} ({Math.round(student.scale*100)}%)
                 </Col>
               );
             })
@@ -149,4 +124,4 @@ const Demo = React.createClass({
   },
 });
 
-export default Demo;
+export default ClassView;
