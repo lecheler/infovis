@@ -41,7 +41,7 @@ const studentCharts =
     },
     {
       name: "Sang",
-      data: [68, 72, 71, 72, 75, 80, 77, 83, 85, 81]
+      data: [68, 72, 71, 72, 75, 80, 77, 83, 85, 87]
     },
     {
       name: "Anette",
@@ -82,7 +82,7 @@ const questions =
     id: 0,
     ivType: 0,
     level: 0,
-    text: 'Is Elena meeting or exceeding her goal?',
+    text: 'Leota’s goal for the next measure is 101, based on the goal line calculated at the beginning of the year. Since he is projected to exceed that score, you decide to set a new goal for his next measure that is achievable, yet motivating.',
   },
   {
     id: 1,
@@ -187,6 +187,7 @@ const questions =
     text: 'Look at the visualization below and select all students that are on track to be within 10% of reaching their goals by the end of the term.',
   }
 ]
+
 
 const getRegressionLine = function(points) {
   const d = points.map((student, key) => {

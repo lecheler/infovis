@@ -6,6 +6,7 @@ import ClassDrag from './iv/ClassDrag';
 import ClassView from './iv/ClassView';
 import StudentHypothetical from './iv/StudentHypothetical';
 import Chart from './Chart';
+import Modal from './Modal';
 
 import data from './data';
 import api from '../api.js';
@@ -70,7 +71,7 @@ const Question = React.createClass({
         iv = (<ClassDrag />);
       }
     }
-  //  iv = (<StudentHypothetical />);
+    iv = (<ClassDrag />);
     
     return (
       <div className="App container">

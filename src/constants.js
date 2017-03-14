@@ -225,10 +225,18 @@ const multipleChoice = {
  ]
 };
 
+
+const GREEN = '#AAD219';
+const BLUE = '#20A8CC';
+const RED = '#C80054';
+
 const constants = {
   SURVEY_DEMOGRAPHIC: demographic,
   SURVEY_EXAMPLE: exampleSurvey,
   MULTIPLE_CHOICE: multipleChoice,
+  GREEN: GREEN,
+  BLUE: BLUE,
+  RED: RED
 };
 
 export default constants;

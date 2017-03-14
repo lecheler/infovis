@@ -1,11 +1,13 @@
 import React from 'react';
 import {Motion, spring} from 'react-motion';
+import Chart from '../Chart';
+import Table from '../Table';
 
 import data from '../data';
 
 const springSetting1 = {stiffness: 180, damping: 20};
 const springSetting2 = {stiffness: 297, damping: 18};
-const studentIndex = 7;
+const studentIndex = 10;
 
 const StudentHypothetical = React.createClass({  
 
@@ -16,6 +18,7 @@ const StudentHypothetical = React.createClass({
     const scale = regression[regression.length-1]/115;
     const color = this.getRGBForScale(scale);
 
+    console.log(data.STUDENT_CHARTS.datasets[studentIndex]);
     this.setState({ 
       scores: scores,
       aims: aims,
@@ -54,6 +57,9 @@ const StudentHypothetical = React.createClass({
     arr.push(nextScore);
 
     const newRegression = data.getRegressionLine(arr);
+    const newAim = data.getAimLine(arr);
+    console.log(newAim[arr.length-1]);
+   // console.log(newRegression[newRegression.length-1]);
     const scale = newRegression[newRegression.length-1]/115;
     const color = this.getRGBForScale(scale);
     this.setState({
@@ -73,6 +79,8 @@ const StudentHypothetical = React.createClass({
   render() {
     return (
       <div className='bar-container'>
+        <Chart student={studentIndex} />
+        <Table student={studentIndex} />
         {
           this.state.scores.map((scores, key) => {
             const aim = this.state.aims[key]/150 * 450;
@@ -136,8 +144,10 @@ const StudentHypothetical = React.createClass({
                     }}
                   >
                   </div>
+
                 </div>
               </div>
+              Next Score: { Math.round((450-y)/450 * 150) }, scale: {Math.round(scale*100)}
             </div>
           }
         </Motion>
