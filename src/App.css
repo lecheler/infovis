@@ -71,10 +71,13 @@
   align-items: center;
 }
 
-.demo2 {
+.class-drag {
   background-color: #f6f6f6;
-  width: 950px;
+  width: 100%;
   height: 700px;
+
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .demo2-ball {
@@ -96,18 +99,32 @@
   cursor: -webkit-grab;
 }
 
+.ball-background {
+  width: 400px;
+  height: 400px;
+  position: absolute;
+  margin: 0 0 0 -200px;
+  left: 50%;
+  top: 400px;
 
+  border-color: #a8a8a8;
+  border-width:5px;  
+  border-style:dashed;
+  border-radius: 200px;
+}
+
+/*
 .demo2-main {
   top: 25%;
-  transform: translateY(100%);
+  transform: translateY(50%);
   margin: 0 auto;
   border-color: #a8a8a8;
   border-width:5px;  
   border-style:dashed;
   border-radius: 200px;
-  width: 300px;
-  height: 300px;
-}
+  width: 400px;
+  height: 400px;
+}*/
 
 .class-view-grid {
   padding: 20px;
@@ -150,7 +167,7 @@
 .student-score-wrapper-lg {
   display: flex;
   align-items: center;
-  width: 150px; /*can be in percentage also.*/
+  width: 200px; /*can be in percentage also.*/
  /* height: auto;*/
   margin: 0 auto;
   position: relative;
