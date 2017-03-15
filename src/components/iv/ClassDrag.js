@@ -222,45 +222,23 @@ const ClassDrag = React.createClass({
                   const d = Math.sqrt( mx*mx + my*my );
                   const p = 1.5 - d/380;
 
-                  console.log(p);
+                  const newAim = student.projectedNext + ((1 - p) * student.projectedNext);
+                  console.log(1 - p)
+               //   console.log(p * student.projectedNext);
                   // 200 = 90%, 
                   // 
                   // 1 - 0.9 = x 
                   // 
 
-                  if (p <= 0.9) {
+                  if (p < 0.9) {
                     student.color = constants.RED;
-                  } else if (p <= 1.0) {
+                  } else if (p < 1.0) {
                     student.color = constants.BLUE;
                   } else {
                     student.color = constants.GREEN;
                   }
 
-
-                  /* Ok */
-
-
-                  const a = mouse[0] - 450; // why is (450, 80) the center?
-                  const b = mouse[1] - 80;
-                  const distance = Math.sqrt( a*a + b*b );
-
-                  // if (distance >= 250) {
-                  //   student.color = constants.RED;
-                  // } else if (distance >= 150) {
-                  //   student.color = constants.BLUE;
-                  // } else {
-                  //   student.color = constants.GREEN;
-                  // }
-
-                  // Math.sqrt( a*a + b*b ) = 600 - (student.projectedNext/x *400) - 50
-                  // Math.sqrt( a*a + b*b ) + 50 = 600 - (student.projectedNext/x *400)
-                  // Math.sqrt( a*a + b*b ) + 50 = 600 + -1*(student.projectedNext/x * 400)
-                  // Math.sqrt( a*a + b*b ) + 50 - 600 = -400 * student.projectedNext/x
-                  // -(Math.sqrt( a*a + b*b ) + 50 - 600)/400 = student.projectedNext/1 * 1/x
-                  // 1/student.projectedNext * -(Math.sqrt( a*a + b*b ) + 50 - 600)/400 = 1/x
-
-
-                  const n = 1/student.projectedNext * -(distance+ 50 - 600)/400;
+               //   const n = 1/student.projectedNext * -(distance+ 50 - 600)/400;
               //    console.log("d = " + distance);
                //   console.log("new aim = " + 1/n);
 
@@ -270,7 +248,7 @@ const ClassDrag = React.createClass({
                   style = {
                     scale: spring(1.0, springSetting1),
                     distance: Math.round(d),
-                    newAim: 1/n,
+                    newAim: Math.round(newAim),
                   };
                //   console.log(style)
                 }
@@ -290,7 +268,7 @@ const ClassDrag = React.createClass({
                               WebkitTransform: `translate3d(${student.position.x}px, ${student.position.y}px, 0) scale(${scale})`,
                               transform: `translate3d(${student.position.x}px, ${student.position.y}px, 0) scale(${scale})`,
                             }}>
-                            <div style={{paddingTop: '17px'}}>{distance}</div>
+                            <div style={{paddingTop: '17px'}}>{newAim}</div>
                         </div>
                       </div>
                     }
