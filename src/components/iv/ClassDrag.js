@@ -28,7 +28,10 @@ const ClassDrag = React.createClass({
         aim: 115, 
         projected: regression[regression.length-1], 
         projectedNext: regression[student.data.length],
-        aimNext: aim[student.data.length]
+        aimNext: aim[student.data.length],
+        newAim: aim[student.data.length],
+        newEndOfYear: Math.round(regression[student.data.length]),
+        data: student.data
       };
     });
 
@@ -86,52 +89,30 @@ const ClassDrag = React.createClass({
   setInitialLayout() {
     this.state.students.forEach((student, key) => {
 
-      /* 
-        Distance from center = projected/aim
-
-        distance = student likelihood to hit next goal (pNext/pAim)
-          d > 1 = center
-          d < 0.8 = perimeter
-
-        d = pNext/pAim * 300
-
-        1.5 = center (0)
-        ex: 1.3/1.5 = 87%
-        0.75 = perimeter (300)
-
-        0.75x = 300
-        x = 400
-
-        300 + -1*(score * 400 - 300)
-
-        300 + score*-400 + 300
-
-        600 - score*400
-
-        0.9x = 100
-
-
-      */
-
       let radius =  300;
       let a = student.projectedNext/student.aimNext;
       let col = constants.RED;
       let s = this.state.students.filter(function(x){return x.score < 0.90});
 
+     // a = (0.5 + d/380) * projected
+    //  student.aimNext = student.projectedNext * (0.5 + d/380)
+    // student.aimNext/student.projectedNext = 0.5 + d/380
+    // student.aimNext/student.projectedNext - 0.5 = d/380
+    // 380*(student.aimNext/student.projectedNext - 0.5) = d
+
       if (a >= 1.0) {
         radius = 0;
        col = constants.GREEN;
-    //   s = this.state.students.filter(function(x){return x.score >= 1.0});
       } else if (a >= 0.90) {
-        radius = 150;
        col = constants.BLUE;
-    //   s = this.state.students.filter(function(x){return x.score > 0.90 && x.score < 1.0});
       }
-      s = this.state.students;
-      radius = circleRadius;
 
-      let testX  = circleRadius - ballSize/2; //radius * Math.cos(s.findIndex(x => x.name===student.name) * 2 * Math.PI / s.length) + 950/2 - 30;
-      let testY  = circleRadius - ballSize/2;// radius * Math.sin(s.findIndex(x => x.name===student.name) * 2 * Math.PI / s.length) - circleRadius/2;
+      s = this.state.students;
+    //  radius = 200; // 380*a - 190;
+      radius = 380*(student.aimNext/student.projectedNext - 0.5);
+
+      let testX  = radius * Math.cos(s.findIndex(x => x.name===student.name) * 2 * Math.PI / s.length) + circleRadius - ballSize/2;
+      let testY  = radius * Math.sin(s.findIndex(x => x.name===student.name) * 2 * Math.PI / s.length) + circleRadius - ballSize/2;
 
       student.position = {x: testX, y: testY};
       student.color = col;
@@ -139,6 +120,11 @@ const ClassDrag = React.createClass({
 
     this.setState({ready: true});
   },
+
+  getPropsForScore(score) {
+
+  },
+
   render() {
     const {lastPress, isPressed, mouse} = this.state;
     if (!this.state.ready) {
@@ -151,31 +137,27 @@ const ClassDrag = React.createClass({
     if (this.state.lastPress) {
       selectedStudent = this.state.students[this.state.lastPress];
     }
-  //  console.log(selectedStudent);
-    /*
 
-      Show (1) What they should shoot for (2) Likelihood
-      OnChange (1) What they should shoot for, (2) How this impacts their EoY projection
-
-
-      Sang needs to increase every measure by 6 in order to hit 115
-    */
-
-    //      console.log(this.refs.classDrag);
-
-    const tooltip = (
-      <Tooltip id="tooltip"><strong>Holy guacamole!</strong> Check this info.</Tooltip>
+    let studentInfo = (
+      <div>Select a student</div>
     );
+    let fontColor = constants.RED;
+    if (selectedStudent.newEndOfYear/115 >= 1.0) {
+      fontColor = constants.GREEN;
+    } else if (selectedStudent.newEndOfYear/115 >= 0.9) {
+      fontColor = constants.BLUE;
+    }
 
     return (
-      <div>
-        <h3>{selectedStudent ? selectedStudent.name : 'Select a Student'}</h3>
-        <div>
-          <em>Next Measure Aim:</em> {Math.round(selectedStudent.aimNext)},
-          <em> Next Measure Projection:</em> {Math.round(selectedStudent.projectedNext)},
-          <em> Percent:</em> {Math.round(selectedStudent.aimNext/selectedStudent.projectedNext*100)}
-        </div>
+      <div>        
         <div className="class-drag" ref="classDrag">
+          
+          <div style={{padding: '20px'}}>
+            <p><b>{selectedStudent ? selectedStudent.name : 'Select a Student'}</b> will now see a goal of 
+              <b> {Math.round(selectedStudent.newAim)}</b>. By reaching this goal, she is projected to achieve
+              <b style={{color: fontColor}}> {selectedStudent.newEndOfYear}</b> by the end of the year.
+            </p>
+          </div>
           <div className="ball-background">
     
             {
@@ -187,11 +169,7 @@ const ClassDrag = React.createClass({
 
                 if (key === lastPress && isPressed) {
 
-
-
-
-
-
+                  // Limit x, y of circle dragging
                   const xMax = 500;
                   const xMin = -170;
                   const yMax = 500;
@@ -213,44 +191,44 @@ const ClassDrag = React.createClass({
                     student.position.x = xMin;
                   }
                
+                  // Calculate newAim for distance
 
                   const centerX = circleRadius - ballSize/2;
                   const centerY = circleRadius - ballSize/2;
 
-                  const mx = student.position.x - centerX; // why is (450, 80) the center?
+                  const mx = student.position.x - centerX;
                   const my = student.position.y - centerY;
                   const d = Math.sqrt( mx*mx + my*my );
-                  const p = 1.5 - d/380;
+                  const p = 0.5 + d/380;
 
-                  const newAim = student.projectedNext + ((1 - p) * student.projectedNext);
-                  console.log(1 - p)
-               //   console.log(p * student.projectedNext);
-                  // 200 = 90%, 
-                  // 
-                  // 1 - 0.9 = x 
-                  // 
+                  const newAim = p * student.projectedNext;
+                  // a = (0.5 + d/380) * projected
+                  student.newAim = newAim;
 
-                  if (p < 0.9) {
+                  const arr = [];
+                  for (var index = 0; index < student.data.length; index++) {
+                    arr.push(student.data[index]);
+                  }
+                  arr.push(newAim); 
+                  
+                  const regression = data.getRegressionLine(arr);
+
+                  student.newEndOfYear = Math.round(regression[regression.length-1]);
+
+
+                  if (p > 1.1) {
                     student.color = constants.RED;
-                  } else if (p < 1.0) {
+                  } else if (p > 1.0) {
                     student.color = constants.BLUE;
                   } else {
                     student.color = constants.GREEN;
                   }
 
-               //   const n = 1/student.projectedNext * -(distance+ 50 - 600)/400;
-              //    console.log("d = " + distance);
-               //   console.log("new aim = " + 1/n);
-
-                  // 1/x = n
-                  // 1 = x * n
-                  // 1/n = x
                   style = {
-                    scale: spring(1.0, springSetting1),
+                    scale: spring(1.1, springSetting1),
                     distance: Math.round(d),
                     newAim: Math.round(newAim),
                   };
-               //   console.log(style)
                 }
 
                 return (
@@ -268,7 +246,7 @@ const ClassDrag = React.createClass({
                               WebkitTransform: `translate3d(${student.position.x}px, ${student.position.y}px, 0) scale(${scale})`,
                               transform: `translate3d(${student.position.x}px, ${student.position.y}px, 0) scale(${scale})`,
                             }}>
-                            <div style={{paddingTop: '17px'}}>{newAim}</div>
+                            <div className="unselectable" style={{paddingTop: '17px'}}>{newAim ? Math.round(newAim) : student.name}</div>
                         </div>
                       </div>
                     }
@@ -279,10 +257,10 @@ const ClassDrag = React.createClass({
             </div>
           </div>
         <div>
+          <img src='../../drag_key.png' />
           <em>The chart below shows your students relative to their next measure goals. 
               The further away from the center circle, the further away from meeting their next measure goal. 
               Drag each student to change their next measure goal.</em>
-           <img src='../../drag_key.png' />
         </div>
       </div>
     );
