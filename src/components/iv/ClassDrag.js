@@ -23,6 +23,7 @@ const ClassDrag = React.createClass({
       const aim = data.getAimLine(student.data);
       const score = regression[regression.length-1]/115;
       return {
+        id: key,
         name: student.name, 
         score: score, 
         aim: 115, 
@@ -89,30 +90,20 @@ const ClassDrag = React.createClass({
   setInitialLayout() {
     this.state.students.forEach((student, key) => {
 
-      let radius =  300;
-      let a = student.projectedNext/student.aimNext;
+      const distance =  380*(student.aimNext/student.projectedNext - 0.5);
       let col = constants.RED;
-      let s = this.state.students.filter(function(x){return x.score < 0.90});
-
-     // a = (0.5 + d/380) * projected
-    //  student.aimNext = student.projectedNext * (0.5 + d/380)
-    // student.aimNext/student.projectedNext = 0.5 + d/380
-    // student.aimNext/student.projectedNext - 0.5 = d/380
-    // 380*(student.aimNext/student.projectedNext - 0.5) = d
-
-      if (a >= 1.0) {
-        radius = 0;
-       col = constants.GREEN;
-      } else if (a >= 0.90) {
-       col = constants.BLUE;
+      let s = 5;
+      if (student.projectedNext/student.aimNext >= 1.0) {
+        s = 1
+        col = constants.GREEN;
+      } else if (student.projectedNext/student.aimNext >= 0.9) {
+        col = constants.BLUE;
+        s = 3
       }
+      s = 15;
 
-      s = this.state.students;
-    //  radius = 200; // 380*a - 190;
-      radius = 380*(student.aimNext/student.projectedNext - 0.5);
-
-      let testX  = radius * Math.cos(s.findIndex(x => x.name===student.name) * 2 * Math.PI / s.length) + circleRadius - ballSize/2;
-      let testY  = radius * Math.sin(s.findIndex(x => x.name===student.name) * 2 * Math.PI / s.length) + circleRadius - ballSize/2;
+      let testX  = distance * Math.cos(student.id * 2 * Math.PI / s) + circleRadius - ballSize/2;
+      let testY  = distance * Math.sin(student.id * 2 * Math.PI / s) + circleRadius - ballSize/2;
 
       student.position = {x: testX, y: testY};
       student.color = col;
@@ -133,31 +124,39 @@ const ClassDrag = React.createClass({
       );
     }
 
-    let selectedStudent = '---';
+    let studentInfo = (
+      <div style={{padding: '20px'}}>
+        <h3>Select a student</h3>
+        <p>Dragging the student circle relative to the center changes the student's goal for the next measure</p>
+      </div>
+    );
+    let selectedStudent;
+
     if (this.state.lastPress) {
       selectedStudent = this.state.students[this.state.lastPress];
+      let eoyColor = constants.RED;
+      if (selectedStudent.newEndOfYear/115 >= 1.0) {
+        eoyColor = constants.GREEN;
+      } else if (selectedStudent.newEndOfYear/115 >= 0.9) {
+        eoyColor = constants.BLUE;
+      }
+      studentInfo = (
+        <div style={{padding: '20px'}}>
+          <h3>{selectedStudent.name}</h3>
+          <p><b>{selectedStudent.name}</b> will now see a goal 
+          of <span style={{backgroundColor: selectedStudent.color, color: 'white', padding: '5px', borderRadius: '5px'}}> {Math.round(selectedStudent.newAim)}</span>.
+            If she reaches this goal, she is projected to 
+            achieve <span style={{backgroundColor: eoyColor, color: 'white', padding: '5px', borderRadius: '5px'}}>
+              {selectedStudent.newEndOfYear}
+            </span> by the end of the year.
+          </p>
+        </div>
+      );
     }
-
-    let studentInfo = (
-      <div>Select a student</div>
-    );
-    let fontColor = constants.RED;
-    if (selectedStudent.newEndOfYear/115 >= 1.0) {
-      fontColor = constants.GREEN;
-    } else if (selectedStudent.newEndOfYear/115 >= 0.9) {
-      fontColor = constants.BLUE;
-    }
-
     return (
       <div>        
         <div className="class-drag" ref="classDrag">
-          
-          <div style={{padding: '20px'}}>
-            <p><b>{selectedStudent ? selectedStudent.name : 'Select a Student'}</b> will now see a goal of 
-              <b> {Math.round(selectedStudent.newAim)}</b>. By reaching this goal, she is projected to achieve
-              <b style={{color: fontColor}}> {selectedStudent.newEndOfYear}</b> by the end of the year.
-            </p>
-          </div>
+          {studentInfo}
           <div className="ball-background">
     
             {
@@ -202,7 +201,7 @@ const ClassDrag = React.createClass({
                   const p = 0.5 + d/380;
 
                   const newAim = p * student.projectedNext;
-                  // a = (0.5 + d/380) * projected
+                 
                   student.newAim = newAim;
 
                   const arr = [];
@@ -256,12 +255,7 @@ const ClassDrag = React.createClass({
             }
             </div>
           </div>
-        <div>
-          <img src='../../drag_key.png' />
-          <em>The chart below shows your students relative to their next measure goals. 
-              The further away from the center circle, the further away from meeting their next measure goal. 
-              Drag each student to change their next measure goal.</em>
-        </div>
+          <img src='../../drag_key.png' width="600px" />
       </div>
     );
   },
