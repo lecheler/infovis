@@ -22,7 +22,8 @@ const options =
       labels: {
         fontColor: 'rgb(255, 99, 132)'
       }
-    }
+    },
+    maintainAspectRatio: true
   };
 
 const Chart = React.createClass({
@@ -104,8 +105,7 @@ const Chart = React.createClass({
     return (
       <div className="chartContainer">
         <h2>Words Correct Per Minute (WCPM)</h2>
-
-        <Grid>
+        <div>
         {
           this.state.data.map((value, key) => {
             const aim = this.getAimLine(value.data);
@@ -128,15 +128,12 @@ const Chart = React.createClass({
             }
 
             return (
-              <Col xs={this.props.student ? 12 : 6} md={this.props.student ? 15 : 4} key={key}>
-                <h3>{value.name}</h3>
-                <Line data={d} options={options} />
-              </Col>
+              <Line data={d} options={options} />
             );
           })
         }
 
-        </Grid>
+        </div>
       </div>
     );
   },

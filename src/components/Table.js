@@ -1,9 +1,10 @@
 import React from 'react';
-import {Glyphicon} from 'react-bootstrap';
+import {Button, Glyphicon, Modal} from 'react-bootstrap';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import regression from 'regression';
 
 // import api from '../api.js';
+import Chart from './Chart';
 import data from './data';
 
 const GREEN = '#AAD219';
@@ -45,6 +46,7 @@ const Table = React.createClass({
   getInitialState() {
     return {
       tableData: data,
+      studentIndex: 0,
     };
   },
 
@@ -122,6 +124,14 @@ const Table = React.createClass({
     return '<div style="background-color: ' + diffColor + '; color: #ffffff;">' + cell + '</div>';
   },
 
+  statsFormatter(cell, row) {
+    return <Button bsSize="xsmall" onClick={this.dataClick.bind(null, cell)}><Glyphicon glyph="stats" /></Button>;
+  },
+
+  dataClick(id) {
+    this.setState({showModal: true, studentIndex: id});
+  },
+
   isExpandableRow(row) {
     return true;
   },
@@ -162,6 +172,10 @@ const Table = React.createClass({
     return val;
   },
 
+  close() {
+    this.setState({ showModal: false });
+  },
+
   render() {
     if (!this.state.tableData) {
       return (
@@ -169,26 +183,40 @@ const Table = React.createClass({
       )
     } else {
       return (
-        <BootstrapTable data={this.state.tableData} cellEdit={ this.cellEditProp() } striped hover condensed>
-          <TableHeaderColumn dataField='name' editable={false} className='vertical-align' width='80' isKey dataSort></TableHeaderColumn>
-          <TableHeaderColumn dataField='score_0' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >Sept</TableHeaderColumn>
-          <TableHeaderColumn dataField='score_1' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM1</TableHeaderColumn>
-          <TableHeaderColumn dataField='score_2' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM2</TableHeaderColumn>
-          <TableHeaderColumn dataField='score_3' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM3</TableHeaderColumn>
-          <TableHeaderColumn dataField='score_4' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >Oct</TableHeaderColumn>
-          <TableHeaderColumn dataField='score_5' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM4</TableHeaderColumn>
-          <TableHeaderColumn dataField='score_6' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM5</TableHeaderColumn>
-          <TableHeaderColumn dataField='score_7' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >Jan</TableHeaderColumn>
-          <TableHeaderColumn dataField='score_8' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM7</TableHeaderColumn>
-          <TableHeaderColumn dataField='score_9' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM8</TableHeaderColumn>
-          <TableHeaderColumn dataField='score_10' editable={true} dataFormat={this.scoreFormatterEdit} dataAlign='center' dataSort >PM9</TableHeaderColumn>
-          <TableHeaderColumn dataField='score_11' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >Mar</TableHeaderColumn>
-          <TableHeaderColumn dataField='score_12' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM10</TableHeaderColumn>
-          <TableHeaderColumn dataField='score_13' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM11</TableHeaderColumn>
-          <TableHeaderColumn dataField='score_14' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM12</TableHeaderColumn>
-          <TableHeaderColumn dataField='score_15' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >May</TableHeaderColumn>
-          <TableHeaderColumn dataField='final' editable={false} dataFormat={this.finalFormatter} dataAlign='center' dataSort>Proj</TableHeaderColumn>
-        </BootstrapTable>
+        <div>
+          <Modal bsSize='lg' show={this.state.showModal} onHide={this.close}>
+            <Modal.Header closeButton>
+              <Modal.Title>Modal heading</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Chart width="" student={this.state.studentIndex} />
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={this.close}>Close</Button>
+            </Modal.Footer>
+          </Modal>
+          <BootstrapTable data={this.state.tableData} cellEdit={ this.cellEditProp() } striped hover condensed>
+            <TableHeaderColumn dataField='name' editable={false} className='vertical-align' width='80' isKey dataSort></TableHeaderColumn>
+            <TableHeaderColumn dataField='score_0' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >Sept</TableHeaderColumn>
+            <TableHeaderColumn dataField='score_1' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM1</TableHeaderColumn>
+            <TableHeaderColumn dataField='score_2' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM2</TableHeaderColumn>
+            <TableHeaderColumn dataField='score_3' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM3</TableHeaderColumn>
+            <TableHeaderColumn dataField='score_4' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >Oct</TableHeaderColumn>
+            <TableHeaderColumn dataField='score_5' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM4</TableHeaderColumn>
+            <TableHeaderColumn dataField='score_6' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM5</TableHeaderColumn>
+            <TableHeaderColumn dataField='score_7' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >Jan</TableHeaderColumn>
+            <TableHeaderColumn dataField='score_8' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM7</TableHeaderColumn>
+            <TableHeaderColumn dataField='score_9' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM8</TableHeaderColumn>
+            <TableHeaderColumn dataField='score_10' editable={true} dataFormat={this.scoreFormatterEdit} dataAlign='center' dataSort >PM9</TableHeaderColumn>
+            <TableHeaderColumn dataField='score_11' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >Mar</TableHeaderColumn>
+            <TableHeaderColumn dataField='score_12' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM10</TableHeaderColumn>
+            <TableHeaderColumn dataField='score_13' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM11</TableHeaderColumn>
+            <TableHeaderColumn dataField='score_14' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM12</TableHeaderColumn>
+            <TableHeaderColumn dataField='score_15' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >May</TableHeaderColumn>
+            <TableHeaderColumn dataField='final' editable={false} dataFormat={this.finalFormatter} dataAlign='center' dataSort>Proj</TableHeaderColumn>
+            <TableHeaderColumn dataField='id' editable={false} dataFormat={this.statsFormatter} dataAlign='center'></TableHeaderColumn>
+          </BootstrapTable>
+        </div>
       );
     }
   }
@@ -200,17 +228,19 @@ class BSTable extends React.Component {
   render() {
     if (this.props.data) {
       return (
-        <table className="table table-striped table-bordered table-hover table-condensed">
-          <tbody>
-            <tr style={{backgroundColor: '#8a8a8a'}}>
-              {
-                this.props.data.map((value, key) => {
-                  return(<td key={key}>{value}</td>)
-                })
-              }
-            </tr>
-          </tbody>
-        </table>
+        <div>
+          <table className="table table-striped table-bordered table-hover table-condensed">
+            <tbody>
+              <tr style={{backgroundColor: '#8a8a8a'}}>
+                {
+                  this.props.data.map((value, key) => {
+                    return(<td key={key}>{value}</td>)
+                  })
+                }
+              </tr>
+            </tbody>
+          </table>
+        </div>
       );
     } else {
       return (<p>?</p>);

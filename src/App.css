@@ -234,3 +234,7 @@
   margin: 0 auto;
   text-align: center;
 }
+
+.sort-column {
+  font-size: 10px;
+}
