@@ -8,7 +8,7 @@ import constants from '../../constants';
 
 const springSetting1 = {stiffness: 180, damping: 20};
 const springSetting2 = {stiffness: 297, damping: 18};
-const studentIndex = 6;
+const studentIndex = 7;
 
 const StudentHypothetical = React.createClass({  
 

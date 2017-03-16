@@ -228,3 +228,9 @@
   border-bottom: 2px solid #ffffff;
   position: absolute;
 }
+
+.edit-text {
+  width: 60px;
+  margin: 0 auto;
+  text-align: center;
+}

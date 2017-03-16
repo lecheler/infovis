@@ -71,7 +71,7 @@ const Question = React.createClass({
         iv = (<ClassDrag />);
       }
     }
-    iv = (<StudentHypothetical />);
+    iv = (<Table />);
     
     return (
       <div className="App container">
