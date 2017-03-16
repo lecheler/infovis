@@ -104,8 +104,6 @@ const Chart = React.createClass({
     
     return (
       <div className="chartContainer">
-        <h2>Words Correct Per Minute (WCPM)</h2>
-        <div>
         {
           this.state.data.map((value, key) => {
             const aim = this.getAimLine(value.data);
@@ -132,8 +130,6 @@ const Chart = React.createClass({
             );
           })
         }
-
-        </div>
       </div>
     );
   },

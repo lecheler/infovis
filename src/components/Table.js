@@ -129,7 +129,11 @@ const Table = React.createClass({
   },
 
   dataClick(id) {
-    this.setState({showModal: true, studentIndex: id});
+    this.setState({
+      showModal: true, 
+      studentIndex: id, 
+      studentName: data.STUDENT_CHARTS.datasets[id].name
+    });
   },
 
   isExpandableRow(row) {
@@ -186,7 +190,7 @@ const Table = React.createClass({
         <div>
           <Modal bsSize='lg' show={this.state.showModal} onHide={this.close}>
             <Modal.Header closeButton>
-              <Modal.Title>Modal heading</Modal.Title>
+              <Modal.Title>{this.state.studentName}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <Chart width="" student={this.state.studentIndex} />
