@@ -7,6 +7,10 @@ import TableWCPM from './TableWCPM';
 
 import data from './data';
 
+import { defaults } from 'react-chartjs-2';
+ 
+// Disable animating charts by default. 
+defaults.global.animation = false;
 
 const endGoal = 115;
 const GREEN = '#AAD219';
@@ -21,6 +25,16 @@ const options =
       position: 'bottom',
       labels: {
         fontColor: 'rgb(255, 99, 132)'
+      }
+    },
+    tooltips: {
+      callbacks: {
+        label: function(tooltipItem, data) {
+        //  console.log(data.datasets[tooltipItem.datasetIndex].label);
+          var dataLabel = data.datasets[tooltipItem.datasetIndex].label;
+          var value = Math.round(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index]);
+          return dataLabel + ': ' + value;
+        }
       }
     },
     maintainAspectRatio: true
