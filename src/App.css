@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  padding-bottom: 230px;
 }
 
 .App-logo {
@@ -212,6 +213,10 @@
   padding-bottom: 20px;
 }
 
+/*.container {
+  padding-bottom: 15px;
+}*/
+
 .vertical-text {
   transform: rotate(-90deg);
   transform-origin: left top 0;
@@ -236,5 +241,31 @@
 }
 
 .sort-column {
-  font-size: 10px;
+  font-size: 11px;
+}
+
+.table {
+  font-size: 12px;
+}
+
+.progress {
+  margin-top: 20px;
+  height: 10px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.navbar-text {
+  text-align: left;
+}
+
+.panel-footer {
+  text-align: right;
+  padding: 10px 15px;
+  background: none;
+  border-top: 1px solid #ddd; 
+  border-bottom-right-radius: 3px; 
+  border-bottom-left-radius: 3px; 
 }

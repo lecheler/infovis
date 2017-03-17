@@ -17,7 +17,7 @@ const studentCharts =
     },
     {
       name: "Zackary",
-      data: [65, 74, 75, 78, 74, 80, 84, 83, 89, 89]
+      data: [65, 74, 75, 78, 74, 80, 84, 83, 89, 91]
     },
     {
       name: "Justa",
@@ -29,7 +29,7 @@ const studentCharts =
     },
     {
       name: "Tegan",
-      data: [70, 77, 84, 83, 78, 93, 92, 89, 99, 99]
+      data: [70, 77, 84, 83, 82, 84, 92, 89, 90, 94]
     },
     {
       name: "Damaris",
@@ -49,7 +49,7 @@ const studentCharts =
     },
     {
       name: "Leota",
-      data: [75, 75, 80, 77, 80, 88, 99, 102, 102, 107]
+      data: [75, 75, 80, 77, 80, 86, 94, 96, 98, 101]
     },
     {
       name: "Joseph",
@@ -57,7 +57,7 @@ const studentCharts =
     },
     {
       name: "Shiela",
-      data: [73, 74, 81, 73, 79, 90, 97, 104, 101, 114]
+      data: [73, 74, 76, 75, 79, 84, 92, 96, 101, 106]
     },
     {
       name: "Arlinda",

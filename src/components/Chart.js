@@ -68,8 +68,8 @@ const Chart = React.createClass({
       borderDash: (dashed ? [4] : []),
       borderDashOffset: 0.0,
       borderJoinStyle: 'miter',
-      pointBorderColor: "rgba(75,192,192,1)",
-      pointBackgroundColor: "#fff",
+      pointBorderColor: color,
+      pointBackgroundColor: color,
       pointBorderWidth: 1,
       pointHoverRadius: 5,
       pointHoverBackgroundColor: "rgba(75,192,192,1)",
@@ -122,19 +122,20 @@ const Chart = React.createClass({
           this.state.data.map((value, key) => {
             const aim = this.getAimLine(value.data);
             const projected = this.getRegressionLine(value.data);
-            const diff = (projected[projected.length-1] - endGoal)/projected[projected.length-1];
+            const diff = (projected[projected.length-1]/endGoal);
             let diffColor = RED;
-            if (diff > 0.10) {
+            if (diff >= 1.0) {
               diffColor = GREEN;
-            } else if (diff > -0.10) {
+            } else if (diff >= 0.9) {
               diffColor = BLUE;
             }
-
+            console.log(diff);
+            console.log(diffColor)
             const d = {
               labels: data.STUDENT_CHARTS.labels, 
               datasets: [
-                this.getDataObject(value.name, value.data, '#BDBDBD', false, 5),
-                this.getDataObject('Aim', aim, '#20A8CC', true, 0),
+                this.getDataObject(value.name, value.data, '#707070', false, 6),
+                this.getDataObject('Goal', aim, '#D0D0D0', true, 0),
                 this.getDataObject('Projected', projected, diffColor, false, 0),
               ]
             }

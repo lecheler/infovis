@@ -1,6 +1,5 @@
 import React from 'react';
 import {Motion, spring} from 'react-motion';
-import Chart from '../Chart';
 import Table from '../Table';
 
 import data from '../data';
@@ -8,7 +7,7 @@ import constants from '../../constants';
 
 const springSetting1 = {stiffness: 180, damping: 20};
 const springSetting2 = {stiffness: 297, damping: 18};
-const studentIndex = 7;
+const studentIndex = 2;
 
 const StudentHypothetical = React.createClass({  
 
@@ -148,6 +147,7 @@ StudentHypothetical.js:54 pageY = 196
     console.log('render')
     return (
       <div className='bar-container'>
+        <h3>Student ORF Words Correct Per Minute</h3>
         {
           this.state.scores.map((scores, key) => {
             const aim = this.state.aims[key]/150 * 450;
@@ -227,11 +227,9 @@ StudentHypothetical.js:54 pageY = 196
 
                 </div>
               </div>
-              Next Score: { Math.round((450-y)/450 * 150) }, scale: {Math.round(scale*100)}
             </div>
           }
         </Motion>
-        <Chart student={studentIndex} />
       </div>
     );
   },

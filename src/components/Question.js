@@ -1,6 +1,6 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
-import { Button, ButtonGroup, ProgressBar, Well } from 'react-bootstrap';
+import { Button, ButtonGroup, ProgressBar, Navbar, Well } from 'react-bootstrap';
 import Table from './Table';
 import ClassDrag from './iv/ClassDrag';
 import ClassView from './iv/ClassView';
@@ -8,9 +8,14 @@ import StudentHypothetical from './iv/StudentHypothetical';
 import Chart from './Chart';
 import Modal from './Modal';
 
+import MultipleSelect from './questions/MultipleSelect';
+
 import data from './data';
 import api from '../api.js';
+import constants from '../constants';
+
 import '../App.css';
+
 
 let availableTypes = [1, 2, 3];
 
@@ -19,9 +24,14 @@ const Question = React.createClass({
     return {
       questions: data.QUESTIONS,
       userID: null,
-      displayType: this.getRandomType(1)
+      displayType: this.getRandomType(1),
+      questionModel: {},
     }
   },
+  componentWillMount() {
+  //  this.setState( { questionModel: new survey.Model(constants.MULTIPLE_CHOICE)});
+  },
+
   nextQuestion() {
  //   api.logActivity(this.state.userID, 2);
     const next = parseInt(this.props.params.question, 10)+1
@@ -52,6 +62,10 @@ const Question = React.createClass({
     return value;
   },
 
+  submitSurvey() {
+    console.log('submitting survey!');
+  },
+
   render() {
     const question = this.state.questions[this.props.params.question-1];
 
@@ -71,17 +85,19 @@ const Question = React.createClass({
         iv = (<ClassDrag />);
       }
     }
-    iv = (<Table />);
+    iv = (<ClassView />);
     
     return (
       <div className="App container">
-        <h1>Question {this.props.params.question} of {data.QUESTIONS.length}</h1>
-        <ProgressBar bsStyle="success" now={(this.props.params.question-1)/data.QUESTIONS.length*100} />
-        <Well>{question.text} ({question.ivType})</Well>
-        { iv }
-       <div className="container">
-         <Button bsStyle="primary" onClick={this.nextQuestion}>Next</Button>
-       </div>
+        <div className="container">  
+          { iv }
+        </div>
+       <Navbar fixedBottom={true}>
+         <div className="container" style={{textAlign: 'left'}}>
+          <ProgressBar bsStyle="success" now={(this.props.params.question-1)/data.QUESTIONS.length*100} />
+          <MultipleSelect next={this.nextQuestion} />
+         </div>
+       </Navbar> 
       </div>
     );
   }

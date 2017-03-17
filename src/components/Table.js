@@ -97,7 +97,7 @@ const Table = React.createClass({
   },
 
   scoreFormatter(cell, row) {
-    return cell ? cell : '---';
+    return cell ? cell : '-';
   },
 
   scoreFormatterEdit(cell, row) {
@@ -114,11 +114,12 @@ const Table = React.createClass({
 
 
   finalFormatter(cell, row) {
-    const diff = (cell - 115)/cell;
+    const diff = 1 + (cell - 115)/cell;
     let diffColor = RED;
-    if (diff > 0.10) {
+    console.log(diff)
+    if (diff >= 1.0) {
       diffColor = GREEN;
-    } else if (diff > -0.10) {
+    } else if (diff >= 0.9) {
       diffColor = BLUE;
     }
     return '<div style="background-color: ' + diffColor + '; color: #ffffff;">' + cell + '</div>';
@@ -199,25 +200,26 @@ const Table = React.createClass({
               <Button onClick={this.close}>Close</Button>
             </Modal.Footer>
           </Modal>
+          <h3>Student ORF Words Correct Per Minute</h3>
           <BootstrapTable data={this.state.tableData} cellEdit={ this.cellEditProp() } striped hover condensed>
-            <TableHeaderColumn dataField='name' editable={false} className='vertical-align' width='80' isKey dataSort></TableHeaderColumn>
-            <TableHeaderColumn dataField='score_0' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >Sept</TableHeaderColumn>
-            <TableHeaderColumn dataField='score_1' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM1</TableHeaderColumn>
-            <TableHeaderColumn dataField='score_2' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM2</TableHeaderColumn>
-            <TableHeaderColumn dataField='score_3' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM3</TableHeaderColumn>
-            <TableHeaderColumn dataField='score_4' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >Oct</TableHeaderColumn>
-            <TableHeaderColumn dataField='score_5' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM4</TableHeaderColumn>
-            <TableHeaderColumn dataField='score_6' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM5</TableHeaderColumn>
-            <TableHeaderColumn dataField='score_7' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >Jan</TableHeaderColumn>
-            <TableHeaderColumn dataField='score_8' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM7</TableHeaderColumn>
-            <TableHeaderColumn dataField='score_9' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM8</TableHeaderColumn>
-            <TableHeaderColumn dataField='score_10' editable={true} dataFormat={this.scoreFormatterEdit} dataAlign='center' dataSort >PM9</TableHeaderColumn>
-            <TableHeaderColumn dataField='score_11' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >Mar</TableHeaderColumn>
-            <TableHeaderColumn dataField='score_12' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM10</TableHeaderColumn>
-            <TableHeaderColumn dataField='score_13' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM11</TableHeaderColumn>
-            <TableHeaderColumn dataField='score_14' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >PM12</TableHeaderColumn>
-            <TableHeaderColumn dataField='score_15' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort >May</TableHeaderColumn>
-            <TableHeaderColumn dataField='final' editable={false} dataFormat={this.finalFormatter} dataAlign='center' dataSort>Proj</TableHeaderColumn>
+            <TableHeaderColumn dataField='name' editable={false} className='vertical-align' width='80' isKey dataSort>Student</TableHeaderColumn>
+            <TableHeaderColumn dataField='score_0' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort ></TableHeaderColumn>
+            <TableHeaderColumn dataField='score_1' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort ></TableHeaderColumn>
+            <TableHeaderColumn dataField='score_2' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort ></TableHeaderColumn>
+            <TableHeaderColumn dataField='score_3' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort ></TableHeaderColumn>
+            <TableHeaderColumn dataField='score_4' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort ></TableHeaderColumn>
+            <TableHeaderColumn dataField='score_5' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort ></TableHeaderColumn>
+            <TableHeaderColumn dataField='score_6' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort ></TableHeaderColumn>
+            <TableHeaderColumn dataField='score_7' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort ></TableHeaderColumn>
+            <TableHeaderColumn dataField='score_8' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort ></TableHeaderColumn>
+            <TableHeaderColumn dataField='score_9' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort ></TableHeaderColumn>
+            <TableHeaderColumn dataField='score_10' editable={true} dataFormat={this.scoreFormatterEdit} dataAlign='center' dataSort ></TableHeaderColumn>
+            <TableHeaderColumn dataField='score_11' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort ></TableHeaderColumn>
+            <TableHeaderColumn dataField='score_12' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort ></TableHeaderColumn>
+            <TableHeaderColumn dataField='score_13' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort ></TableHeaderColumn>
+            <TableHeaderColumn dataField='score_14' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort ></TableHeaderColumn>
+            <TableHeaderColumn dataField='score_15' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort ></TableHeaderColumn>
+            <TableHeaderColumn dataField='final' editable={false} dataFormat={this.finalFormatter} dataAlign='center' dataSort></TableHeaderColumn>
             <TableHeaderColumn dataField='id' editable={false} dataFormat={this.statsFormatter} dataAlign='center'></TableHeaderColumn>
           </BootstrapTable>
         </div>

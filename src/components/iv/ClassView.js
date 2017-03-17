@@ -13,7 +13,7 @@ const ClassView = React.createClass({
     const d = data.STUDENT_CHARTS.datasets.map((student, key) => {
       const r = data.getRegressionLine(student.data);
       const a = data.getAimLine(student.data);
-      const scale = a[a.length-1]/r[r.length-1];
+      const scale = r[r.length-1]/a[a.length-1];
       
       return { name: student.name, scale: scale }
     });

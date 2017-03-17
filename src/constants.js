@@ -200,7 +200,6 @@ const demographic = {
 const multipleChoice = {
  pages: [
   {
-   name: "q1",
    questions: [
     {
      type: "radiogroup",
@@ -218,7 +217,7 @@ const multipleChoice = {
        text: "third item"
       }
      ],
-     name: "question2"
+     name: "Look at the visualization below and select all students that are on track to be within 10% of reaching their goals by the end of the term."
     }
    ]
   }
