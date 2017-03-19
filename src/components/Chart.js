@@ -48,10 +48,15 @@ const Chart = React.createClass({
   getInitialState() {
     let finalData = data.STUDENT_CHARTS.datasets;
     if (this.props.student) {
-      const arr = [];
-      arr.push(data.STUDENT_CHARTS.datasets[this.props.student]);
-      finalData = arr;
+      // const arr = [];
+      // arr.push(data.STUDENT_CHARTS.datasets[this.props.student]);
+      finalData = this.props.student; //[{name: 'test', data: [64,74,75]}];
     }
+    if (this.props.data) {
+   //   finalData = this.props.data;
+    }
+
+    console.log(finalData);
     return {
       data: finalData,
     }
@@ -129,8 +134,7 @@ const Chart = React.createClass({
             } else if (diff >= 0.9) {
               diffColor = BLUE;
             }
-            console.log(diff);
-            console.log(diffColor)
+        
             const d = {
               labels: data.STUDENT_CHARTS.labels, 
               datasets: [

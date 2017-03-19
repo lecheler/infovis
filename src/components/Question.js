@@ -85,7 +85,7 @@ const Question = React.createClass({
         iv = (<ClassDrag />);
       }
     }
-    iv = (<ClassView />);
+ //   iv = (<Table />);
     
     return (
       <div className="App container">
@@ -94,7 +94,6 @@ const Question = React.createClass({
         </div>
        <Navbar fixedBottom={true}>
          <div className="container" style={{textAlign: 'left'}}>
-          <ProgressBar bsStyle="success" now={(this.props.params.question-1)/data.QUESTIONS.length*100} />
           <MultipleSelect next={this.nextQuestion} />
          </div>
        </Navbar> 

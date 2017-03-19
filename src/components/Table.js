@@ -47,6 +47,7 @@ const Table = React.createClass({
     return {
       tableData: data,
       studentIndex: 0,
+      studentData: [],
     };
   },
 
@@ -60,24 +61,26 @@ const Table = React.createClass({
   },
 
   onAfterSaveCell(row, cellName, cellValue) {
+
     let arr = this.state.tableData[row.id].scores;
-    arr.push(parseInt(cellValue));
+
+    if (cellValue != "") {
+      arr.push(parseInt(cellValue));
+    } else {
+      arr.pop();
+    }
+
+    console.log(arr);
 
     const rData = this.getRegressionLine(arr);
     const final = Math.round(rData[rData.length-1]);
     this.state.tableData[row.id].final = final;
 
-    console.log(arr);
    // console.log(this.state.tableData[row.id]);
     let rowValues = [];
     for (const prop in row) {
       rowValues.push(parseInt(row[prop]));
     }
-
-
-  //  console.log(rowValues);
-
-  //  alert('Thw whole row :\n' + rowStr);
   },
 
   onBeforeSaveCell(row, cellName, cellValue) {
@@ -116,7 +119,7 @@ const Table = React.createClass({
   finalFormatter(cell, row) {
     const diff = 1 + (cell - 115)/cell;
     let diffColor = RED;
-    console.log(diff)
+
     if (diff >= 1.0) {
       diffColor = GREEN;
     } else if (diff >= 0.9) {
@@ -130,9 +133,13 @@ const Table = React.createClass({
   },
 
   dataClick(id) {
+    console.log(id)
     this.setState({
       showModal: true, 
-      studentIndex: id, 
+      student: [{
+        name: data.STUDENT_CHARTS.datasets[id].name, 
+        data: this.state.tableData[id].scores,
+      }], 
       studentName: data.STUDENT_CHARTS.datasets[id].name
     });
   },
@@ -194,13 +201,13 @@ const Table = React.createClass({
               <Modal.Title>{this.state.studentName}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <Chart width="" student={this.state.studentIndex} />
+              <Chart width="" student={this.state.student} />
             </Modal.Body>
             <Modal.Footer>
               <Button onClick={this.close}>Close</Button>
             </Modal.Footer>
           </Modal>
-          <h3>Student ORF Words Correct Per Minute</h3>
+          <h4>Student ORF Words Correct Per Minute</h4>
           <BootstrapTable data={this.state.tableData} cellEdit={ this.cellEditProp() } striped hover condensed>
             <TableHeaderColumn dataField='name' editable={false} className='vertical-align' width='80' isKey dataSort>Student</TableHeaderColumn>
             <TableHeaderColumn dataField='score_0' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort ></TableHeaderColumn>

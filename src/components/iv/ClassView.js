@@ -80,46 +80,49 @@ const ClassView = React.createClass({
       );
     }
     return (
-      <Grid>
-        <Row className="class-view-grid">
-  
-          {
-            this.state.students.map((student, key) => {
+      <div>
+        <h4>Student ORF Words Correct Per Minute</h4>
+        <Grid>
+          <Row className="class-view-grid">
+    
+            {
+              this.state.students.map((student, key) => {
 
-              const dashColor = student.scale < 1 ? '#AAD219' : '#ffffff';
-              let col = '#AAD219';
-              if (student.scale < 0.90) {
-                col = '#C80054';
-              } else if (student.scale < 1.0) {
-                col = '#20A8CC';
-              }
+                const dashColor = student.scale < 1 ? '#AAD219' : '#ffffff';
+                let col = '#AAD219';
+                if (student.scale < 0.90) {
+                  col = '#C80054';
+                } else if (student.scale < 1.0) {
+                  col = '#20A8CC';
+                }
 
-              return (
-                <Col key={key} xs={3} md={3}>
-                  <div className='student-score-wrapper'>
-                    <div className='student-score-circle-avg' 
-                      style={
-                        {
-                          borderColor: dashColor
-                        }}>
-                      <div className='student-score-circle' 
-                      style={
-                        {
-                          backgroundColor: col,
-                          WebkitTransform: `scale(${student.scale})`,
-                          transform: `scale(${student.scale})`,
-                        }}
-                      >
+                return (
+                  <Col key={key} xs={3} md={3}>
+                    <div className='student-score-wrapper'>
+                      <div className='student-score-circle-avg' 
+                        style={
+                          {
+                            borderColor: dashColor
+                          }}>
+                        <div className='student-score-circle' 
+                        style={
+                          {
+                            backgroundColor: col,
+                            WebkitTransform: `scale(${student.scale})`,
+                            transform: `scale(${student.scale})`,
+                          }}
+                        >
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  {student.name} ({Math.round(student.scale*100)}%)
-                </Col>
-              );
-            })
-          }
-        </Row>
-      </Grid>
+                    {student.name} ({Math.round(student.scale*100)}%)
+                  </Col>
+                );
+              })
+            }
+          </Row>
+        </Grid>
+      </div>
     );
   },
 });

@@ -12,9 +12,9 @@ const survey = new Survey.Model(
       { 
         type: "checkbox", 
         name: "car", 
-        title: " select all students that are on track to be within 10% of reaching their goals by the end of the term.", 
+        title: "Select all students that are on track to be within 10% of reaching their goals by the end of the term.", 
         isRequired: true, 
-        colCount: 3, 
+        colCount: 4, 
         choices: [
           "Elene",
           "Reagan", 
