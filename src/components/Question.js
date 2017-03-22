@@ -89,10 +89,9 @@ const Question = React.createClass({
     return (
       <div className="App container">
         <div className="container" style={{textAlign: 'left'}}>
+          <h3>Question {this.props.params.question} of {data.QUESTIONS.length}</h3>
           <ProgressBar bsStyle="success" now={(this.props.params.question-1)/data.QUESTIONS.length*100} />
-          <Well> 
-            <MultipleSelect next={this.nextQuestion} />
-          </Well>
+          <MultipleSelect next={this.nextQuestion} />
         </div>
         <div className="container">  
           { iv }
