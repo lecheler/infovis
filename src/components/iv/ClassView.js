@@ -115,7 +115,7 @@ const ClassView = React.createClass({
                         </div>
                       </div>
                     </div>
-                    {student.name} ({Math.round(student.scale*100)}%)
+                    {student.name}
                   </Col>
                 );
               })

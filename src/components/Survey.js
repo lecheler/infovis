@@ -37,7 +37,7 @@ const Survey = React.createClass({
             <i>Please complete the following survey. Your information will never be shared and we will not be able to identify partipants.</i>
           </p>
         </div>
-        <survey.Survey
+        <survey.Survey 
           model={this.state.model} 
           onComplete={this.submitSurvey}
           css={{navigationButton: "btn btn-primary btn-large centerButton"}} />

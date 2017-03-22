@@ -16,7 +16,7 @@ const studentCharts =
       data: [76, 79, 82, 80, 81, 84, 87, 86, 86, 89]
     },
     {
-      name: "Zackary",
+      name: "Dennis",
       data: [65, 74, 75, 78, 74, 80, 84, 83, 89, 91]
     },
     {

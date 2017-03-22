@@ -6,7 +6,6 @@ import ClassDrag from './iv/ClassDrag';
 import ClassView from './iv/ClassView';
 import StudentHypothetical from './iv/StudentHypothetical';
 import Chart from './Chart';
-import Modal from './Modal';
 
 import MultipleSelect from './questions/MultipleSelect';
 
@@ -74,29 +73,30 @@ const Question = React.createClass({
     );
 
     if (this.state.displayType === 1) {
-      iv = (<Table student='10' />);
+      iv = (<Table />);
     } else if (this.state.displayType === 2) {
-      iv = (<Chart />);
+      iv = (<Table />);
     } else {
       iv = (<StudentHypothetical />);
       if (question.ivType === 1) {
         iv = (<ClassView />);
       } else if (question.ivType === 2) {
         iv = (<ClassDrag />);
-      }
+      }``
     }
- //   iv = (<Table />);
+    // iv = (<Table />);
     
     return (
       <div className="App container">
+        <div className="container" style={{textAlign: 'left'}}>
+          <ProgressBar bsStyle="success" now={(this.props.params.question-1)/data.QUESTIONS.length*100} />
+          <Well> 
+            <MultipleSelect next={this.nextQuestion} />
+          </Well>
+        </div>
         <div className="container">  
           { iv }
         </div>
-       <Navbar fixedBottom={true}>
-         <div className="container" style={{textAlign: 'left'}}>
-          <MultipleSelect next={this.nextQuestion} />
-         </div>
-       </Navbar> 
       </div>
     );
   }
