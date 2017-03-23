@@ -14,8 +14,6 @@ const BLUE = '#20A8CC';
 const RED = '#C80054';
 const options = 
   {
-    // maintainAspectRatio: false,
-    // responsive: false,
     legend: {
       display: true,
       position: 'bottom',
@@ -26,7 +24,6 @@ const options =
     tooltips: {
       callbacks: {
         label: function(tooltipItem, data) {
-        //  console.log(data.datasets[tooltipItem.datasetIndex].label);
           var dataLabel = data.datasets[tooltipItem.datasetIndex].label;
           var value = Math.round(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index]);
           return dataLabel + ': ' + value;
@@ -37,22 +34,13 @@ const options =
   };
 
 const Chart = React.createClass({
-  componentWillMount() {
-    // this.getRegressionLine();
-    // this.getAimLine();
-  },
+
   getInitialState() {
     let finalData = data.STUDENT_CHARTS.datasets;
     if (this.props.student) {
-      // const arr = [];
-      // arr.push(data.STUDENT_CHARTS.datasets[this.props.student]);
-      finalData = this.props.student; //[{name: 'test', data: [64,74,75]}];
-    }
-    if (this.props.data) {
-   //   finalData = this.props.data;
+      finalData = this.props.student;
     }
 
-    console.log(finalData);
     return {
       data: finalData,
     }
@@ -112,9 +100,7 @@ const Chart = React.createClass({
 
     return val;
   },
-  handleListClick(data) {
-    console.log(data);
-  },
+
   render() {
     
     return (
@@ -141,7 +127,7 @@ const Chart = React.createClass({
             }
 
             return (
-              <Line data={d} options={options} />
+              <Line key={key} data={d} options={options} />
             );
           })
         }

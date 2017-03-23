@@ -251,7 +251,7 @@ const ClassDrag = React.createClass({
             }
             </div>
           </div>
-          <img src='../../drag_key.png' width="600px" />
+          <img src='../../drag_key.png' width="600px" alt='interaction key' />
       </div>
     );
   },

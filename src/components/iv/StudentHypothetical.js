@@ -1,6 +1,5 @@
 import React from 'react';
-import {Motion, spring} from 'react-motion';
-import Table from '../Table';
+import { Motion, spring } from 'react-motion';
 
 import data from '../data';
 import constants from '../../constants';
@@ -59,7 +58,6 @@ const StudentHypothetical = React.createClass({
     arr.push(nextScore);
 
     const newRegression = data.getRegressionLine(arr);
-    const newAim = data.getAimLine(arr);
     const scale = newRegression[newRegression.length-1]/115;
     const color = this.getRGBForScale(scale);
 
@@ -97,9 +95,6 @@ const StudentHypothetical = React.createClass({
   },
 
   handleMouseDown(e) {
-  //  console.log(' e.nativeEvent.pageY = ' + e.nativeEvent.pageY)
-    console.log('yPosition = ' + e.nativeEvent.layerY)
-
     const nextScore = (450-e.nativeEvent.layerY)/450 * 150;
     const arr = []; //data.STUDENT_CHARTS.datasets[1].data;
     for (var index = 0; index < data.STUDENT_CHARTS.datasets[1].data.length; index++) {
@@ -108,9 +103,6 @@ const StudentHypothetical = React.createClass({
     arr.push(nextScore);
 
     const newRegression = data.getRegressionLine(arr);
-    const newAim = data.getAimLine(arr);
-  //  console.log(newAim[arr.length-1]);
-   // console.log(newRegression[newRegression.length-1]);
     const scale = newRegression[newRegression.length-1]/115;
     const color = this.getRGBForScale(scale);
     this.setState({
@@ -131,7 +123,6 @@ const StudentHypothetical = React.createClass({
   },
 
   render() {
-    console.log('render')
     return (
       <div className='bar-container'>
         <h3>Student ORF Words Correct Per Minute</h3>
@@ -178,9 +169,8 @@ const StudentHypothetical = React.createClass({
             red: this.state.red,
             green: this.state.green,
             blue: this.state.blue,
-            col: '#ff0000',
           }}>
-          {({height, y, scale, red, green, blue, col}) =>
+          {({height, y, scale, red, green, blue}) =>
             <div>
               <div className="demo0-i"
                 onMouseDown={this.handleMouseDown}
@@ -188,7 +178,6 @@ const StudentHypothetical = React.createClass({
                 <div 
                   className="demo0-block" 
                   style={{
-                    color: col,
                     height: height,
                     WebkitTransform: `translate3d(0, ${y}px, 0)`,
                     transform: `translate3d(0, ${y}px, 0)`,

@@ -23,41 +23,7 @@ const ClassView = React.createClass({
   },
 
   componentDidMount() {
-    window.addEventListener('touchmove', this.handleTouchMove);
-    window.addEventListener('touchend', this.handleMouseUp);
-    window.addEventListener('mousemove', this.handleMouseMove);
-    window.addEventListener('mouseup', this.handleMouseUp);
-
     this.setInitialLayout();
-  },
-
-  handleTouchStart(key, pressLocation, e) {
-    this.handleMouseDown(key, pressLocation, e.touches[0]);
-  },
-
-  handleTouchMove(e) {
-    e.preventDefault();
-    this.handleMouseMove(e.touches[0]);
-  },
-
-  handleMouseMove({pageX, pageY}) {
-    const {isPressed, delta: [dx, dy]} = this.state;
-    if (isPressed) {
-      const mouse = [pageX - dx, pageY - dy];
-      this.setState({mouse: mouse});
-    }
-  },
-
-  handleMouseDown(key, [pressX, pressY], {pageX, pageY}) {
-    this.setState({
-      delta: [pageX - pressX, pageY - pressY],
-    });
-
-    console.log('key:' + key + '::(pressX: ' + pressX + ', pressY: '+ pressY + ')::(pageX: ' + pageX + ', pageY: ' + pageY + ')');
-  },
-
-  handleMouseUp() {
-    this.setState({isPressed: false});
   },
 
   setInitialLayout() {

@@ -2,7 +2,6 @@ import regression from 'regression';
 
 
 const studentCharts = 
-
 {
   labels: ["Sept", "PM1", "PM2", "PM3", "Oct", "PM4", "PM5", "Jan", "PM7", "PM8", "PM9", "Mar", "PM10", "PM11", "PM12", "MAY"],
   datasets:
@@ -199,7 +198,7 @@ const getRegressionLine = function(points) {
   const y = result.equation[1];
 
   let val = [];
-  for (var index = 0; index < data.STUDENT_CHARTS.labels.length; index++) {
+  for (var index = 0; index < studentCharts.labels.length; index++) {
     val.push(m*index + y);
   }
 
@@ -207,12 +206,12 @@ const getRegressionLine = function(points) {
 }
 
 const getAimLine = function(points) {
-  const interval = (115 - points[0])/(data.STUDENT_CHARTS.labels.length-1);
+  const interval = (115 - points[0])/(studentCharts.labels.length-1);
 
   let start = points[0];
   let val = [start];
 
-  for (var index = 1; index < data.STUDENT_CHARTS.labels.length; index++) {
+  for (var index = 1; index < studentCharts.labels.length; index++) {
     val.push(start+=interval);
   }
 

@@ -69,16 +69,16 @@ const Table = React.createClass({
       arr.pop();
     }
 
-    console.log(arr);
-
     const rData = this.getRegressionLine(arr);
     const final = Math.round(rData[rData.length-1]);
+
     this.state.tableData[row.id].final = final;
 
-    let rowValues = [];
-    for (const prop in row) {
-      rowValues.push(parseInt(row[prop], 10));
-    }
+
+    // let rowValues = [];
+    // for (const prop in row) {
+    //   rowValues.push(parseInt(row[prop], 10));
+    // }
   },
 
   onBeforeSaveCell(row, cellName, cellValue) {
@@ -131,7 +131,6 @@ const Table = React.createClass({
   },
 
   dataClick(id) {
-    console.log(id)
     this.setState({
       showModal: true, 
       student: [{
@@ -144,12 +143,6 @@ const Table = React.createClass({
 
   isExpandableRow(row) {
     return true;
-  },
-
-  expandComponent(row) {
-    return (
-      <BSTable data={ row.expand } />
-    );
   },
 
   getAimLine(points) {
@@ -206,6 +199,7 @@ const Table = React.createClass({
             </Modal.Footer>
           </Modal>
           <h4>Student ORF Words Correct Per Minute</h4>
+          <p><em>The table below shows your students' scores to date. Click the <Glyphicon glyph="pencil" /> icon to add a student's next score. Click the <Glyphicon glyph="stats" /> icon to see a plot of a student's scores.</em></p>
           <BootstrapTable data={this.state.tableData} cellEdit={ this.cellEditProp() } striped hover condensed>
             <TableHeaderColumn dataField='name' editable={false} className='vertical-align' isKey dataSort>Student</TableHeaderColumn>
             <TableHeaderColumn dataField='score_0' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort ></TableHeaderColumn>
@@ -234,27 +228,3 @@ const Table = React.createClass({
 });
 
 module.exports = Table;
-
-class BSTable extends React.Component {
-  render() {
-    if (this.props.data) {
-      return (
-        <div>
-          <table className="table table-striped table-bordered table-hover table-condensed">
-            <tbody>
-              <tr style={{backgroundColor: '#8a8a8a'}}>
-                {
-                  this.props.data.map((value, key) => {
-                    return(<td key={key}>{value}</td>)
-                  })
-                }
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      );
-    } else {
-      return (<p>?</p>);
-    }
-  }
-}

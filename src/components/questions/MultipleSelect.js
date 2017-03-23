@@ -1,10 +1,8 @@
 import React from 'react';
 import * as Survey from "survey-react";
-import { browserHistory } from 'react-router';
-import { Button, Well } from 'react-bootstrap';
-import questionData from './questionData';
+import { Well } from 'react-bootstrap';
 
-const questions = questionData.questions;
+import questionData from './questionData';
 
 Survey.defaultBootstrapCss.navigationButton = "btn btn-primary";
 Survey.Survey.cssType = "bootstrap";
@@ -12,6 +10,7 @@ Survey.Survey.cssType = "bootstrap";
 const MultipleSelect = React.createClass({
 
   getSurveyModel(val) {
+
     return new Survey.Model(
     {
       showQuestionNumbers: false,
@@ -40,32 +39,15 @@ const MultipleSelect = React.createClass({
     this.setState({question: questionNumber, model: this.getSurveyModel(questionNumber)});
     this.props.next(survey);
   },
-  
-  componentWillMount() {
-   // this.setState( { model: new survey.Model(constants.SURVEY_DEMOGRAPHIC)});
-  },
 
-  showFeedbackModal() {
-  //  this.setState({showFeedback: true});
-  },
-
-  goToNextPage() {
-    // if (survey.isLastPage) {
-    //   survey.completeLastPage();
-    // } else {
-    //   survey.nextPage();
-    // }
-  },
-
-  pageChange() {
-    console.log('page changed');
-  //  this.setState({showFeedback: true});
+  handlePageChange() {
+    this.props.pageChange();
   },
 
   render() {
     return (
       <Well>
-        <Survey.Survey model={this.state.model}  onComplete={this.submitSurvey} />
+        <Survey.Survey model={this.state.model} onCurrentPageChanged={this.handlePageChange}  onComplete={this.submitSurvey} />
       </Well>
     );
   }
