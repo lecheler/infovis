@@ -51,23 +51,17 @@ const StudentHypothetical = React.createClass({
     if (y < 0) {
       y = 0;
     }
+    const nextScore = (450-y)/450 * 150;
+    const arr = []; //data.STUDENT_CHARTS.datasets[1].data;
+    for (var index = 0; index < data.STUDENT_CHARTS.datasets[1].data.length; index++) {
+      arr.push(data.STUDENT_CHARTS.datasets[studentIndex].data[index]);
+    }
+    arr.push(nextScore);
 
-
-
-      const nextScore = (450-y)/450 * 150;
-      const arr = []; //data.STUDENT_CHARTS.datasets[1].data;
-      for (var index = 0; index < data.STUDENT_CHARTS.datasets[1].data.length; index++) {
-        arr.push(data.STUDENT_CHARTS.datasets[studentIndex].data[index]);
-      }
-      arr.push(nextScore);
-
-      const newRegression = data.getRegressionLine(arr);
-      const newAim = data.getAimLine(arr);
-    //  console.log(newAim[arr.length-1]);
-     // console.log(newRegression[newRegression.length-1]);
-      const scale = newRegression[newRegression.length-1]/115;
-      const color = this.getRGBForScale(scale);
-
+    const newRegression = data.getRegressionLine(arr);
+    const newAim = data.getAimLine(arr);
+    const scale = newRegression[newRegression.length-1]/115;
+    const color = this.getRGBForScale(scale);
 
     if (this.state.isPressed) {
       this.setState({
@@ -79,13 +73,6 @@ const StudentHypothetical = React.createClass({
       });
     }
   },
-
-/*
-pressY = 267
-StudentHypothetical.js:53 layerY = 73
-StudentHypothetical.js:54 pageY = 196
-
-*/
 
   handleMouseUp() {
     this.setState({isPressed: false});
@@ -148,6 +135,7 @@ StudentHypothetical.js:54 pageY = 196
     return (
       <div className='bar-container'>
         <h3>Student ORF Words Correct Per Minute</h3>
+        <p><em>The last bar represents the student's next score. Click or drag it to update the circle representing progress to his or her end of year goal</em></p>
         {
           this.state.scores.map((scores, key) => {
             const aim = this.state.aims[key]/150 * 450;

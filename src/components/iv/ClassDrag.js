@@ -1,16 +1,13 @@
 import React from 'react';
 import {Motion, spring} from 'react-motion';
-import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 import data from '../data';
 import constants from '../../constants';
 
-const studentIndex = 10;
+
 const circleRadius = 200;
 const ballSize = 60;
 
-import Table from '../Table';
-import Chart from '../Chart';
 
 // http://chenglou.github.io/react-motion/demos/demo5-spring-parameters-chooser/
 const springSetting1 = {stiffness: 180, damping: 20};
@@ -161,7 +158,6 @@ const ClassDrag = React.createClass({
     
             {
               this.state.students.map((student, key) => {
-                let scale = 1;
                 let style = {
                   scale: spring(1, springSetting1),
                 };
@@ -262,17 +258,3 @@ const ClassDrag = React.createClass({
 });
 
 export default ClassDrag;
-
-/*
-
-<div style={{paddingTop: '17px'}}>{newAim ? Math.round(newAim) : student.name}</div>
-
- <Tooltip placement="top" className="in" id="tooltip-top" style={
-                        {
-                          visibility: hidden,
-                          WebkitTransform: `translate3d(${student.position.x}px, ${student.position.y-60}px, 0) scale(${scale})`,
-                          transform: `translate3d(${student.position.x}px, ${student.position.y-25}px, 0) scale(${scale})`,
-                        }}>
-                        {Math.round(newAim)}
-                      </Tooltip>
-*/

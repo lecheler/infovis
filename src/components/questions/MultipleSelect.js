@@ -10,10 +10,8 @@ Survey.defaultBootstrapCss.navigationButton = "btn btn-primary";
 Survey.Survey.cssType = "bootstrap";
 
 const MultipleSelect = React.createClass({
-  getSurveyModel(val) {
-    console.log('getSurveyModel('+val+')');
-    console.log(questionData.questions[val-1]);
 
+  getSurveyModel(val) {
     return new Survey.Model(
     {
       showQuestionNumbers: false,
@@ -36,14 +34,13 @@ const MultipleSelect = React.createClass({
       model: this.getSurveyModel(1),
     }
   },
-  submitSurvey(survey) {
-    console.log(survey.data);
 
-   // survey.clear();
+  submitSurvey(survey) {
     const questionNumber = this.state.question + 1;
     this.setState({question: questionNumber, model: this.getSurveyModel(questionNumber)});
-    this.props.next();
+    this.props.next(survey);
   },
+  
   componentWillMount() {
    // this.setState( { model: new survey.Model(constants.SURVEY_DEMOGRAPHIC)});
   },
@@ -75,7 +72,3 @@ const MultipleSelect = React.createClass({
 });
 
 module.exports = MultipleSelect;
-
-// <FeedbackModal show={this.state.showFeedback} feedbackClose={this.goToNextPage} />
-// <Button style={{marginRight: '5px'}} onClick={this.goToNextPage}>Next</Button>
-// onCurrentPageChanged={this.goToNext}

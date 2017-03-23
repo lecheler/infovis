@@ -1,6 +1,7 @@
 import React from 'react';
 import * as survey from "survey-react";
 import { browserHistory } from 'react-router';
+import { Well } from 'react-bootstrap';
 import constants from '../constants'
 import api from '../api.js';
 
@@ -32,15 +33,17 @@ const Survey = React.createClass({
     return (
       <div className="App container">
         <h1>Participant Information</h1>
-        <div style={{textAlign: 'left'}}>
-          <p>
-            <i>Please complete the following survey. Your information will never be shared and we will not be able to identify partipants.</i>
-          </p>
-        </div>
-        <survey.Survey 
-          model={this.state.model} 
-          onComplete={this.submitSurvey}
-          css={{navigationButton: "btn btn-primary btn-large centerButton"}} />
+        <Well>
+          <div style={{textAlign: 'left'}}>
+            <p>
+              <i>Please complete the following survey. Your information will never be shared and we will not be able to identify partipants.</i>
+            </p>
+          </div>
+          <survey.Survey 
+            model={this.state.model} 
+            onComplete={this.submitSurvey}
+            css={{navigationButton: "btn btn-primary btn-large centerButton"}} />
+        </Well>
       </div>
     );
   }

@@ -1,9 +1,6 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
 import { Button, Checkbox } from 'react-bootstrap';
-import api from '../api.js';
-import constants from '../constants'
-import Survey from './Survey';
 
 import '../App.css';
 

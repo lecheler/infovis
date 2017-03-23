@@ -1,74 +1,3 @@
-const exampleSurvey = {
- pages: [
-  {
-   name: "page1",
-   questions: [
-    {
-     type: "matrix",
-     columns: [
-      {
-       value: "1",
-       text: "very disatisfied"
-      },
-      {
-       value: "2 ",
-       text: "somewhat disatisfied"
-      },
-      {
-       value: "3",
-       text: "neutral"
-      },
-      {
-       value: "4",
-       text: "somewhat satisfied"
-      },
-      {
-       value: "5",
-       text: "satisfied"
-      }
-     ],
-     name: "question1",
-     rows: [
-      "1"
-     ],
-     title: "How confident are you in your answer?"
-    },
-    {
-     type: "matrix",
-     columns: [
-      {
-       value: "1",
-       text: "very disatisfied"
-      },
-      {
-       value: "2 ",
-       text: "somewhat disatisfied"
-      },
-      {
-       value: "3",
-       text: "neutral"
-      },
-      {
-       value: "4",
-       text: "somewhat satisfied"
-      },
-      {
-       value: "5",
-       text: "satisfied"
-      }
-     ],
-     name: "question2",
-     rows: [
-      "1"
-     ],
-     title: "Satisfaction"
-    }
-   ]
-  }
- ]
-};
-
-
 const demographic = {
  pages: 
   [
@@ -197,42 +126,12 @@ const demographic = {
   completedHtml: '<p>woo hoo</p>'
 }
 
-const multipleChoice = {
- pages: [
-  {
-   questions: [
-    {
-     type: "radiogroup",
-     choices: [
-      {
-       value: "1",
-       text: "first item"
-      },
-      {
-       value: "2",
-       text: "second item"
-      },
-      {
-       value: "3",
-       text: "third item"
-      }
-     ],
-     name: "Look at the visualization below and select all students that are on track to be within 10% of reaching their goals by the end of the term."
-    }
-   ]
-  }
- ]
-};
-
-
 const GREEN = '#AAD219';
 const BLUE = '#20A8CC';
 const RED = '#C80054';
 
 const constants = {
   SURVEY_DEMOGRAPHIC: demographic,
-  SURVEY_EXAMPLE: exampleSurvey,
-  MULTIPLE_CHOICE: multipleChoice,
   GREEN: GREEN,
   BLUE: BLUE,
   RED: RED

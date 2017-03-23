@@ -1,11 +1,9 @@
 import React from 'react';
-import {Motion, spring} from 'react-motion';
 import { Grid, Row, Col } from 'react-bootstrap';
 
 import data from '../data';
 
 // http://chenglou.github.io/react-motion/demos/demo5-spring-parameters-chooser/
-const springSetting1 = {stiffness: 180, damping: 20};
 
 const ClassView = React.createClass({
   getInitialState() {
@@ -19,10 +17,6 @@ const ClassView = React.createClass({
     });
 
     return {
-      mouse: [0, 0],
-      delta: [0, 0], // difference between mouse and circle pos, for dragging
-      lastPress: null, // key of the last pressed component
-      isPressed: false,
       students: d.sort((a, b) => b.scale - a.scale),
       ready: false,
     };
@@ -56,10 +50,7 @@ const ClassView = React.createClass({
 
   handleMouseDown(key, [pressX, pressY], {pageX, pageY}) {
     this.setState({
-      lastPress: key,
-      isPressed: true,
       delta: [pageX - pressX, pageY - pressY],
-      mouse: [pressX, pressY],
     });
 
     console.log('key:' + key + '::(pressX: ' + pressX + ', pressY: '+ pressY + ')::(pageX: ' + pageX + ', pageY: ' + pageY + ')');
@@ -73,7 +64,6 @@ const ClassView = React.createClass({
     this.setState({ready: true});
   },
   render() {
-    const {lastPress, isPressed, mouse} = this.state;
     if (!this.state.ready) {
       return(
         <div>not ready</div>

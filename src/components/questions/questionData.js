@@ -1,10 +1,65 @@
 const questions = [
 {
+  blorp: 'ok',
+  name: 'questions',
+  questions: [{ 
+    type: "checkbox", 
+    name: "q1", 
+    title: "Which student(s) should be given extra attention or modified instruction? ", 
+    isRequired: true, 
+    colCount: 3, 
+    choices: [
+      "Elene",
+      "Reagan", 
+      "Zackary", 
+      "Justa", 
+      "Corinne", 
+      "Tegan", 
+      "Damaris", 
+      "Shayla", 
+      "Sang", 
+      "Anette", 
+      "Leota",
+      "Joseph",
+      "Shiela",
+      "Arlinda",
+      "Allegra",
+    ] 
+  }]
+},
+{
+  name: 'questions',
+  questions: [{ 
+    type: "checkbox", 
+    name: "q2", 
+    title: "Which student(s) are making adequate progress toward their goal?", 
+    isRequired: true, 
+    colCount: 3, 
+    choices: [
+      "Elene",
+      "Reagan", 
+      "Zackary", 
+      "Justa", 
+      "Corinne", 
+      "Tegan", 
+      "Damaris", 
+      "Shayla", 
+      "Sang", 
+      "Anette", 
+      "Leota",
+      "Joseph",
+      "Shiela",
+      "Arlinda",
+      "Allegra",
+    ] 
+  }]
+},
+{
   name: 'questions',
   questions: [{
     title: "Who is the best?",
     type: "radiogroup",
-    name: 'q1',
+    name: 'q3',
     colCount: 4,
     isRequired: true,
     choices: [
@@ -32,7 +87,7 @@ const questions = [
   questions: [{
     title: "Who is the absolute worst ever?",
     type: "radiogroup",
-    name: 'q1',
+    name: 'q4',
     colCount: 4,
     isRequired: true,
     choices: [

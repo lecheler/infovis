@@ -2,11 +2,6 @@ import React from 'react';
 import { browserHistory } from 'react-router';
 import { Button } from 'react-bootstrap';
 
-import constants from '../constants'
-import api from '../api.js';
-
-
-
 const Directions = React.createClass({
   next() {
     browserHistory.push('/survey/');

@@ -1,17 +1,14 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
-import { Button, ButtonGroup, ProgressBar, Navbar, Well } from 'react-bootstrap';
+import { ProgressBar } from 'react-bootstrap';
 import Table from './Table';
 import ClassDrag from './iv/ClassDrag';
 import ClassView from './iv/ClassView';
 import StudentHypothetical from './iv/StudentHypothetical';
-import Chart from './Chart';
 
 import MultipleSelect from './questions/MultipleSelect';
 
 import data from './data';
-import api from '../api.js';
-import constants from '../constants';
 
 import '../App.css';
 
@@ -25,14 +22,23 @@ const Question = React.createClass({
       userID: null,
       displayType: this.getRandomType(1),
       questionModel: {},
+      questionStartTime: 0,
     }
   },
-  componentWillMount() {
-  //  this.setState( { questionModel: new survey.Model(constants.MULTIPLE_CHOICE)});
+
+  stopClock() {
+    const questionTime = new Date().getTime() - this.state.questionStartTime;
+    console.log(questionTime);
   },
 
-  nextQuestion() {
- //   api.logActivity(this.state.userID, 2);
+  componentWillMount() {
+    this.setState({
+      questionStartTime: new Date().getTime()
+    })
+  },
+
+  nextQuestion(survey) {
+    this.stopClock();
     const next = parseInt(this.props.params.question, 10)+1
 
     if (next > data.QUESTIONS.length) {
@@ -55,7 +61,7 @@ const Question = React.createClass({
 
     const m = num % 3;
 
-    if (m == 0) {
+    if (m === 0) {
       availableTypes = [1, 2, 3];
     }
     return value;
@@ -82,7 +88,7 @@ const Question = React.createClass({
         iv = (<ClassView />);
       } else if (question.ivType === 2) {
         iv = (<ClassDrag />);
-      }``
+      }
     }
     // iv = (<Table />);
     

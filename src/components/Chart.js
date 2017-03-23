@@ -1,10 +1,6 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 import regression from 'regression';
-import { Grid, Row, Col } from 'react-bootstrap';
-
-import TableWCPM from './TableWCPM';
-
 import data from './data';
 
 import { defaults } from 'react-chartjs-2';

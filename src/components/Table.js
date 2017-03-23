@@ -3,7 +3,6 @@ import {Button, Glyphicon, Modal} from 'react-bootstrap';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import regression from 'regression';
 
-// import api from '../api.js';
 import Chart from './Chart';
 import data from './data';
 
@@ -64,8 +63,8 @@ const Table = React.createClass({
 
     let arr = this.state.tableData[row.id].scores;
 
-    if (cellValue != "") {
-      arr.push(parseInt(cellValue));
+    if (cellValue !== "") {
+      arr.push(parseInt(cellValue, 10));
     } else {
       arr.pop();
     }
@@ -76,10 +75,9 @@ const Table = React.createClass({
     const final = Math.round(rData[rData.length-1]);
     this.state.tableData[row.id].final = final;
 
-   // console.log(this.state.tableData[row.id]);
     let rowValues = [];
     for (const prop in row) {
-      rowValues.push(parseInt(row[prop]));
+      rowValues.push(parseInt(row[prop], 10));
     }
   },
 
@@ -209,7 +207,7 @@ const Table = React.createClass({
           </Modal>
           <h4>Student ORF Words Correct Per Minute</h4>
           <BootstrapTable data={this.state.tableData} cellEdit={ this.cellEditProp() } striped hover condensed>
-            <TableHeaderColumn dataField='name' editable={false} className='vertical-align' width='80' isKey dataSort>Student</TableHeaderColumn>
+            <TableHeaderColumn dataField='name' editable={false} className='vertical-align' isKey dataSort>Student</TableHeaderColumn>
             <TableHeaderColumn dataField='score_0' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort ></TableHeaderColumn>
             <TableHeaderColumn dataField='score_1' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort ></TableHeaderColumn>
             <TableHeaderColumn dataField='score_2' editable={false} dataFormat={this.scoreFormatter} dataAlign='center' dataSort ></TableHeaderColumn>
