@@ -16,7 +16,7 @@ const Survey = React.createClass({
   },
   submitSurvey(survey) {
     api.addUser(survey.data).then((result) => {
-      browserHistory.push('/test/' + result + '/1');
+      browserHistory.push('/directions/' + result);
     }).catch((err) => {
       if (err.response.status !== 404) {
         window.error(err.response.data.message);

@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap';
 
 const Directions = React.createClass({
   next() {
-    browserHistory.push('/survey/');
+    browserHistory.push('/test/' + this.props.params.userID + '/1');
   },
   render() {
     return (

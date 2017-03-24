@@ -14,7 +14,7 @@ const App = React.createClass({
       <Router history={browserHistory} >
         <Route path="/" component={Main} />
         <Route path="/about" component={About} />
-        <Route path="/directions" component={Directions} />
+        <Route path="/directions/:userID" component={Directions} />
         <Route path="/survey" component={Survey} />
         <Route path="/test/:userID/:question" component={Question} />
       </Router>
