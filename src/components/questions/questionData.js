@@ -1,9 +1,16 @@
+
+// iv_type = view, drag, hypothetical
+// question_level = sense(0), decision(0)
+// display_type = tabular, pm, custom
+// each iv_type (3) * each question_level (2) * controls (3) = 18
+// for each iv_type, show control (table), traditional (pm), or custom (iv) at each question_level
+
 const questions = [
 {
-  blorp: 'ok',
+  ivType: 1,
   name: 'questions',
   questions: [{ 
-    type: "checkbox", 
+    type: "checkbox",
     name: "q1", 
     title: "Which student(s) should be given extra attention or modified instruction? ", 
     isRequired: true, 
@@ -28,6 +35,7 @@ const questions = [
   }]
 },
 {
+  ivType: 1,
   name: 'questions',
   questions: [{ 
     type: "checkbox", 
@@ -55,6 +63,7 @@ const questions = [
   }]
 },
 {
+  ivType: 2,
   name: 'questions',
   questions: [{
     title: "Who is the best?",
@@ -83,6 +92,65 @@ const questions = [
   }]
 },
 {
+  ivType: 2,
+  name: 'questions',
+  questions: [{
+    title: "Who is the absolute worst ever?",
+    type: "radiogroup",
+    name: 'q4',
+    colCount: 4,
+    isRequired: true,
+    choices: [
+      {
+       value: 1,
+       text: "Bloop"
+      },
+      {
+       value: "2",
+       text: "Blorp"
+      },
+      {
+       value: "3",
+       text: "Sheila"
+      },
+      {
+       value: "4",
+       text: "Justa"
+      }
+    ],
+  }]
+},
+{
+  ivType: 3,
+  name: 'questions',
+  questions: [{
+    title: "Who is the absolute worst ever?",
+    type: "radiogroup",
+    name: 'q4',
+    colCount: 4,
+    isRequired: true,
+    choices: [
+      {
+       value: 1,
+       text: "Bloop"
+      },
+      {
+       value: "2",
+       text: "Blorp"
+      },
+      {
+       value: "3",
+       text: "Sheila"
+      },
+      {
+       value: "4",
+       text: "Justa"
+      }
+    ],
+  }]
+},
+{
+  ivType: 3,
   name: 'questions',
   questions: [{
     title: "Who is the absolute worst ever?",

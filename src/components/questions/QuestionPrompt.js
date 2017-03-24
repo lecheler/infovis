@@ -7,10 +7,19 @@ import questionData from './questionData';
 Survey.defaultBootstrapCss.navigationButton = "btn btn-primary";
 Survey.Survey.cssType = "bootstrap";
 
-const MultipleSelect = React.createClass({
+// This is bad, but putting it in the component state (or parent state) causes submit to be called twice
+let questionStartTime = 0;
+let feedbackStartTime = 0;
+let questionTime = 0;
+let feedbackTime = 0;
+
+const QuestionPrompt = React.createClass({
+
+  componentDidMount() {
+    questionStartTime = new Date().getTime();
+  },
 
   getSurveyModel(val) {
-
     return new Survey.Model(
     {
       showQuestionNumbers: false,
@@ -35,13 +44,21 @@ const MultipleSelect = React.createClass({
   },
 
   submitSurvey(survey) {
+
     const questionNumber = this.state.question + 1;
     this.setState({question: questionNumber, model: this.getSurveyModel(questionNumber)});
-    this.props.next(survey);
+
+    let val = survey.data;
+    questionStartTime = new Date().getTime();
+    val.feedbackTime = new Date().getTime() - feedbackStartTime;
+    val.questionTime = questionTime;
+
+    this.props.next(val);
   },
 
   handlePageChange() {
-    this.props.pageChange();
+    feedbackStartTime = new Date().getTime();
+    questionTime = new Date().getTime() - questionStartTime;
   },
 
   render() {
@@ -53,4 +70,4 @@ const MultipleSelect = React.createClass({
   }
 });
 
-module.exports = MultipleSelect;
+module.exports = QuestionPrompt;

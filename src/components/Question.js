@@ -5,8 +5,8 @@ import Table from './Table';
 import ClassDrag from './iv/ClassDrag';
 import ClassView from './iv/ClassView';
 import StudentHypothetical from './iv/StudentHypothetical';
-import MultipleSelect from './questions/MultipleSelect';
-import data from './data';
+import MultipleSelect from './questions/QuestionPrompt';
+import questionData from './questions/questionData';
 
 
 let availableTypes = [1, 2, 3];
@@ -14,30 +14,22 @@ let availableTypes = [1, 2, 3];
 const Question = React.createClass({
   getInitialState() {
     return {
-      questions: data.QUESTIONS,
+      questions: questionData.questions,
       userID: null,
       displayType: this.getRandomType(1),
       questionModel: {},
-      questionStartTime: 0,
-      questionTime: 0,
-      feedbackStartTime: 0,
-      feedbackTime: 0,
+      type1Table: false,
+      type2Table: false,
+      type3Table: false,
     }
   },
 
-  componentWillMount() {
-    this.setState({
-      questionStartTime: new Date().getTime()
-    })
-  },
-
-  nextQuestion(survey) {    
-    console.log('next')
-    console.log(this.state.feedbackStartTime);
+  nextQuestion(data) {    
+    console.log("feedbackTime = " + data.feedbackTime + ", questionTime = " + data.questionTime);
 
     const next = parseInt(this.props.params.question, 10)+1
 
-    if (next > data.QUESTIONS.length) {
+    if (next > questionData.questions.length) {
       alert('done!');
       return;
     }
@@ -45,23 +37,11 @@ const Question = React.createClass({
     this.setState( 
     { 
       displayType: this.getRandomType(next),
-      feedbackTime: new Date().getTime() - this.state.feedbackStartTime,
-      questionStartTime: new Date().getTime(),
     });
 
     // api call here to save question data
-    console.log(survey.data);
-    console.log('question time = ' + this.state.questionTime);
-    console.log('feedback time = ' + this.state.feedbackTime);
 
     browserHistory.push('/test/' + this.props.params.userID + '/' + next);
-  },
-
-  pageChange() {
-    this.setState({
-      questionTime: new Date().getTime() - this.state.questionStartTime,
-      feedbackStartTime: new Date().getTime()
-    });
   },
 
   getRandomType(num) {
@@ -85,32 +65,55 @@ const Question = React.createClass({
   render() {
     const question = this.state.questions[this.props.params.question-1];
 
-    let iv = (
-      <div>Something went wrong...</div>
-    );
+    console.log(question);
 
-    if (this.state.displayType === 1) {
-      iv = (<Table />);
-    } else if (this.state.displayType === 2) {
-      iv = (<Table />);
-    } else {
-      iv = (<StudentHypothetical />);
-      if (question.ivType === 1) {
-        iv = (<ClassView />);
-      } else if (question.ivType === 2) {
-        iv = (<ClassDrag />);
-      }
+    const rand = Math.round((Math.random()));
+
+    console.log(question.ivType);
+
+    let iv;
+    switch(question.ivType) {
+      case 1:
+        iv = <ClassView />
+        break;
+      case 2:
+        iv = <StudentHypothetical />
+        break;
+      case 3:
+        iv = <ClassDrag />
+        break;
     }
+
+    iv = <Table />;
+   // iv = <ClassDrag />;
+
+    // let iv = (
+    //   <div>Something went wrong...</div>
+    // );
+
+    // if (this.state.displayType === 1) {
+    //   iv = (<Table />);
+    // } else if (this.state.displayType === 2) {
+    //   iv = (<Table />);
+    // } else {
+    //   iv = (<StudentHypothetical />);
+    //   if (question.ivType === 1) {
+    //     iv = (<ClassView />);
+    //   } else if (question.ivType === 2) {
+    //     iv = (<ClassDrag />);
+    //   }
+    // }
  //   iv = (<ClassDrag />);
     
     return (
       <div className="App container">
+        
         <div className="container" style={{textAlign: 'left'}}>
-          <h3>Question {this.props.params.question} of {data.QUESTIONS.length}</h3>
-          <ProgressBar bsStyle="success" now={(this.props.params.question-1)/data.QUESTIONS.length*100} />
+          <h3>Question {this.props.params.question} of {questionData.questions.length}</h3>
+          <ProgressBar bsStyle="success" now={(this.props.params.question-1)/questionData.questions.length*100} />
           <MultipleSelect next={this.nextQuestion} pageChange={this.pageChange} />
         </div>
-        <div className="container">  
+        <div className="container iv-container">
           { iv }
         </div>
       </div>

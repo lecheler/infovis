@@ -268,3 +268,13 @@
   border-bottom-right-radius: 3px; 
   border-bottom-left-radius: 3px; 
 }
+
+.feedback-overlay {
+  position: fixed;
+  background-color: #000;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0.6; /* see below for cross-browser opacity */
+}
