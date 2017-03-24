@@ -16,7 +16,6 @@ const Question = React.createClass({
     return {
       questions: questionData.questions,
       userID: null,
-      displayType: this.getRandomType(1),
       questionModel: {},
       type1Table: false,
       type2Table: false,
@@ -25,19 +24,12 @@ const Question = React.createClass({
   },
 
   nextQuestion(data) {    
-    console.log("feedbackTime = " + data.feedbackTime + ", questionTime = " + data.questionTime);
-
     const next = parseInt(this.props.params.question, 10)+1
 
     if (next > questionData.questions.length) {
-      alert('done!');
+      browserHistory.push('/test/' + this.props.params.userID + '/' + next);
       return;
     }
-
-    this.setState( 
-    { 
-      displayType: this.getRandomType(next),
-    });
 
     // api call here to save question data
 
@@ -64,12 +56,6 @@ const Question = React.createClass({
 
   render() {
     const question = this.state.questions[this.props.params.question-1];
-
-    console.log(question);
-
-    const rand = Math.round((Math.random()));
-
-    console.log(question.ivType);
 
     let iv;
     switch(question.ivType) {
@@ -111,7 +97,7 @@ const Question = React.createClass({
         <div className="container" style={{textAlign: 'left'}}>
           <h3>Question {this.props.params.question} of {questionData.questions.length}</h3>
           <ProgressBar bsStyle="success" now={(this.props.params.question-1)/questionData.questions.length*100} />
-          <MultipleSelect next={this.nextQuestion} pageChange={this.pageChange} />
+          <MultipleSelect next={this.nextQuestion} pageChange={this.pageChange} question={this.props.params.question} />
         </div>
         <div className="container iv-container">
           { iv }

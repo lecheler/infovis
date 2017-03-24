@@ -12,6 +12,7 @@ let questionStartTime = 0;
 let feedbackStartTime = 0;
 let questionTime = 0;
 let feedbackTime = 0;
+let changes = 0;
 
 const QuestionPrompt = React.createClass({
 
@@ -38,20 +39,24 @@ const QuestionPrompt = React.createClass({
 
   getInitialState() {
     return {
-      question: 1,
-      model: this.getSurveyModel(1),
+      model: this.getSurveyModel(this.props.question),
     }
   },
 
   submitSurvey(survey) {
 
-    const questionNumber = this.state.question + 1;
-    this.setState({question: questionNumber, model: this.getSurveyModel(questionNumber)});
+    this.setState({
+      model: this.getSurveyModel(this.props.question)
+    });
 
     let val = survey.data;
-    questionStartTime = new Date().getTime();
     val.feedbackTime = new Date().getTime() - feedbackStartTime;
     val.questionTime = questionTime;
+    val.changes = changes;
+
+    // reset values for each question
+    changes = 0;
+    questionStartTime = new Date().getTime();
 
     this.props.next(val);
   },
@@ -61,10 +66,18 @@ const QuestionPrompt = React.createClass({
     questionTime = new Date().getTime() - questionStartTime;
   },
 
+  handleValueChange(e) {
+    changes++;
+  },
+
   render() {
     return (
       <Well>
-        <Survey.Survey model={this.state.model} onCurrentPageChanged={this.handlePageChange}  onComplete={this.submitSurvey} />
+        I am question # {this.props.question}
+        <Survey.Survey model={this.state.model} 
+          onValueChanged={this.handleValueChange}
+          onCurrentPageChanged={this.handlePageChange}  
+          onComplete={this.submitSurvey} />
       </Well>
     );
   }
