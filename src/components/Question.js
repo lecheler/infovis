@@ -8,10 +8,8 @@ import StudentHypothetical from './iv/StudentHypothetical';
 import MultipleSelect from './questions/QuestionPrompt';
 import questionData from './questions/questionData';
 
-
-let availableTypes = [1, 2, 3];
-
 const Question = React.createClass({
+
   getInitialState() {
     return {
       questions: questionData.questions,
@@ -32,26 +30,7 @@ const Question = React.createClass({
     }
 
     // api call here to save question data
-
     browserHistory.push('/test/' + this.props.params.userID + '/' + next);
-  },
-
-  getRandomType(num) {
-    const randomIndex = Math.floor(Math.random() * availableTypes.length);
-    const value = availableTypes[randomIndex];
-
-    availableTypes.splice(randomIndex, 1);
-
-    const m = num % 3;
-
-    if (m === 0) {
-      availableTypes = [1, 2, 3];
-    }
-    return value;
-  },
-
-  submitSurvey() {
-    console.log('submitting survey!');
   },
 
   render() {
@@ -70,26 +49,8 @@ const Question = React.createClass({
         break;
     }
 
-    iv = <Table />;
-   // iv = <ClassDrag />;
-
-    // let iv = (
-    //   <div>Something went wrong...</div>
-    // );
-
-    // if (this.state.displayType === 1) {
-    //   iv = (<Table />);
-    // } else if (this.state.displayType === 2) {
-    //   iv = (<Table />);
-    // } else {
-    //   iv = (<StudentHypothetical />);
-    //   if (question.ivType === 1) {
-    //     iv = (<ClassView />);
-    //   } else if (question.ivType === 2) {
-    //     iv = (<ClassDrag />);
-    //   }
-    // }
- //   iv = (<ClassDrag />);
+    const useTable = Math.round(Math.random());
+    const ivPrompt = useTable ? <Table /> : iv;
     
     return (
       <div className="App container">
@@ -100,7 +61,7 @@ const Question = React.createClass({
           <MultipleSelect next={this.nextQuestion} pageChange={this.pageChange} question={this.props.params.question} />
         </div>
         <div className="container iv-container">
-          { iv }
+          { ivPrompt }
         </div>
       </div>
     );
