@@ -58,6 +58,8 @@ const QuestionPrompt = React.createClass({
     changes = 0;
     questionStartTime = new Date().getTime();
 
+    survey.clear();
+    
     this.props.next(val);
   },
 
@@ -73,7 +75,6 @@ const QuestionPrompt = React.createClass({
   render() {
     return (
       <Well>
-        I am question # {this.props.question}
         <Survey.Survey model={this.state.model} 
           onValueChanged={this.handleValueChange}
           onCurrentPageChanged={this.handlePageChange}  

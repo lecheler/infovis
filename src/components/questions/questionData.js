@@ -191,11 +191,11 @@ const ratings =
     minRateDescription: "very easy",
     name: "difficulty",
     rateValues: [
-      "easy - 1",
+      "1",
       "2",
       "3",
       "4",
-      "5 - difficult"
+      "5"
     ],  
   },
   {
@@ -205,11 +205,11 @@ const ratings =
     minRateDescription: "not at all confident",
     name: "confidence",
     rateValues: [
-      "not confident - 1",
+      "1",
       "2",
       "3",
       "4",
-      "5 - confident"
+      "5"
       ],
     title: "How confident are you in your answer?"
   },
@@ -220,11 +220,11 @@ const ratings =
     minRateDescription: "not at all",
     name: "experience",
     rateValues: [
-      "not at all - 1",
+      "1",
       "2",
       "3",
       "4",
-      "5 - very much"
+      "5"
     ],
     title: "How much did you enjoy answering this question?"
   }

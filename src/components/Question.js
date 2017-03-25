@@ -8,6 +8,8 @@ import StudentHypothetical from './iv/StudentHypothetical';
 import MultipleSelect from './questions/QuestionPrompt';
 import questionData from './questions/questionData';
 
+import api from '../api';
+
 const Question = React.createClass({
 
   getInitialState() {
@@ -25,12 +27,24 @@ const Question = React.createClass({
     const next = parseInt(this.props.params.question, 10)+1
 
     if (next > questionData.questions.length) {
-      browserHistory.push('/test/' + this.props.params.userID + '/' + next);
+      browserHistory.push('/feedback/' + this.props.params.userID + '/');
       return;
     }
 
-    // api call here to save question data
-    browserHistory.push('/test/' + this.props.params.userID + '/' + next);
+    data.questionId = parseInt(this.props.params.question, 10);
+    data.userId = this.props.params.userID;
+    data.answer = 2;
+    console.log(data);
+    api.addResponse(data).then((result) => {
+      browserHistory.push('/test/' + this.props.params.userID + '/' + next);
+    }).catch((err) => {
+      if (err.response.status !== 404) {
+        window.error(err.response.data.message);
+      }
+      else {
+        throw err;
+      }
+    });
   },
 
   render() {

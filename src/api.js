@@ -16,6 +16,10 @@ function addUser(data) {
   return api.post('users/add', data);
 }
 
+function addResponse(data) {
+  return api.post('responses/add', data);
+}
+
 function logActivity(userID, type) {
   return api.get('users/logActivity?userID=' + userID + '&type=' + type);
 }
@@ -39,6 +43,14 @@ const Api = {
 
   addUser(data) {
     return addUser(data).then(response =>
+      response.data
+    ).catch((err) => {
+      console.log(err);
+    });
+  },
+
+  addResponse(data) {
+    return addResponse(data).then(response =>
       response.data
     ).catch((err) => {
       console.log(err);

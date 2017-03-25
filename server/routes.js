@@ -13,11 +13,12 @@ module.exports = function(app){
 
 
 	app.get('/api/ping', (req, res) => {
-		res.send('pong!');
+		res.send('pong!!!');
 	});
 
 	const students = require('./sql').students;
 	const users = require('./sql').users;
+	const responses = require('./sql').responses;
 
 	app.get('/api/students', (req, res) => {
 	  db.any(students.gradebook, [true])
@@ -32,6 +33,19 @@ module.exports = function(app){
 	app.post('/api/users/add', (req, res) => {
 		const obj = req.body;
 		db.one(users.add, [obj.email, obj.age, obj.gender, obj.education, obj.experience.stats, obj.experience.charts, obj.experience.cbm])
+	    .then(function (data) {
+	      res.json(data.id);
+	    })
+	    .catch(function (error) {
+	       console.log(error);
+	    });
+	});
+
+	app.post('/api/responses/add', (req, res) => {
+		const obj = req.body;
+		console.log(obj);
+		db.one(responses.add, [obj.userId, obj.questionId, obj.answer, obj.questionTime, obj.difficulty, 
+			obj.confidence, obj.experience, obj.feedbackTime, obj.changes, obj.backtracks])
 	    .then(function (data) {
 	      res.json(data.id);
 	    })

@@ -14,5 +14,8 @@ module.exports = {
   users: {
   	add: sql('sql/users/add.sql'),
     logActivity: sql('sql/users/logActivity.sql'),
-  }
+  },
+  responses: {
+    add: sql('sql/responses/add.sql'),
+  },
 };
