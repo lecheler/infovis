@@ -26,17 +26,12 @@ const Question = React.createClass({
   nextQuestion(data) {    
     const next = parseInt(this.props.params.question, 10)+1
 
-    if (next > questionData.questions.length) {
-      browserHistory.push('/feedback/' + this.props.params.userID + '/');
-      return;
-    }
-
     data.questionId = parseInt(this.props.params.question, 10);
     data.userId = this.props.params.userID;
     data.answer = 2;
     console.log(data);
     api.addResponse(data).then((result) => {
-      browserHistory.push('/test/' + this.props.params.userID + '/' + next);
+      console.log(result);
     }).catch((err) => {
       if (err.response.status !== 404) {
         window.error(err.response.data.message);
@@ -45,6 +40,13 @@ const Question = React.createClass({
         throw err;
       }
     });
+
+    if (next > questionData.questions.length) {
+      browserHistory.push('/feedback/' + this.props.params.userID + '/');
+      return;
+    } else {
+      browserHistory.push('/test/' + this.props.params.userID + '/' + next);
+    }
   },
 
   render() {

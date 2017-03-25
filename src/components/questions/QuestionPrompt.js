@@ -17,6 +17,7 @@ let changes = 0;
 const QuestionPrompt = React.createClass({
 
   componentDidMount() {
+    console.log('questionPrompt mounted!');
     questionStartTime = new Date().getTime();
   },
 
@@ -45,10 +46,6 @@ const QuestionPrompt = React.createClass({
 
   submitSurvey(survey) {
 
-    this.setState({
-      model: this.getSurveyModel(this.props.question)
-    });
-
     let val = survey.data;
     val.feedbackTime = new Date().getTime() - feedbackStartTime;
     val.questionTime = questionTime;
@@ -58,9 +55,11 @@ const QuestionPrompt = React.createClass({
     changes = 0;
     questionStartTime = new Date().getTime();
 
-    survey.clear();
-    
     this.props.next(val);
+
+    this.setState({
+      model: this.getSurveyModel(this.props.question)
+    });
   },
 
   handlePageChange() {
