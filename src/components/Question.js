@@ -68,7 +68,9 @@ const Question = React.createClass({
     }
 
     const useTable = Math.round(Math.random());
-    const ivPrompt = useTable ? <Table /> : iv;
+    let ivPrompt = useTable ? <Table /> : iv;
+
+    ivPrompt = <StudentHypothetical />
     
     return (
       <div className="App container">

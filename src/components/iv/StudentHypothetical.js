@@ -6,9 +6,11 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import data from '../data';
 import constants from '../../constants';
 
+import Table from '../Table';
+
 const springSetting1 = {stiffness: 180, damping: 20};
 const springSetting2 = {stiffness: 297, damping: 18};
-const studentIndex = 2;
+const studentIndex = 3;
 
 const StudentHypothetical = React.createClass({  
 
@@ -25,7 +27,6 @@ const StudentHypothetical = React.createClass({
     const color = this.getRGBForScale(scale);
     const aim = 450 - (aims[scores.length]/150*450);
 
-   // console.log(data.STUDENT_CHARTS.datasets[studentIndex]);
     this.setState({ 
       scores: scores,
       aims: aims,
@@ -33,10 +34,9 @@ const StudentHypothetical = React.createClass({
       red: color.red,
       green: color.green,
       blue: color.blue,
-      yPosition: regression[scores.length]/150*450,
+      yPosition: 450 - (regression[scores.length]/150*450),
       aim: aim,
     });
-  //  console.log(aim)
   },
 
   handleTouchMove(e) {
@@ -131,9 +131,10 @@ const StudentHypothetical = React.createClass({
         <p><em>The last bar represents the student's next score. Click or drag it to update the circle representing progress to his or her end of year goal</em></p>
         {
           this.state.scores.map((scores, key) => {
+
             const aim = this.state.aims[key]/150 * 450;
             const val = scores/this.state.aims[key] * aim;
-            
+
             let col = constants.RED;
             if (val/aim >= 1.0) {
               col = constants.GREEN;
@@ -187,7 +188,7 @@ const StudentHypothetical = React.createClass({
                       transform: `translate3d(0, ${y}px, 0)`,
                     }} 
                   > 
-                    <Tooltip placement="top" className="in unselectable" id="tooltip-dynamic-top">
+                    <Tooltip placement="right" className="in unselectable" id="tooltip-dynamic-right">
                       Projected: { Math.round((450-y)/450 * 150) }
                     </Tooltip>
                   </div>
@@ -213,6 +214,7 @@ const StudentHypothetical = React.createClass({
             </div>
           }
         </Motion>
+        <Table />
       </div>
     );
   },
