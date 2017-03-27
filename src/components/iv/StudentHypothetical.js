@@ -6,8 +6,6 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import data from '../data';
 import constants from '../../constants';
 
-import Table from '../Table';
-
 const springSetting1 = {stiffness: 180, damping: 20};
 const springSetting2 = {stiffness: 297, damping: 18};
 const studentIndex = 5;
@@ -128,8 +126,8 @@ const StudentHypothetical = React.createClass({
   render() {
     return (
       <div className='bar-container'>
-        <h3>{this.state.name} ORF Words Correct Per Minute</h3>
-        <p><em>The last bar represents the student's next score. Click or drag it to update the circle representing progress to his or her end of year goal</em></p>
+        <h4>{this.state.name} Next Score vs. Projected</h4>
+        <p><em>The last bar represents the student's next score. Click or drag it to update the circle representing progress to his or her end of year goal.</em></p>
         {
           this.state.scores.map((scores, key) => {
 
@@ -218,7 +216,6 @@ const StudentHypothetical = React.createClass({
             </div>
           }
         </Motion>
-        <Table />
       </div>
     );
   },
