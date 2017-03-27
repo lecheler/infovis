@@ -10,7 +10,7 @@ import Table from '../Table';
 
 const springSetting1 = {stiffness: 180, damping: 20};
 const springSetting2 = {stiffness: 297, damping: 18};
-const studentIndex = 3;
+const studentIndex = 5;
 
 const StudentHypothetical = React.createClass({  
 
@@ -29,13 +29,13 @@ const StudentHypothetical = React.createClass({
 
     this.setState({ 
       scores: scores,
+      name: data.STUDENT_CHARTS.datasets[studentIndex].name,
       aims: aims,
       scale: scale,
-      red: color.red,
-      green: color.green,
-      blue: color.blue,
+      color: color,
       yPosition: 450 - (regression[scores.length]/150*450),
       aim: aim,
+      barColor: this.getRGBForScale(regression[scores.length]/aims[scores.length]),
     });
   },
 
@@ -62,14 +62,15 @@ const StudentHypothetical = React.createClass({
     const newRegression = data.getRegressionLine(arr);
     const scale = newRegression[newRegression.length-1]/115;
     const color = this.getRGBForScale(scale);
+    const barScale = nextScore/this.state.aims[this.state.scores.length];
+
 
     if (this.state.isPressed) {
       this.setState({
         yPosition: y, 
         scale: scale,
-        red: color.red,
-        green: color.green,
-        blue: color.blue,
+        color: color,
+        barColor: this.getRGBForScale(barScale),
       });
     }
   },
@@ -80,9 +81,9 @@ const StudentHypothetical = React.createClass({
 
   getRGBForScale(scale) {
     let color = {red: 200, green: 0, blue: 84};
-    if (scale > 1.00) {
+    if (scale >= 1.00) {
       color = {red: 170, green: 210, blue: 25};
-    } else if (scale > 0.90) {
+    } else if (scale >= 0.90) {
       color = {red: 32, green: 168, blue: 204};
     }
     return color;
@@ -106,16 +107,16 @@ const StudentHypothetical = React.createClass({
 
     const newRegression = data.getRegressionLine(arr);
     const scale = newRegression[newRegression.length-1]/115;
+    const barScale = nextScore/this.state.aims[this.state.scores.length];
     const color = this.getRGBForScale(scale);
     this.setState({
       yPosition: e.nativeEvent.layerY,
       pressY: e.nativeEvent.pageY,
       layerY: e.nativeEvent.layerY,
       scale: scale,
-      red: color.red,
-      green: color.green,
-      blue: color.blue,
+      color: color,
       isPressed: true,
+      barColor: this.getRGBForScale(barScale),
     });
   },
 
@@ -127,7 +128,7 @@ const StudentHypothetical = React.createClass({
   render() {
     return (
       <div className='bar-container'>
-        <h3>Student ORF Words Correct Per Minute</h3>
+        <h3>{this.state.name} ORF Words Correct Per Minute</h3>
         <p><em>The last bar represents the student's next score. Click or drag it to update the circle representing progress to his or her end of year goal</em></p>
         {
           this.state.scores.map((scores, key) => {
@@ -170,11 +171,14 @@ const StudentHypothetical = React.createClass({
             height: spring(450-this.state.yPosition, springSetting1), 
             y: spring(this.state.yPosition, springSetting1),
             scale: spring(this.state.scale, springSetting2),
-            red: this.state.red,
-            green: this.state.green,
-            blue: this.state.blue,
+            red: this.state.color.red,
+            green: this.state.color.green,
+            blue: this.state.color.blue,
+            bRed: this.state.barColor.red,
+            bGreen: this.state.barColor.green,
+            bBlue: this.state.barColor.blue,
           }}>
-          {({height, y, scale, red, green, blue}) =>
+          {({height, y, scale, red, green, blue, bRed, bGreen, bBlue}) =>
             <div>
               <div className="demo0-i"
                 onMouseDown={this.handleMouseDown}
@@ -183,7 +187,7 @@ const StudentHypothetical = React.createClass({
                     className="demo0-block" 
                     style={{
                       height: height,
-                      backgroundColor: `rgb(${red}, ${green}, ${blue})`,
+                      backgroundColor: `rgb(${bRed}, ${bGreen}, ${bBlue})`,
                       WebkitTransform: `translate3d(0, ${y}px, 0)`,
                       transform: `translate3d(0, ${y}px, 0)`,
                     }} 
