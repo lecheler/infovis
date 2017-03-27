@@ -37,7 +37,8 @@ const ClassView = React.createClass({
     }
     return (
       <div>
-        <h4>Student ORF Words Correct Per Minute</h4>
+        <h3>Student ORF Words Correct Per Minute</h3>
+        <p><em>The following chart shows each student's end-of-year projection relative to his or her end-of-year goal.</em></p>
         <Grid>
           <Row className="class-view-grid">
     
@@ -78,6 +79,7 @@ const ClassView = React.createClass({
             }
           </Row>
         </Grid>
+        <img src='../../drag_key.png' width="600px" alt='interaction key' />
       </div>
     );
   },

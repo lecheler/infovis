@@ -37,7 +37,6 @@
   margin: 5px 3px 10px;
   width: 25px;
   height: 450px;
-  cursor: pointer;
   float: left;
   margin-right: 15px;
 }
@@ -281,4 +280,9 @@
 
 .small {
   width: 65px;
+}
+
+#tooltip-dynamic-top {
+  margin-top: -50px;
+  margin-left: -23px;
 }

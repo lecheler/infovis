@@ -28,8 +28,10 @@ const Question = React.createClass({
 
     data.questionId = parseInt(this.props.params.question, 10);
     data.userId = this.props.params.userID;
-    data.answer = 2;
-    console.log(data);
+    data.answer = data.answer.toString();
+
+    console.log(data.answer);
+
     api.addResponse(data).then((result) => {
       console.log(result);
     }).catch((err) => {

@@ -1,5 +1,7 @@
 import React from 'react';
 import { Motion, spring } from 'react-motion';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+
 
 import data from '../data';
 import constants from '../../constants';
@@ -138,24 +140,25 @@ const StudentHypothetical = React.createClass({
             } else if (val/aim >= 0.9) {
               col = constants.BLUE;
             }
-
             return (
               <div key={key} className="demo0" 
-                style={{
-                  height: aim,
-                  WebkitTransform: `translate3d(0, ${450-aim}px, 0)`,
-                  transform: `translate3d(0, ${450-aim}px, 0)`,
-                }} 
-              >
-              <div 
-                  className="demo0-block" 
                   style={{
-                    backgroundColor: col,
-                    height: val,
-                    WebkitTransform: `translate3d(0, ${aim-val}px, 0)`,
-                    transform: `translate3d(0, ${aim-val}px, 0)`,
+                    height: aim,
+                    WebkitTransform: `translate3d(0, ${450-aim}px, 0)`,
+                    transform: `translate3d(0, ${450-aim}px, 0)`,
                   }} 
-                />
+                >
+                <OverlayTrigger placement="top" overlay={<Tooltip id="tooltip">Score: {Math.round(scores)}</Tooltip>}>
+                  <div 
+                    className="demo0-block" 
+                    style={{
+                      backgroundColor: col,
+                      height: val,
+                      WebkitTransform: `translate3d(0, ${aim-val}px, 0)`,
+                      transform: `translate3d(0, ${aim-val}px, 0)`,
+                    }} 
+                  />
+                </OverlayTrigger>
                 { val > aim  ? <div className="line" style={{'height': this.state.val}}></div> : '' }
               </div> 
             );
@@ -175,15 +178,19 @@ const StudentHypothetical = React.createClass({
               <div className="demo0-i"
                 onMouseDown={this.handleMouseDown}
                 onTouchStart={this.handleTouchStart}>
-                <div 
-                  className="demo0-block" 
-                  style={{
-                    height: height,
-                    WebkitTransform: `translate3d(0, ${y}px, 0)`,
-                    transform: `translate3d(0, ${y}px, 0)`,
-                  }} 
-                />
-                <div className="vertical-text">{ Math.round((450-y)/450 * 150) }</div>
+                  <div 
+                    className="demo0-block" 
+                    style={{
+                      height: height,
+                      backgroundColor: `rgb(${red}, ${green}, ${blue})`,
+                      WebkitTransform: `translate3d(0, ${y}px, 0)`,
+                      transform: `translate3d(0, ${y}px, 0)`,
+                    }} 
+                  > 
+                    <Tooltip placement="top" className="in unselectable" id="tooltip-dynamic-top">
+                      Projected: { Math.round((450-y)/450 * 150) }
+                    </Tooltip>
+                  </div>
                 <div className="line" style={{'height': this.state.aim}}></div>
               </div>
               <div className='student-score-wrapper-lg'>
@@ -201,7 +208,6 @@ const StudentHypothetical = React.createClass({
                     }}
                   >
                   </div>
-
                 </div>
               </div>
             </div>

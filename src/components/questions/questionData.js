@@ -11,7 +11,7 @@ const questions = [
   name: 'questions',
   questions: [{ 
     type: "checkbox",
-    name: "q1", 
+    name: "answer", 
     title: "Which student(s) should be given extra attention or modified instruction? ", 
     isRequired: true, 
     colCount: 3, 
@@ -39,7 +39,7 @@ const questions = [
   name: 'questions',
   questions: [{ 
     type: "checkbox", 
-    name: "q2", 
+    name: "answer", 
     title: "Which student(s) are making adequate progress toward their goal?", 
     isRequired: true, 
     colCount: 3, 
@@ -68,7 +68,7 @@ const questions = [
   questions: [{
     title: "Who is the best?",
     type: "radiogroup",
-    name: 'q3',
+    name: 'answer',
     colCount: 4,
     isRequired: true,
     choices: [
@@ -97,7 +97,7 @@ const questions = [
   questions: [{
     title: "Who is the absolute worst ever?",
     type: "radiogroup",
-    name: 'q4',
+    name: 'answer',
     colCount: 4,
     isRequired: true,
     choices: [
@@ -128,10 +128,11 @@ const questions = [
   name: 'questions',
   questions: [
   {
-    name: "q5",
-    type: "text",
-    inputType: "number",
     title: "What is an achievable next-measure goal for Sang that keeps him on track to be within 10% of his end-of-year goal?",
+    name: "answer",
+    isRequired: true,
+    type: "text",
+    inputType: "number"
   }]
 },
 {
@@ -140,7 +141,7 @@ const questions = [
   questions: [{
     title: "Who is the absolute worst ever?",
     type: "radiogroup",
-    name: 'q6',
+    name: 'answer',
     colCount: 4,
     isRequired: true,
     choices: [
