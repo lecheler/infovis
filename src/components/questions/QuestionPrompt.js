@@ -14,6 +14,10 @@ let questionTime = 0;
 let feedbackTime = 0;
 let changes = 0;
 
+var cssOverride = {
+  "text": "form-control small", 
+};
+
 const QuestionPrompt = React.createClass({
 
   componentDidMount() {
@@ -74,7 +78,9 @@ const QuestionPrompt = React.createClass({
   render() {
     return (
       <Well>
-        <Survey.Survey model={this.state.model} 
+        <Survey.Survey 
+          model={this.state.model} 
+          css={cssOverride}
           onValueChanged={this.handleValueChange}
           onCurrentPageChanged={this.handlePageChange}  
           onComplete={this.submitSurvey} />

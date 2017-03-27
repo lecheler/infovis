@@ -4,6 +4,7 @@ import Main from './components/Main';
 import Question from './components/Question';
 import About from './components/About';
 import Survey from './components/Survey';
+import Feedback from './components/Feedback';
 import Directions from './components/Directions';
 
 import './App.css';
@@ -16,6 +17,7 @@ const App = React.createClass({
         <Route path="/about" component={About} />
         <Route path="/directions/:userID" component={Directions} />
         <Route path="/survey" component={Survey} />
+        <Route path="/feedback/:userID" component={Feedback} />
         <Route path="/test/:userID/:question" component={Question} />
       </Router>
     );

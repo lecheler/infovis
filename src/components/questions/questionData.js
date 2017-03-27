@@ -120,33 +120,18 @@ const questions = [
     ],
   }]
 },
+/*
+
+*/
 {
   ivType: 3,
   name: 'questions',
-  questions: [{
-    title: "Who is the absolute worst ever?",
-    type: "radiogroup",
-    name: 'q4',
-    colCount: 4,
-    isRequired: true,
-    choices: [
-      {
-       value: 1,
-       text: "Bloop"
-      },
-      {
-       value: "2",
-       text: "Blorp"
-      },
-      {
-       value: "3",
-       text: "Sheila"
-      },
-      {
-       value: "4",
-       text: "Justa"
-      }
-    ],
+  questions: [
+  {
+    name: "q5",
+    type: "text",
+    inputType: "number",
+    title: "What is an achievable next-measure goal for Sang that keeps him on track to be within 10% of his end-of-year goal?",
   }]
 },
 {
@@ -155,7 +140,7 @@ const questions = [
   questions: [{
     title: "Who is the absolute worst ever?",
     type: "radiogroup",
-    name: 'q4',
+    name: 'q6',
     colCount: 4,
     isRequired: true,
     choices: [

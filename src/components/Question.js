@@ -5,7 +5,7 @@ import Table from './Table';
 import ClassDrag from './iv/ClassDrag';
 import ClassView from './iv/ClassView';
 import StudentHypothetical from './iv/StudentHypothetical';
-import MultipleSelect from './questions/QuestionPrompt';
+import QuestionPrompt from './questions/QuestionPrompt';
 import questionData from './questions/questionData';
 
 import api from '../api';
@@ -74,7 +74,7 @@ const Question = React.createClass({
         <div className="container" style={{textAlign: 'left'}}>
           <h3>Question {this.props.params.question} of {questionData.questions.length}</h3>
           <ProgressBar bsStyle="success" now={(this.props.params.question-1)/questionData.questions.length*100} />
-          <MultipleSelect next={this.nextQuestion} pageChange={this.pageChange} question={this.props.params.question} />
+          <QuestionPrompt next={this.nextQuestion} pageChange={this.pageChange} question={this.props.params.question} />
         </div>
         <div className="container iv-container">
           { ivPrompt }
