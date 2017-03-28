@@ -54,7 +54,7 @@ const ClassView = React.createClass({
                 }
 
                 return (
-                  <Col key={key} xs={3} md={3}>
+                  <Col key={key} xs={2} md={2}>
                     <div className='student-score-wrapper'>
                       <div className='student-score-circle-avg' 
                         style={
