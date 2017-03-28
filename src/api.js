@@ -53,7 +53,7 @@ const Api = {
 
   addResponse(data) {
     data.score = this.getScore(data);
-
+    console.log(data.score);
     return addResponse(data).then(response =>
       response.data
     ).catch((err) => {
@@ -72,21 +72,26 @@ const Api = {
   getScore(data) {
 
     const a = questionData.answers[data.questionId-1];
+    let value = 0;
 
-    if (a.type === 'array') {
-      let final = 0 ;
-      for (let i=0; i<data.answer.length; i++) {
-        const v = a.answer.indexOf(data.answer[i]);
-        if (v > -1) {
-          final++;
-        } else {
-          final--;
+    switch (a.type) {
+      case 'array':
+        let final = 0 ;
+        for (let i=0; i<data.answer.length; i++) {
+          const v = a.answer.indexOf(data.answer[i]);
+          if (v > -1) {
+            final++;
+          } else {
+            final--;
+          }
         }
-      }
-      return final/a.answer.length;
+        value = final/a.answer.length;
+        break;
+      case 'numeric':
+        value = data.answer/a.answer;
+        break;
     }
-
-    return true;
+    return value;
   }
 }
 

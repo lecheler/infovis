@@ -120,9 +120,6 @@ const questions = [
     ],
   }]
 },
-/*
-
-*/
 {
   ivType: 3,
   name: 'questions',
@@ -224,6 +221,36 @@ const answers = [
   },
   {
     questionID: 2,
+    answer: ['Allegra', 'Sang', 'Shayla', 'Damaris', 'Reagan'],
+    type: 'array',
+  },
+  {
+    questionID: 3,
+    answer: ['Allegra', 'Sang', 'Shayla', 'Damaris', 'Reagan'],
+    type: 'array',
+  },
+  {
+    questionID: 4,
+    answer: ['Allegra', 'Sang', 'Shayla', 'Damaris', 'Reagan'],
+    type: 'array',
+  },
+  {
+    questionID: 5,
+    answer: 97,
+    type: 'numeric',
+  },
+  {
+    questionID: 6,
+    answer: ['Allegra', 'Sang', 'Shayla', 'Damaris', 'Reagan'],
+    type: 'array',
+  },
+  {
+    questionID: 7,
+    answer: ['Allegra', 'Sang', 'Shayla', 'Damaris', 'Reagan'],
+    type: 'array',
+  },
+  {
+    questionID: 8,
     answer: ['Allegra', 'Sang', 'Shayla', 'Damaris', 'Reagan'],
     type: 'array',
   }
