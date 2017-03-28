@@ -45,7 +45,7 @@ module.exports = function(app){
 		const obj = req.body;
 		console.log(obj);
 		db.one(responses.add, [obj.userId, obj.questionId, obj.answer, obj.questionTime, obj.difficulty, 
-			obj.confidence, obj.experience, obj.feedbackTime, obj.changes, obj.backtracks])
+			obj.confidence, obj.experience, obj.feedbackTime, obj.changes, obj.backtracks, obj.score])
 	    .then(function (data) {
 	      res.json(data.id);
 	    })

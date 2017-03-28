@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import questionData from './components/questions/questionData';
+
 const api = axios.create({
 	baseURL: window.location.origin + '/api/',
 });
@@ -50,6 +52,8 @@ const Api = {
   },
 
   addResponse(data) {
+    data.score = this.getScore(data);
+
     return addResponse(data).then(response =>
       response.data
     ).catch((err) => {
@@ -63,6 +67,26 @@ const Api = {
     ).catch((err) => {
       console.log(err);
     });
+  },
+
+  getScore(data) {
+
+    const a = questionData.answers[data.questionId-1];
+
+    if (a.type === 'array') {
+      let final = 0 ;
+      for (let i=0; i<data.answer.length; i++) {
+        const v = a.answer.indexOf(data.answer[i]);
+        if (v > -1) {
+          final++;
+        } else {
+          final--;
+        }
+      }
+      return final/a.answer.length;
+    }
+
+    return true;
   }
 }
 

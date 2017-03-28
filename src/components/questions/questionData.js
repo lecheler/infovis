@@ -216,9 +216,23 @@ const ratings =
   }
 ]};
 
+const answers = [
+  {
+    questionID: 1,
+    answer: ['Allegra', 'Sang', 'Shayla', 'Damaris', 'Reagan', 'Corinne'],
+    type: 'array',
+  },
+  {
+    questionID: 2,
+    answer: ['Allegra', 'Sang', 'Shayla', 'Damaris', 'Reagan'],
+    type: 'array',
+  }
+];
+
 const questionData = {
   questions: questions,
   ratings: ratings,
+  answers: answers,
 };
 
 export default questionData;
