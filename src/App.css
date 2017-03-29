@@ -1,6 +1,10 @@
 .App {
   text-align: center;
-  padding-bottom: 20px;
+  padding-bottom: 30px;
+}
+
+.question {
+  padding-top: 60px;
 }
 
 .App-logo {
@@ -97,6 +101,13 @@
   width: 60px;
   height: 60px;
   cursor: -webkit-grab;
+}
+
+.small-circle {
+  border-radius: 99px;
+  border-width: 0px;
+  width: 35px;
+  height: 35px;
 }
 
 .ball-background {
@@ -285,4 +296,45 @@
 #tooltip-dynamic-right {
   margin-top: -18px;
   margin-left: 25px;
+}
+
+
+/* TLX */
+.tlx {
+  width: 30px;
+  height: 30px;
+  float: left;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+}
+
+td.top1 {
+    cursor: pointer;
+    width: 0.6cm;
+    height: 0.4cm;
+    border-top: 1px solid #a8a8a8;
+    border-left: 1px solid #a8a8a8;
+    margin: 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+td.bottom {
+    cursor: pointer;
+    width: 0.6cm;
+    height: 0.4cm;
+    border-bottom: 1px solid #a8a8a8;
+    border-left: 1px solid #a8a8a8;
+    border-right: 1px solid #a8a8a8;
+    margin: 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+td.top2 {
+    cursor: pointer;
+    width: 0.6cm;
+    height: 0.4cm;
+    border-top: 1px solid #a8a8a8;
+    border-right: 1px solid #a8a8a8;
+    margin: 0px;
+    padding: 0px 0px 0px 0px;
 }
