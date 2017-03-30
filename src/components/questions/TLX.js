@@ -22,7 +22,7 @@ const measures = [
   {
     title: 'Effort',
     score: -1,
-    description: 'How hard did you have to work (mentally and physically) to accomplish your level of performance?',
+    description: 'How hard did you have to work to accomplish your level of performance?',
   },
   {
     title: 'Frustration',
