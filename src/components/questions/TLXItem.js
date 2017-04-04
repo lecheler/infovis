@@ -14,7 +14,6 @@ const TLXItem = React.createClass({
   },
 
   handleMouseOver(key) {
-    console.log(key);
     this.setState({ hoveredKey: key });
   },
 
@@ -29,9 +28,6 @@ const TLXItem = React.createClass({
       color = '#AAD219';
     } else if (this.state.hoveredKey === key) {
       color = '#e6e6e6';
-      if (this.state.hoveredKey === -1) {
-      //  color = '#ffffff';
-      }
     }
     return color;
   },
@@ -40,7 +36,7 @@ const TLXItem = React.createClass({
 
     return (
       <div style={{ width: '100%', overflow: 'hidden', paddingTop: '10px', textAlign: 'left' }}>
-        <h4>{this.props.title}</h4>
+        <b>{this.props.title}</b>
         <div style={{ paddingBottom: '10px'}}>
           <em>{this.props.description}</em>
         </div>
@@ -86,8 +82,8 @@ const TLXItem = React.createClass({
             </tbody>
           </table>
         </div>
-        <div style={{ float: 'left', fontSize: '12px'}}><em>Low</em></div>
-        <div style={{ float: 'right', fontSize: '12px'}}><em>High</em></div>
+        <div style={{ float: 'left', fontSize: '11px'}}><em>Low</em></div>
+        <div style={{ float: 'right', fontSize: '11px'}}><em>High</em></div>
       </div>
     );
   },

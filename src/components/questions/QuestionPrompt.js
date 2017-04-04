@@ -36,16 +36,65 @@ const QuestionPrompt = React.createClass({
       pagePrevText: 'Go Back',
       completeText: 'Next',
       pages: [
-        questionData.questions[val-1],
-        questionData.ratings
+        {
+          ivType: 1,
+          name: 'questions',
+          questions: [{ 
+            type: "radiogroup",
+            name: "answer", 
+            title: "Which student(s) should be given extra attention or modified instruction? ", 
+            isRequired: true, 
+            colCount: 2, 
+            choices: [
+              "Elene, Arlinda, Joseph, Sheila, and Leota",
+              "Justa, Anette, Tegan, and Zackary", 
+              "Sang, Damaris, Reagan, Corinne, Allegra, and Shayla", 
+              "",
+            ] 
+          }]
+        },
+        {
+          ivType: 1,
+          name: 'questions',
+          questions: [{ 
+            type: "checkbox", 
+            name: "answer", 
+            title: "Which student(s) are making adequate progress toward their goal?", 
+            isRequired: true, 
+            colCount: 3, 
+            choices: [
+              "Elene",
+              "Reagan", 
+              "Zackary", 
+              "Justa", 
+              "Corinne", 
+              "Tegan", 
+              "Damaris", 
+              "Shayla", 
+              "Sang", 
+              "Anette", 
+              "Leota",
+              "Joseph",
+              "Shiela",
+              "Arlinda",
+              "Allegra",
+            ] 
+          }]
+        }
       ],
     });
   },
 
   getInitialState() {
     return {
-      model: this.getSurveyModel(this.props.question),
+      model: this.getSurveyModel(1),
     }
+  },
+
+  componentWillReceiveProps(props) {
+ //    console.log('question prompt receiving props = ');
+ //    console.log(props);
+ // //   this.setState({ model: this.getSurveyModel(this.props.question) });
   },
 
   submitSurvey(survey) {
@@ -61,9 +110,10 @@ const QuestionPrompt = React.createClass({
 
     this.props.next(val);
 
-    this.setState({
-      model: this.getSurveyModel(this.props.question)
-    });
+    survey.clear();
+    // this.setState({
+    //   model: this.getSurveyModel(this.props.question)
+    // });
   },
 
   handlePageChange() {
@@ -76,14 +126,18 @@ const QuestionPrompt = React.createClass({
   },
 
   render() {
+    console.log('survey render...');
+    const survey = (
+      <Survey.Survey 
+        model={this.state.model} 
+        css={cssOverride}
+        onValueChanged={this.handleValueChange}
+        onCurrentPageChanged={this.handlePageChange}  
+        onComplete={this.submitSurvey} />
+    )
     return (
       <Well>
-        <Survey.Survey 
-          model={this.state.model} 
-          css={cssOverride}
-          onValueChanged={this.handleValueChange}
-          onCurrentPageChanged={this.handlePageChange}  
-          onComplete={this.submitSurvey} />
+        { survey }
       </Well>
     );
   }

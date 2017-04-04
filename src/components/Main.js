@@ -25,7 +25,7 @@ const Main = React.createClass({
     const disabled = this.state.checked ? 'btn btn-primary btn-large centerButton' : 'btn disabled btn-primary btn-large centerButton';
     return (
       <div className="App container">
-        <h1>Welcome!!</h1>
+        <h1>Welcome</h1>
         <Well>
           <div style={{textAlign: 'left'}}>
             <p>

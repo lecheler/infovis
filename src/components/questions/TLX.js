@@ -1,7 +1,72 @@
 import React from 'react';
-import { Button, Well } from 'react-bootstrap';
+import { Alert, Button, Modal, Well } from 'react-bootstrap';
 
 import TLXItem from './TLXItem';
+
+const TLX = React.createClass({
+  getInitialState() {
+    return {
+      measures: measures,
+    };
+  },
+
+  handleScaleClick(key, value) {
+    measures[key].score = value;
+
+    if (this.surveyComplete()) {
+      this.setState({ submitActive: true });
+    };
+
+    this.setState({ measures: measures });
+  },
+
+  surveyComplete() {
+    for (let i=0; i < this.state.measures.length; i++) {
+      if (this.state.measures[i].score === -1) {
+        return false;
+      }
+    }
+    return true;
+  },
+
+  submit() {
+    this.props.submit(this.state.measures);
+  },
+
+  render() {
+    let btn = <Button className="pull-right" bsStyle="primary" onClick={this.submit} disabled>Submit</Button>;
+    if (this.state.submitActive) {
+      btn = <Button className="pull-right" bsStyle="primary" onClick={this.submit}>Submit</Button>;
+    }
+    return (
+      <div>
+        <Modal show={this.props.show}>
+          <Modal.Body>
+            { alert }
+            <div>
+              {
+                measures.map((measure, key) => {
+                  return (
+                    <TLXItem 
+                      key={key} 
+                      title={measure.title} 
+                      description={measure.description} 
+                      scaleClick={this.handleScaleClick.bind(null, key)} />
+                  );
+                })
+              }
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            {btn}
+          </Modal.Footer>
+        </Modal>
+      </div>
+    );
+  },
+});
+
+export default TLX;
 
 const measures = [
   {
@@ -30,50 +95,3 @@ const measures = [
     description: 'How insecure, discouraged, irritated, stressed and annoyed versus secure, gratified, content, relaxed and complacent did you feel during the task?',
   },
 ];
-
-const TLX = React.createClass({
-  getInitialState() {
-    return {
-      measures: measures,
-    };
-  },
-
-  handleScaleClick(key, value) {
-    console.log(measures[key].title + ' = ' + value);
-    measures[key].score = value;
-
-    this.setState({ measures: measures });
-  },
-
-  submit() {
-    for (let i=0; i < this.state.measures.length; i++) {
-      console.log(this.state.measures[i].score);
-
-      if (this.state.measures[i].score === -1) {
-        alert('please answer all of the questions');
-        return;
-      }
-    }
-  },
-
-  render() {
-    return (
-      <div>
-        <h1>Performance Feedback</h1>
-        <em>Please rate your experience with the questions you just answered on the following scales:</em>
-        <Well>
-        {
-          measures.map((measure, key) => {
-            return (
-              <TLXItem key={key} title={measure.title} description={measure.description} scaleClick={this.handleScaleClick.bind(null, key)} />
-            );
-          })
-        }
-        </Well>
-        <Button bsStyle="primary pull-right" onClick={this.submit}>Submit</Button>
-      </div>
-    );
-  },
-});
-
-export default TLX;

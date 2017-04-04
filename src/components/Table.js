@@ -189,14 +189,13 @@ const Table = React.createClass({
         <div>
           <Modal bsSize='lg' show={this.state.showModal} onHide={this.close}>
             <Modal.Header closeButton>
-              <Modal.Title>{this.state.studentName}</Modal.Title>
+              <Modal.Title>
+                <h3>{this.state.studentName}</h3>
+              </Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <Chart width="" student={this.state.student} />
             </Modal.Body>
-            <Modal.Footer>
-              <Button onClick={this.close}>Close</Button>
-            </Modal.Footer>
           </Modal>
           <h4>Student ORF Words Correct Per Minute</h4>
           <p><em>The table below shows your students' scores to date. Click the <Glyphicon glyph="pencil" /> icon to add a student's next score. Click the <Glyphicon glyph="stats" /> icon to see a plot of a student's scores.</em></p>

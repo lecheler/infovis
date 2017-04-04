@@ -122,7 +122,7 @@ const ClassDrag = React.createClass({
     }
 
     let studentInfo = (
-      <div style={{padding: '20px'}}>
+      <div>
         <h3>Select a student</h3>
         <p><em>Dragging a student's circle relative to the center changes the his or her goal for the next measure.</em></p>
       </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
-import { Button, Well } from 'react-bootstrap';
+import { Button, Navbar, Nav, NavItem, Well } from 'react-bootstrap';
 
 const Directions = React.createClass({
   next() {
@@ -13,9 +13,9 @@ const Directions = React.createClass({
         <Well>
           <div style={{textAlign: 'left'}}>
             <p>
-              You are a 5th Grade reading teacher interested in the oral reading fluency of your students. 
+              You are a 3rd Grade reading teacher interested in the oral reading fluency of your students. 
               You have been using a curriculum-based measure that involves counting the number of correct 
-              words read aloud from a passage by the student in one minute. You know that these measurements, 
+              words a student reads aloud from a passage in one minute. You know that these measurements, 
               when done frequently and consistently throughout the term, are a great predictor of long-term reading success.
             </p>
             <p>
@@ -26,16 +26,34 @@ const Directions = React.createClass({
               who are within 10% of achieving their goals are most motivated and successful.</b>
             </p>
             <p>
-              You will be asked to look at various ways in which the above data can be displayed and answer 18 questions. After each question, you will be asked to assess the difficulty of the task and how confident you are in your answer. At the end of the test, you will be asked a few open-ended questions about your experience.
+              You will be asked to look at various ways in which the above data can be displayed and answer 18 questions. 
+              After each question, you will be asked to assess the difficulty of the task and how confident you are in your 
+              answer. At the end of the test, you will be asked a few open-ended questions about your experience.
+            </p>
+            <p>
+              In addtion to answering the questions, you will need to complete a simple, secondary task at the same time.
+              The bar below will be at the top of your screen throughout the questions.
+            </p>
+
+            <Navbar style={{marginLeft: "-60px" }}>
+              <Nav pullRight>
+                <NavItem>
+                  <div style={{lineHeight: '35px'}}>(press spacebar when green)</div>
+                </NavItem> 
+                <NavItem>
+                  <div className="small-circle" style={{backgroundColor: '#AAD219'}} />
+                </NavItem> 
+              </Nav>
+            </Navbar>
+            <p>
+              When the circle turns <font color="#AAD219">green</font>, press <em>spacebar</em>. Try it now.
             </p>
             <p>
               <b>Please do not refresh your browser or use the back and forward buttons.</b>
             </p>
           </div>
-          <div className="container">
-            <Button bsStyle="primary" onClick={this.next}>Continue</Button>
-          </div>
         </Well>
+        <Button bsStyle="primary pull-right" onClick={this.next}>Continue</Button>
       </div>
     );
   }
