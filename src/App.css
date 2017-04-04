@@ -1,6 +1,7 @@
 .App {
   text-align: center;
   padding-bottom: 30px;
+  /*background-color: #00ff00*/
 }
 
 .question {
@@ -105,8 +106,9 @@
 .small-circle {
   border-radius: 99px;
   border-width: 0px;
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
+  margin-top: 10px;
 }
 
 .ball-background {

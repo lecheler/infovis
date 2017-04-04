@@ -1,5 +1,6 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
+// import cookie from 'react-cookie';
 import { ProgressBar, Navbar, Nav, NavItem } from 'react-bootstrap';
 
 import IVContainer from './iv/IVContainer';
@@ -10,28 +11,36 @@ import SecondaryTask from './SecondaryTask';
 import questionData from './questions/questionData';
 import api from '../api';
 
-let secondaryStartTime = 0;
-let secondaryTaskTimes = [];
+// let secondaryStartTime = 0;
+// let secondaryTaskTimes = [];
 
 const Question = React.createClass({
-  componentWillMount() {
-    console.log(this.props.params)
-    window.addEventListener('keydown', this.handleKeyDown);
-    secondaryStartTime = new Date().getTime();
 
-    setTimeout(() => this.fireTimeout(this.name), Math.random()*20000 + 10); 
+  componentWillMount() {
+    console.log('componentWillMount');
+    window.addEventListener('keydown', this.handleKeyDown);
+//    secondaryStartTime = new Date().getTime();
+
+   // console.log(cookie.load('model'));
+
+    setTimeout(() => this.fireTimeout(this.name), Math.random()*20000 + 10000); 
   },
 
-  fireTimeout() {
+  fireTimeout(val) {
     console.log('timeout!');
-    this.setState({ secondaryActive: true });
+    this.setState({ 
+      secondaryActive: true,
+      secondaryStartTime: new Date().getTime(),
+    });
   },
 
   getInitialState() {
-    console.log('question initial state')
+    console.log('getInitialState');
     return {
       testModel: this.getRandomizedTestModel(),
       secondaryActive: false,
+      secondaryTime: -1,
+      secondaryStartTime: 0,
       showFeedback: false,
     }
   },
@@ -47,15 +56,21 @@ const Question = React.createClass({
       }
       model.push(questionData.testModel[i]);
     }
-
-
-    console.log(model);
+  //  const m = JSON.stringify(model);
+ //   cookie.save('model', m, { path: '/' });
+  //  console.log(JSON.stringify(model));
     return model;
   },
 
   goToNext() {
     const next = parseInt(this.props.params.question, 10)+1
-    browserHistory.push('/test/' + this.props.params.userID + '/' + next);
+    if (this.state.testModel[this.props.params.question-1].blockId != 0) {
+      this.setState({showFeedback: true});
+    } else {
+      browserHistory.push('/test/' + this.props.params.userID + '/' + next);
+      this.setState({secondaryActive: false});
+      setTimeout(() => this.fireTimeout(this.name), Math.random()*20000 + 10000); 
+    }
   },
 
   submitFeedback(data) {
@@ -68,17 +83,16 @@ const Question = React.createClass({
   },
 
   handleKeyDown(e) {
-    if (e.code === 'Space') {
+    if (e.code === 'Space' && this.state.secondaryActive) {
+   //   secondaryStartTime = new Date().getTime();
+      this.setState({ 
+        secondaryActive: false,
+        secondaryTime: new Date().getTime() - this.state.secondaryStartTime,
+      });
 
-      const secondaryTime = new Date().getTime() - secondaryStartTime;
-      secondaryTaskTimes.push(secondaryTime);
-
-      secondaryStartTime = new Date().getTime();
-      this.setState({ secondaryActive: false });
-
-  //    setTimeout(() => this.fireTimeout(this.name), Math.random()*20000 + 10); 
-      e.preventDefault();
+      console.log(this.state.secondaryTime);
     }
+    e.preventDefault();
   },
 
   // nextQuestion(data) {    
@@ -117,7 +131,7 @@ const Question = React.createClass({
 
     return (
       <div className="App container question">
-        <div className="container iv-container">
+        <div className="iv-container">
           <ResponseItem
             question={parseInt(this.props.params.question, 10)}
             goToNext={this.goToNext}
@@ -129,7 +143,7 @@ const Question = React.createClass({
         </div>
         <Navbar fixedTop={true}>
           <Nav pullLeft>
-            <div style={{lineHeight: '20px', paddingTop: '5px'}}>
+            <div style={{paddingTop: '5px', marginLeft: '-15px'}}>
               Question {this.props.params.question} of {this.state.testModel.length}
               <ProgressBar 
                 className='progress' 
@@ -138,7 +152,7 @@ const Question = React.createClass({
             </div>
           </Nav>
           <Nav pullRight>
-            <div className="small-circle" style={{backgroundColor: col, marginTop: '8px' }} />
+            <div className="small-circle" style={{backgroundColor: col }} />
           </Nav>
           <Nav pullRight>
             <div style={{lineHeight: '50px', paddingRight: '10px'}}>(press spacebar when green)</div>          

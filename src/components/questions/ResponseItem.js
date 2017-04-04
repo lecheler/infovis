@@ -7,16 +7,10 @@ import questionData from './questionData';
 
 const ResponseItem = React.createClass({
   getInitialState() {
-    console.log('initial state ResponseItem:');
-    console.log(this.props)
     return {
       selectedKey: -1,
       hoveredKey: -1,
     };
-  },
-
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
   },
 
   handleCellClick(key) {
@@ -56,9 +50,14 @@ const ResponseItem = React.createClass({
       btn = <Button className="pull-right" bsStyle="primary" onClick={this.submit}>Submit</Button>;
     }
     return (
-      <div className='container'>
+      <div>
         <h4 style={{ textAlign: 'left' }}>{this.props.question}. { questionData.testModel[this.props.question-1].title }</h4>
-        <Well style={{ display: 'inline-block'}}>
+        <Well 
+          style={{ 
+            display: 'inline-block',
+            marginBottom: '10px',
+            padding: '10px',
+          }}>
           <div>
             {
               questionData.testModel[this.props.question-1].choices.map((choice, key) => {

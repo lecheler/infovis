@@ -4,9 +4,11 @@ import { Alert, Button, Modal, Well } from 'react-bootstrap';
 import TLXItem from './TLXItem';
 
 const TLX = React.createClass({
+
   getInitialState() {
     return {
       measures: measures,
+      scores: [],
     };
   },
 
@@ -30,7 +32,16 @@ const TLX = React.createClass({
   },
 
   submit() {
+    // let m = [];
+    // for (let i=0; i < this.state.measures.length; i++) {
+    //   this.state.measures[i].score = -1;
+    //   m.push(this.state.measures[i].score);
+    // }
+
+    // need to clear measures score somehow;
+
     this.props.submit(this.state.measures);
+ //   this.setState({measures: m});
   },
 
   render() {
