@@ -246,7 +246,7 @@ const ratings =
   }
 ]};
 
-const answers = [
+const answers2 = [
   {
     questionID: 1,
     answer: ['Allegra', 'Sang', 'Shayla', 'Damaris', 'Reagan', 'Corinne'],
@@ -494,10 +494,15 @@ const testModel = [
   },
 ];
 
+const answers = [
+
+];
+
 const questionData = {
   questions: questions,
   ratings: ratings,
   answers: answers,
+  answers2: answers2,
   testModel: testModel,
 };
 

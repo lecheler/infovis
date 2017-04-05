@@ -58,6 +58,7 @@ const Question = React.createClass({
   },
 
   goToNext(val, changes) {
+
     const question = this.state.testModel[this.props.params.question-1];
     const answer ={
       userId: parseInt(this.props.params.userID, 10),
@@ -72,10 +73,13 @@ const Question = React.createClass({
     };
 
     api.addAnswer(answer).then((result) => {
-      const next = parseInt(this.props.params.question, 10)+1
-      if (this.state.testModel[this.props.params.question-1].blockId != 0) {
-        this.setState({showFeedback: true});
+      if (this.state.testModel[this.props.params.question-1].blockId != this.state.testModel[this.props.params.question].blockId) {
+        this.setState({
+          showFeedback: true
+        });
+        // also need to kill timer in case question was answered before timer fired.
       } else {
+        const next = parseInt(this.props.params.question, 10)+1
         browserHistory.push('/test/' + this.props.params.userID + '/' + next);
         this.setState({
           secondaryActive: false,
@@ -96,12 +100,38 @@ const Question = React.createClass({
   },
 
   submitFeedback(data) {
-    this.setState({
-      showFeedback: false,
-    });
+    console.log(data);
+    const question = this.state.testModel[this.props.params.question-1];
+    const feedback = {
+      userId: parseInt(this.props.params.userID, 10),
+      blockId: question.blockId,
+      mental: data[0].score,
+      temporal: data[1].score,
+      performance: data[2].score,
+      effort: data[3].score,
+      frustration: data[4].score,
+      feedbackTime: 1,
+    };
 
-    const next = parseInt(this.props.params.question, 10)+1
-    browserHistory.push('/test/' + this.props.params.userID + '/' + next);
+     api.addFeedback(feedback).then((feedback) => {
+      const next = parseInt(this.props.params.question, 10)+1
+      browserHistory.push('/test/' + this.props.params.userID + '/' + next);
+      this.setState({
+        showFeedback: false,
+        secondaryActive: false,
+        secondaryTime: -1,
+        secondaryStartTime: 0,
+        answerTime: 0,
+      });
+       setTimeout(() => this.fireTimeout(this.name), Math.random()*20000 + 10000); 
+     }).catch((err) => {
+       if (err.response.status !== 404) {
+         window.error(err.response.data.message);
+       }
+       else {
+         throw err;
+       }
+     });
   },
 
   handleKeyDown(e) {

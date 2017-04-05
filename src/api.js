@@ -26,6 +26,10 @@ function addAnswer(data) {
   return api.post('answers/add', data);
 }
 
+function addFeedback(data) {
+  return api.post('feedback/add', data);
+}
+
 function logActivity(userID, type) {
   return api.get('users/logActivity?userID=' + userID + '&type=' + type);
 }
@@ -69,6 +73,14 @@ const Api = {
     data.score = 12// this.getScore(data);
  //   console.log(data.score);
     return addAnswer(data).then(response =>
+      response.data
+    ).catch((err) => {
+      console.log(err);
+    });
+  },
+
+  addFeedback(data) {
+    return addFeedback(data).then(response =>
       response.data
     ).catch((err) => {
       console.log(err);
