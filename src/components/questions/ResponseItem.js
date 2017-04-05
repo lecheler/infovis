@@ -10,20 +10,28 @@ const ResponseItem = React.createClass({
     return {
       selectedKey: -1,
       hoveredKey: -1,
+      clicks: 0,
     };
   },
 
   handleCellClick(key) {
+    let clicks = this.state.clicks;
+    if (this.state.selectedKey !== key) {
+      clicks++;
+    }
     this.setState({ 
-      selectedKey: key 
+      selectedKey: key,
+      clicks: clicks,
     });
   },
 
   submit() {
+    console.log(this.state.clicks)
+    this.props.goToNext(this.state.selectedKey, this.state.clicks);
     this.setState({
       selectedKey: -1,
+      clicks: 0,
     });
-    this.props.goToNext();
   },
 
   handleMouseOver(key) {

@@ -22,6 +22,10 @@ function addResponse(data) {
   return api.post('responses/add', data);
 }
 
+function addAnswer(data) {
+  return api.post('answers/add', data);
+}
+
 function logActivity(userID, type) {
   return api.get('users/logActivity?userID=' + userID + '&type=' + type);
 }
@@ -55,6 +59,16 @@ const Api = {
     data.score = this.getScore(data);
     console.log(data.score);
     return addResponse(data).then(response =>
+      response.data
+    ).catch((err) => {
+      console.log(err);
+    });
+  },
+
+  addAnswer(data) {
+    data.score = 12// this.getScore(data);
+ //   console.log(data.score);
+    return addAnswer(data).then(response =>
       response.data
     ).catch((err) => {
       console.log(err);

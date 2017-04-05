@@ -18,4 +18,7 @@ module.exports = {
   responses: {
     add: sql('sql/responses/add.sql'),
   },
+  answers: {
+    add: sql('sql/answers/add.sql'),
+  },
 };

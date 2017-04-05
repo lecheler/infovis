@@ -19,6 +19,7 @@ module.exports = function(app){
 	const students = require('./sql').students;
 	const users = require('./sql').users;
 	const responses = require('./sql').responses;
+	const answers = require('./sql').answers;
 
 	app.get('/api/students', (req, res) => {
 	  db.any(students.gradebook, [true])
@@ -54,6 +55,23 @@ module.exports = function(app){
 	    });
 	});
 	
+
+	app.post('/api/answers/add', (req, res) => {
+		const obj = req.body;
+		console.log(obj);
+		//	user_id, question_id, block_id, type, answer, score, answer_time, secondary_task_time, answer_changes, prompt, created_at
+
+		db.one(answers.add, [obj.userId, obj.questionId, obj.blockId, obj.type, obj.answer, 
+			obj.score, obj.answerTime, obj.secondaryTaskTime, obj.answerChanges, obj.prompt])
+	    .then(function (data) {
+	      res.json(data.id);
+	    })
+	    .catch(function (error) {
+	       console.log(error);
+	    });
+	});
+	
+
 	app.get('/api/users/logActivity', (req, res) => {
 		const user_id = req.query.userID;
 		const type = req.query.type;

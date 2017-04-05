@@ -17,17 +17,11 @@ import api from '../api';
 const Question = React.createClass({
 
   componentWillMount() {
-    console.log('componentWillMount');
     window.addEventListener('keydown', this.handleKeyDown);
-//    secondaryStartTime = new Date().getTime();
-
-   // console.log(cookie.load('model'));
-
     setTimeout(() => this.fireTimeout(this.name), Math.random()*20000 + 10000); 
   },
 
   fireTimeout(val) {
-    console.log('timeout!');
     this.setState({ 
       secondaryActive: true,
       secondaryStartTime: new Date().getTime(),
@@ -42,6 +36,7 @@ const Question = React.createClass({
       secondaryTime: -1,
       secondaryStartTime: 0,
       showFeedback: false,
+      answerStartTime: new Date().getTime(),
     }
   },
 
@@ -62,15 +57,42 @@ const Question = React.createClass({
     return model;
   },
 
-  goToNext() {
-    const next = parseInt(this.props.params.question, 10)+1
-    if (this.state.testModel[this.props.params.question-1].blockId != 0) {
-      this.setState({showFeedback: true});
-    } else {
-      browserHistory.push('/test/' + this.props.params.userID + '/' + next);
-      this.setState({secondaryActive: false});
-      setTimeout(() => this.fireTimeout(this.name), Math.random()*20000 + 10000); 
-    }
+  goToNext(val, changes) {
+    const question = this.state.testModel[this.props.params.question-1];
+    const answer ={
+      userId: parseInt(this.props.params.userID, 10),
+      questionId: parseInt(this.props.params.question, 10),
+      blockId: question.blockId,
+      type: question.type,
+      answer: val,
+      answerTime: new Date().getTime() - this.state.answerStartTime,
+      secondaryTaskTime: this.state.secondaryTime,
+      answerChanges: changes,
+      prompt: question.useTable ? 0 : 1,
+    };
+
+    api.addAnswer(answer).then((result) => {
+      const next = parseInt(this.props.params.question, 10)+1
+      if (this.state.testModel[this.props.params.question-1].blockId != 0) {
+        this.setState({showFeedback: true});
+      } else {
+        browserHistory.push('/test/' + this.props.params.userID + '/' + next);
+        this.setState({
+          secondaryActive: false,
+          secondaryTime: -1,
+          secondaryStartTime: 0,
+          answerTime: 0,
+        });
+        setTimeout(() => this.fireTimeout(this.name), Math.random()*20000 + 10000); 
+      }
+    }).catch((err) => {
+      if (err.response.status !== 404) {
+        window.error(err.response.data.message);
+      }
+      else {
+        throw err;
+      }
+    });
   },
 
   submitFeedback(data) {
@@ -83,16 +105,16 @@ const Question = React.createClass({
   },
 
   handleKeyDown(e) {
-    if (e.code === 'Space' && this.state.secondaryActive) {
-   //   secondaryStartTime = new Date().getTime();
-      this.setState({ 
-        secondaryActive: false,
-        secondaryTime: new Date().getTime() - this.state.secondaryStartTime,
-      });
-
-      console.log(this.state.secondaryTime);
+    if (e.code === 'Space') {
+      if (this.state.secondaryActive) {
+        this.setState({ 
+         secondaryActive: false,
+         secondaryTime: new Date().getTime() - this.state.secondaryStartTime,
+        });
+        console.log(this.state.secondaryTime);
+      }
+      e.preventDefault();  
     }
-    e.preventDefault();
   },
 
   // nextQuestion(data) {    
