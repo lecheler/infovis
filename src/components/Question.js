@@ -87,15 +87,7 @@ const Question = React.createClass({
         });
         // also need to kill timer in case question was answered before timer fired.
       } else {
-        const next = parseInt(this.props.params.question, 10)+1
-        browserHistory.push('/test/' + this.props.params.userID + '/' + next);
-        this.setState({
-          secondaryActive: false,
-          secondaryTime: -1,
-          secondaryStartTime: 0,
-          answerTime: 0,
-        });
-        setTimeout(() => this.fireTimeout(this.name), Math.random()*20000 + 10000); 
+        this.setStateAndNavigate();
       }
     }).catch((err) => {
       if (err.response.status !== 404) {
@@ -105,6 +97,20 @@ const Question = React.createClass({
         throw err;
       }
     });
+  },
+
+  setStateAndNavigate() {
+    const next = parseInt(this.props.params.question, 10)+1
+    browserHistory.push('/test/' + this.props.params.userID + '/' + next);
+    this.setState({
+      showFeedback: false,
+      secondaryActive: false,
+      secondaryTime: -1,
+      secondaryStartTime: 0,
+      answerTime: 0,
+      feedbackTime: 0,
+    });
+    setTimeout(() => this.fireTimeout(this.name), Math.random()*20000 + 10000); 
   },
 
   submitFeedback(data) {
@@ -120,26 +126,16 @@ const Question = React.createClass({
       feedbackTime: new Date().getTime() - this.state.feedbackStartTime,
     };
 
-     api.addFeedback(feedback).then((feedback) => {
-      const next = parseInt(this.props.params.question, 10)+1
-      browserHistory.push('/test/' + this.props.params.userID + '/' + next);
-      this.setState({
-        showFeedback: false,
-        secondaryActive: false,
-        secondaryTime: -1,
-        secondaryStartTime: 0,
-        answerTime: 0,
-        feedbackTime: 0,
-      });
-       setTimeout(() => this.fireTimeout(this.name), Math.random()*20000 + 10000); 
-     }).catch((err) => {
-       if (err.response.status !== 404) {
-         window.error(err.response.data.message);
-       }
-       else {
-         throw err;
-       }
-     });
+    api.addFeedback(feedback).then((feedback) => {
+      this.setStateAndNavigate();
+    }).catch((err) => {
+    if (err.response.status !== 404) {
+      window.error(err.response.data.message);
+    }
+    else {
+      throw err;
+    }
+    });
   },
 
   handleKeyDown(e) {
