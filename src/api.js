@@ -70,8 +70,7 @@ const Api = {
   },
 
   addAnswer(data) {
-    data.score = 12// this.getScore(data);
- //   console.log(data.score);
+    data.score = data.answer === questionData.answers[data.questionId-1] ? 1 : 0;
     return addAnswer(data).then(response =>
       response.data
     ).catch((err) => {

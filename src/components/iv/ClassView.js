@@ -41,7 +41,6 @@ const ClassView = React.createClass({
         <p><em>The following chart shows each student's end-of-year projection relative to his or her end-of-year goal.</em></p>
         <Grid>
           <Row className="class-view-grid">
-    
             {
               this.state.students.map((student, key) => {
 

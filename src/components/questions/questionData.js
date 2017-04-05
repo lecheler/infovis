@@ -495,7 +495,7 @@ const testModel = [
 ];
 
 const answers = [
-
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 ];
 
 const questionData = {

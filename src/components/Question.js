@@ -22,10 +22,16 @@ const Question = React.createClass({
   },
 
   fireTimeout(val) {
-    this.setState({ 
-      secondaryActive: true,
-      secondaryStartTime: new Date().getTime(),
-    });
+    if (this.state.showFeedback) { // question answered before task turned green
+      this.setState({
+        secondaryActive: false,
+      });
+    } else {
+      this.setState({ 
+        secondaryActive: true,
+        secondaryStartTime: new Date().getTime(),
+      });
+    }
   },
 
   getInitialState() {
@@ -36,6 +42,7 @@ const Question = React.createClass({
       secondaryTime: -1,
       secondaryStartTime: 0,
       showFeedback: false,
+      feedbackStartTime: 0,
       answerStartTime: new Date().getTime(),
     }
   },
@@ -75,7 +82,8 @@ const Question = React.createClass({
     api.addAnswer(answer).then((result) => {
       if (this.state.testModel[this.props.params.question-1].blockId != this.state.testModel[this.props.params.question].blockId) {
         this.setState({
-          showFeedback: true
+          showFeedback: true,
+          feedbackStartTime: new Date().getTime(),
         });
         // also need to kill timer in case question was answered before timer fired.
       } else {
@@ -100,7 +108,6 @@ const Question = React.createClass({
   },
 
   submitFeedback(data) {
-    console.log(data);
     const question = this.state.testModel[this.props.params.question-1];
     const feedback = {
       userId: parseInt(this.props.params.userID, 10),
@@ -110,7 +117,7 @@ const Question = React.createClass({
       performance: data[2].score,
       effort: data[3].score,
       frustration: data[4].score,
-      feedbackTime: 1,
+      feedbackTime: new Date().getTime() - this.state.feedbackStartTime,
     };
 
      api.addFeedback(feedback).then((feedback) => {
@@ -122,6 +129,7 @@ const Question = React.createClass({
         secondaryTime: -1,
         secondaryStartTime: 0,
         answerTime: 0,
+        feedbackTime: 0,
       });
        setTimeout(() => this.fireTimeout(this.name), Math.random()*20000 + 10000); 
      }).catch((err) => {
