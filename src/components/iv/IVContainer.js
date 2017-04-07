@@ -36,7 +36,7 @@ const IVContainer = React.createClass({
 
   render() {
     return (
-      <div>
+      <div style={{ paddingTop: '50px' }}>
         { this.getIvPrompt() }
       </div>
     );

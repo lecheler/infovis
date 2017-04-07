@@ -5,8 +5,8 @@ import data from '../data';
 import constants from '../../constants';
 
 
-const circleRadius = 200;
-const ballSize = 60;
+const circleRadius = 150;
+const ballSize = 50;
 
 
 // http://chenglou.github.io/react-motion/demos/demo5-spring-parameters-chooser/
@@ -87,7 +87,7 @@ const ClassDrag = React.createClass({
   setInitialLayout() {
     this.state.students.forEach((student, key) => {
 
-      const distance =  380*(student.aimNext/student.projectedNext - 0.5);
+      const distance =  280*(student.aimNext/student.projectedNext - 0.5);
       let col = constants.RED;
       let s = 5;
       if (student.projectedNext/student.aimNext >= 1.0) {
@@ -152,7 +152,7 @@ const ClassDrag = React.createClass({
     }
     return (
       <div>        
-        <div className="class-drag" ref="classDrag">
+        <div className="class-drag">
           {studentInfo}
           <div className="ball-background">
     
@@ -194,7 +194,7 @@ const ClassDrag = React.createClass({
                   const mx = student.position.x - centerX;
                   const my = student.position.y - centerY;
                   const d = Math.sqrt( mx*mx + my*my );
-                  const p = 0.5 + d/380;
+                  const p = 0.5 + d/280;
 
                   const newAim = p * student.projectedNext;
                  
