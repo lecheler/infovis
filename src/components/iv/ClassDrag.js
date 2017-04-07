@@ -138,7 +138,7 @@ const ClassDrag = React.createClass({
         eoyColor = constants.BLUE;
       }
       studentInfo = (
-        <div style={{padding: '20px'}}>
+        <div>
           <h3>{selectedStudent.name}</h3>
           <p><b>{selectedStudent.name}</b> will now see a goal 
           of <span style={{backgroundColor: selectedStudent.color, color: 'white', padding: '5px', borderRadius: '5px'}}> {Math.round(selectedStudent.newAim)}</span>.
