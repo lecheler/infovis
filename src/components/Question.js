@@ -11,9 +11,6 @@ import SecondaryTask from './SecondaryTask';
 import questionData from './questions/questionData';
 import api from '../api';
 
-// let secondaryStartTime = 0;
-// let secondaryTaskTimes = [];
-
 const Question = React.createClass({
 
   componentWillMount() {
@@ -79,8 +76,12 @@ const Question = React.createClass({
       prompt: question.useTable ? 0 : 1,
     };
 
+    console.log(this.props.params.question)
+
     api.addAnswer(answer).then((result) => {
-      if (this.state.testModel[this.props.params.question-1].blockId != this.state.testModel[this.props.params.question].blockId) {
+      if (this.state.testModel[this.props.params.question-1].blockId != this.state.testModel[this.props.params.question].blockId
+            || this.props.params.question === this.state.testModel.length) {
+        console.log('show feedback')
         this.setState({
           showFeedback: true,
           feedbackStartTime: new Date().getTime(),
@@ -150,37 +151,6 @@ const Question = React.createClass({
       e.preventDefault();  
     }
   },
-
-  // nextQuestion(data) {    
-  //   console.log(secondaryTaskTimes);
-
-  //   const next = parseInt(this.props.params.question, 10)+1
-
-  //   data.questionId = parseInt(this.props.params.question, 10);
-  //   data.userId = this.props.params.userID;
-
-  //   api.addResponse(data).then((result) => {
-  //     console.log(result);
-  //   }).catch((err) => {
-  //     if (err.response.status !== 404) {
-  //       window.error(err.response.data.message);
-  //     }
-  //     else {
-  //       throw err;
-  //     }
-  //   });
-
-  //   if (next > questionData.questions.length) {
-  //     browserHistory.push('/feedback/' + this.props.params.userID + '/');
-  //     return;
-  //   } else {
-  //     this.setState({
-  //       showFeedback: true,
-  //     });
-  //    // browserHistory.push('/test/' + this.props.params.userID + '/' + next);
-  //   //  this.setState({ ivPrompt: this.getIvPrompt() });
-  //   }
-  // },
 
   render() {
     const col = this.state.secondaryActive ? '#AAD219' : '#e6e6e6';

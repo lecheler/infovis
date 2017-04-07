@@ -49,7 +49,7 @@ const Directions = React.createClass({
               When the circle turns <font color="#AAD219">green</font>, press <em>spacebar</em>. Try it now.
             </p>
             <p>
-              <b>Please do not refresh your browser or use the back and forward buttons.</b>
+              <b>Try it now!</b>
             </p>
           </div>
         </Well>
