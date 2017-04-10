@@ -64,11 +64,12 @@ const Table = React.createClass({
 
     let arr = this.state.tableData[row.id].scores;
 
-    if (cellValue !== "") {
-      arr.push(parseInt(cellValue, 10));
-    } else {
+    if (arr.length === 11) {
       arr.pop();
     }
+    if (cellValue != "") {
+      arr.push(parseInt(cellValue, 10));
+    } 
 
     const rData = this.getRegressionLine(arr);
     const final = Math.round(rData[rData.length-1]);
