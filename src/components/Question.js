@@ -49,7 +49,7 @@ const Question = React.createClass({
     let model = [];
     for (let i=0; i<questionData.testModel.length; i++) {
       if (i > 0 && questionData.testModel[i-1].type == questionData.testModel[i].type) {
-        questionData.testModel[i].useTable = false;//!questionData.testModel[i-1].useTable 
+        questionData.testModel[i].useTable = !questionData.testModel[i-1].useTable 
       } else {
         questionData.testModel[i].useTable = Math.round(Math.random()) === 1;
       }

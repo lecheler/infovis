@@ -77,7 +77,50 @@ const demographic = {
           ],
         },
 
-        // 5. Experience
+        // 5. Teacher
+        {
+          type: "radiogroup",
+          choices: [
+            {
+             value: "1",
+             text: "Yes"
+            },
+            {
+             value: "2",
+             text: "No"
+            }
+          ],
+            name: "teacher",
+            title: "Are you currently or have you ever been a teacher?"
+        },
+
+        {
+          type: "radiogroup",
+          choices: [
+            {
+              value: "1",
+              text: "0-2 years"
+            },
+            {
+              value: "2",
+              text: "2-5 years"
+            },
+            {
+              value: "3",
+              text: "5-10 years"
+            },
+            {
+              value: "4",
+              text: "Greater than 10 years"
+            }
+          ],
+          name: "question1",
+          title: "How many years have you been teaching?",
+          visible: false,
+          visibleIf: "{teacher} = '1'"
+        },
+
+        // 6. Experience
         {
           name: "experience",
           type: "matrix",
